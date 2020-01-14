@@ -105,7 +105,7 @@ const CreateValues = (schema, { modelName, state }) => {
   // get inputs from state, according to 'showCreate' in schema
   return Object.assign(
     {},
-    ...Object.entries(createFields).map(([fieldName, field]) => ({
+    ...Object.keys(createFields).map(fieldName => ({
       [fieldName]: R.path(['stack', formStackIndex, 'fields', fieldName], state)
     }))
   )
@@ -118,15 +118,6 @@ const stackPop = state => {
   const newIndex = R.prop('index', state) - 1
   state = R.assoc('stack', stack, state)
   return R.assoc('index', newIndex, state)
-}
-
-const handleStackPop = (state, action) => {
-  const stack = R.prop('stack', state)
-  stack.pop()
-  const newIndex = R.prop('index', state) - 1
-  state = R.assoc('stack', stack, state)
-  state = R.assoc('index', newIndex, state)
-  return state
 }
 
 export const generateCreateReducer = schema => (state = initState, action) => {
@@ -153,7 +144,7 @@ export const generateCreateReducer = schema => (state = initState, action) => {
       return state
     }
     case Actions.SAVE_SUCCESSFUL: {
-      return handleStackPop(state, action)
+      return stackPop(state)
     }
     case Actions.STACK_CREATE: {
       return stackPush(state, action)

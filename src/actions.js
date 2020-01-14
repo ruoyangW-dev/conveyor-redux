@@ -31,6 +31,7 @@ export const onMenuOpen = actionDisp(Actions.MENU_OPEN)
 export const onInputChange = actionDisp(Actions.INPUT_CHANGE)
 export const onCancel = actionDisp(Actions.CANCEL)
 export const onSave = actionDisp(Actions.SAVE)
+export const onSaveSuccessful = actionDisp(Actions.SAVE_SUCCESSFUL)
 export const onStackCreate = actionDisp(Actions.STACK_CREATE)
 export const onDetailCreate = actionDisp(Actions.DETAIL_CREATE)
 export const onIndexCreate = actionDisp(Actions.INDEX_CREATE)
@@ -39,3 +40,5 @@ export const onBreadcrumbClick = actionDisp(Actions.BREADCRUMB_CLICK)
 // tooltip
 
 export const onTooltipOpen = actionDisp(Actions.TOOLTIP_OPEN)
+
+// filter

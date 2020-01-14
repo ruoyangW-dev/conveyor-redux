@@ -28,7 +28,7 @@ export const generateTooltipReducer = schema => (state = initState, action) => {
       // >>> ["name", "description"]
       const showTooltipFields = getTooltipFields(schema, modelName)
 
-      R.mapObjIndexed((value, name, obj) => {
+      R.mapObjIndexed((value, name) => {
         const field = getField(schema, modelName, name)
         if (R.contains(name, showTooltipFields)) {
           // add values to 'tooltipData' in this format:

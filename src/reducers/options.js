@@ -4,7 +4,7 @@ import { getDisplayValue, getField } from 'conveyor'
 
 const initState = {}
 
-export const generateOptionsReducer = (schema) => (state = initState, action) => {
+export const generateOptionsReducer = schema => (state = initState, action) => {
   const payload = action.payload
   switch (action.type) {
     case Actions.MENU_OPEN: {
@@ -17,7 +17,10 @@ export const generateOptionsReducer = (schema) => (state = initState, action) =>
       const targetModel = R.path(['type', 'target'], field1)
 
       // get drop-down options
-      const options = rawData.map(node => ({ label: getDisplayValue({ schema, modelName: targetModel, node }), value: R.prop('id', node) }))
+      const options = rawData.map(node => ({
+        label: getDisplayValue({ schema, modelName: targetModel, node }),
+        value: R.prop('id', node)
+      }))
 
       return R.assocPath([modelName, fieldName], options, state)
     }

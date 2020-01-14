@@ -19,7 +19,7 @@ const groupModels = (collection, property) => {
   return result
 }
 
-export const generateModalReducer = (schema) => (state = initState, action) => {
+export const generateModalReducer = () => (state = initState, action) => {
   const payload = action.payload
   switch (action.type) {
     case Actions.INDEX_DELETE: {
