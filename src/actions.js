@@ -41,4 +41,14 @@ export const onBreadcrumbClick = actionDisp(Actions.BREADCRUMB_CLICK)
 
 export const onTooltipOpen = actionDisp(Actions.TOOLTIP_OPEN)
 
-// filter
+// tableView
+
+export const indexAddFilter = actionDisp(Actions.INDEX_ADD_FILTER)
+export const indexClearFilters = actionDisp(Actions.INDEX_CLEAR_FILTERS)
+export const indexChangeFilterField = actionDisp(Actions.INDEX_CHANGE_FILTER_FIELD)
+export const indexDeleteFilter = actionDisp(Actions.INDEX_DELETE_FILTER)
+export const indexTableFilterChange = actionDisp(Actions.INDEX_TABLE_FILTER_CHANGE)
+export const indexTableFilterSubmit = actionDisp(Actions.INDEX_TABLE_FILTER_SUBMIT)
+export const indexTableFilterDropdown = actionDisp(Actions.INDEX_TABLE_FILTER_DROPDOWN)
+export const indexTableSortChange = actionDisp(Actions.INDEX_TABLE_SORT_CHANGE)
+export const hideTableChange = actionDisp(Actions.HIDE_TABLE_CHANGE)
