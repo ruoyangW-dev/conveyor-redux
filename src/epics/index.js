@@ -1,3 +1,4 @@
+import { combineEpics } from 'redux-observable'
 import {
   generateIndexTableFilterChangeEpic,
   generateIndexTableSortChangeEpic
@@ -12,11 +13,11 @@ export const generateConveyorEpics = (schema, doRequest) => {
   const indexSortEpic = generateIndexTableSortChangeEpic(schema, doRequest)
   const routeEpic = generateRouteEpic(schema, doRequest)
 
-  return {
+  return combineEpics(
     fetchModelIndexEpic,
     fetchModelDetailEpic,
     indexFilterEpic,
     indexSortEpic,
     routeEpic
-  }
+  )
 }

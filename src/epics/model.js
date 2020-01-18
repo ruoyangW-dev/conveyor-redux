@@ -85,7 +85,7 @@ export const generateFetchDetailEpic = (schema, doRequest) => (action$, state$) 
   map(R.prop('payload')),
   map(payload => {
     const variables = { id: payload.id }
-    return { modelName: payload.modelName, id: payload.id , variables }
+    return { modelName: payload.modelName, id: payload.id, variables }
   }),
   mergeMap(context =>
     doRequest(context.modelName, context.variables, 'detail').then(({ data, error }) => ({ context, data, error }))
