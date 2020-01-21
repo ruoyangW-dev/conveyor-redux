@@ -110,6 +110,6 @@ export const selectPaginatedTableView = (state, modelName) => {
   return R.assocPath(
     ['lastIndexPagination', modelName],
     lastIndex,
-    selectTableView
+    selectTableView(state)
   )
 }
