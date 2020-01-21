@@ -1,12 +1,10 @@
 import * as Actions from '../actionConsts'
 import * as R from 'ramda'
+import { getModelStoreOrder, PAGINATION_AMT } from './model'
 
 const initState = {}
 
-export const generateTableViewReducer = () => (
-  state = initState,
-  action
-) => {
+export const generateTableViewReducer = () => (state = initState, action) => {
   const payload = action.payload
   const removeAll = modelName => {
     return R.dissocPath(
@@ -32,11 +30,7 @@ export const generateTableViewReducer = () => (
       const filterOrder = R.pathOr([], ['filterOrder', modelName], state)
       const newFilterOrder = filterOrder.slice()
       newFilterOrder[index] = fieldName
-      return R.assocPath(
-        ['filterOrder', modelName],
-        newFilterOrder,
-        state
-      )
+      return R.assocPath(['filterOrder', modelName], newFilterOrder, state)
     }
     case Actions.INDEX_DELETE_FILTER: {
       const { modelName, index } = { ...payload }
@@ -50,10 +44,7 @@ export const generateTableViewReducer = () => (
       return R.assocPath(
         ['filterOrder', modelName],
         newFilterOrder,
-        R.dissocPath(
-          ['filter', modelName, fieldName],
-          state
-        )
+        R.dissocPath(['filter', modelName, fieldName], state)
       )
     }
     case Actions.INDEX_TABLE_FILTER_CHANGE: {
@@ -67,7 +58,9 @@ export const generateTableViewReducer = () => (
     case Actions.INDEX_TABLE_FILTER_SUBMIT: {
       const modelName = R.prop('modelName', payload)
       const currentFilters = R.pathOr([], ['filterOrder', modelName], state)
-      const filtersAreActive = !(R.isNil(currentFilters) || Object.entries(currentFilters).length === 0)
+      const filtersAreActive = !(
+        R.isNil(currentFilters) || Object.entries(currentFilters).length === 0
+      )
       return R.assocPath(
         ['filtersAreActive', modelName],
         filtersAreActive,
@@ -84,11 +77,7 @@ export const generateTableViewReducer = () => (
     }
     case Actions.INDEX_TABLE_SORT_CHANGE: {
       const { modelName, fieldName, sortKey } = { ...payload }
-      return R.assocPath(
-        ['sort', modelName],
-        { fieldName, sortKey },
-        state
-      )
+      return R.assocPath(['sort', modelName], { fieldName, sortKey }, state)
     }
     case Actions.HIDE_TABLE_CHANGE: {
       const { modelName, fieldName, id, hideTable } = { ...payload }
@@ -98,6 +87,10 @@ export const generateTableViewReducer = () => (
         state
       )
     }
+    case Actions.CHANGE_PAGE: {
+      const { modelName, updatedPageIndex } = { ...payload }
+      return R.assocPath(['page', modelName], updatedPageIndex, state)
+    }
 
     default:
       return state
@@ -105,3 +98,18 @@ export const generateTableViewReducer = () => (
 }
 
 export const selectTableView = state => R.prop('tableView', state)
+export const selectPaginatedTableView = (state, modelName) => {
+  const modelOrder = getModelStoreOrder(state, modelName)
+
+  let lastIndex = null
+  if (modelOrder) {
+    const totalDataLength = modelOrder.length
+    lastIndex = Math.floor((totalDataLength - 1) / PAGINATION_AMT)
+  }
+
+  return R.assocPath(
+    ['lastIndexPagination', modelName],
+    lastIndex,
+    selectTableView
+  )
+}

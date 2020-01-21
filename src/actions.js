@@ -52,3 +52,9 @@ export const indexTableFilterSubmit = actionDisp(Actions.INDEX_TABLE_FILTER_SUBM
 export const indexTableFilterDropdown = actionDisp(Actions.INDEX_TABLE_FILTER_DROPDOWN)
 export const indexTableSortChange = actionDisp(Actions.INDEX_TABLE_SORT_CHANGE)
 export const hideTableChange = actionDisp(Actions.HIDE_TABLE_CHANGE)
+export const changePage = actionDisp(Actions.CHANGE_PAGE)
+
+// model
+
+export const updateModelDetail = actionDisp(Actions.UPDATE_MODEL_DETAIL)
+export const updateModelIndex = actionDisp(Actions.UPDATE_MODEL_INDEX)
