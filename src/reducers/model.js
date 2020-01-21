@@ -1,5 +1,5 @@
 import * as R from 'ramda'
-import * as consts from '../actions/consts'
+import * as Actions from '../actionConsts'
 import { selectTableView } from './tableView'
 
 export const PAGINATION_AMT = 20
@@ -53,14 +53,14 @@ export const generateModelReducer = () => (state = initState, action) => {
   const modelName = R.path(['payload', 'modelName'], action)
 
   switch (action.type) {
-    case consts.UPDATE_MODEL_INDEX: {
+    case Actions.UPDATE_MODEL_INDEX: {
       return updateIndex(
         state,
         modelName,
         R.pathOr([], ['payload', 'data', 'result'], action)
       )
     }
-    case consts.UPDATE_MODEL_DETAIL: {
+    case Actions.UPDATE_MODEL_DETAIL: {
       const id = R.path(['payload', 'id'], action)
       const store = { ...R.propOr(getDefaultModelStore(), modelName, state) }
       const oldNode = R.prop(id, store.values)
