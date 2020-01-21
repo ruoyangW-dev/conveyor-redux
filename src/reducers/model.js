@@ -1,10 +1,28 @@
 import * as R from 'ramda'
 import * as consts from '../actions/consts'
+import { selectTableView } from './tableView'
+
+export const PAGINATION_AMT = 20
 
 const initState = {}
 
 export const getModelStore = (state, modelName) =>
   R.path(['model', modelName], state)
+
+export const getModelStoreOrder = (state, modelName) =>
+  R.path(['model', modelName, 'order'], state)
+
+export const getPaginatedModel = (state, modelName) => {
+  const amount = PAGINATION_AMT
+  const idx = R.pathOr(0, ['page', modelName], selectTableView(state))
+  const firstIdx = idx * amount
+  const lastIdx = (idx + 1) * amount
+
+  return getOrderedValues(getModelStore(state, modelName)).slice(
+    firstIdx,
+    lastIdx
+  )
+}
 
 export const getAllModelStore = state => R.path(['model'], state)
 
