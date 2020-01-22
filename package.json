@@ -1,15 +1,16 @@
 {
   "name": "conveyor-redux",
   "version": "1.0.0",
-  "description": "",
+  "description": "Generates reducers and epics for use with conveyor",
+  "author": "Moebius Solutions",
+  "license": "BSD-3-Clause",
   "main": "lib/index.js",
   "scripts": {
-    "lib": "./node_modules/.bin/babel src --out-dir lib",
-    "build-tar": "./buildFile"
+    "lib": "babel src --out-dir lib",
+    "build-tar": "./build.sh"
   },
-  "author": "Jeffrey Davis",
-  "license": "MIT",
   "devDependencies": {
+<<<<<<< HEAD
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^24.8.0",
@@ -20,11 +21,48 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "connected-react-router": "^6.6.1",
+=======
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+>>>>>>> master
     "conveyor": "git+ssh://conveyor.git",
     "eslint": "^6.8.0",
     "redux-observable": "^1.2.0"
   },
   "dependencies": {
+    "@babel/runtime-corejs3": "^7.8.3",
+    "core-js": "^3.6.4",
     "ramda": "^0.26.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "modules": false,
+          "useBuiltIns": "usage",
+          "corejs": 3
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-object-rest-spread",
+        {
+          "loose": true,
+          "useBuiltIns": true
+        }
+      ],
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "corejs": 3,
+          "useESModules": true
+        }
+      ]
+    ]
   }
 }

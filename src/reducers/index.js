@@ -6,6 +6,7 @@ import { generateModelReducer } from './model'
 import { generateOptionsReducer } from './options'
 import { generateTooltipReducer } from './tooltip'
 import { generateTableViewReducer } from './tableView'
+import { generateModelReducer } from './model'
 
 export const generateConveyorReducers = schema => {
   const create = generateCreateReducer(schema)
@@ -16,15 +17,7 @@ export const generateConveyorReducers = schema => {
   const options = generateOptionsReducer(schema)
   const tooltip = generateTooltipReducer(schema)
   const tableView = generateTableViewReducer(schema)
+  const model = generateModelReducer(schema)
 
-  return {
-    create,
-    edit,
-    logger,
-    modal,
-    model,
-    options,
-    tooltip,
-    tableView
-  }
+  return { create, edit, modal, options, tooltip, tableView, model }
 }
