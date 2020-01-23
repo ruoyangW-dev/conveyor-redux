@@ -10,14 +10,20 @@ const getFilters = ({ schema, modelName, tableView }) => {
   const fields = getFields(schema, modelName)
   const getFieldFilter = field => {
     const fieldName = R.prop('fieldName', field)
-    const operator = R.path(['filter', modelName, fieldName, 'operator', 'value'], tableView)
+    const operator = R.path(
+      ['filter', modelName, fieldName, 'operator', 'value'],
+      tableView
+    )
     const value = R.path(['filter', modelName, fieldName, 'value'], tableView)
     if (operator && field.type === inputTypes.BOOLEAN_TYPE) {
       return { operator, value: R.isNil(value) ? false : value }
     }
     if (operator && !R.isNil(value) && !R.isEmpty(value)) {
       if (isRel(field)) {
-        if (getInputType({ schema, modelName, fieldName }) === inputTypes.RELATIONSHIP_SINGLE) {
+        if (
+          getInputType({ schema, modelName, fieldName }) ===
+          inputTypes.RELATIONSHIP_SINGLE
+        ) {
           return { operator, value: R.propOr(value, 'value', value) }
         }
         return { operator, value: value.map(val => val.value) }
@@ -51,49 +57,71 @@ const getSort = ({ schema, modelName, tableView }) => {
   return R.path([modelName, 'sortFields'], schema)
 }
 
-export const generateFetchModelIndexEpic = (schema, doRequest) => (action$, state$) => action$.pipe(
-  ofType(consts.FETCH_MODEL_INDEX),
-  map(R.prop('payload')),
-  map(payload => {
-    const variables = {
-      filter: getFilters({
-        schema,
-        modelName: payload.modelName,
-        tableView: selectTableView(state$.value)
-      }),
-      sort: getSort({
-        schema,
-        modelName: payload.modelName,
-        tableView: selectTableView(state$.value)
-      })
-    }
-    return { modelName: payload.modelName, variables }
-  }),
-  mergeMap(context =>
-    doRequest(context.modelName, context.variables, 'index').then(({ data, error }) => ({ context, data, error }))
-  ),
-  map(({ context, data, error }) => {
-    if (error) {
-      return Actions.errorLogger({ message: `Error loading ${context.modelName} index.` })
-    }
-    return Actions.updateModelIndex({ modelName: context.modelName, data })
-  })
-)
+export const generateFetchModelIndexEpic = (schema, doRequest) => (
+  action$,
+  state$
+) =>
+  action$.pipe(
+    ofType(consts.FETCH_MODEL_INDEX),
+    map(R.prop('payload')),
+    map(payload => {
+      const variables = {
+        filter: getFilters({
+          schema,
+          modelName: payload.modelName,
+          tableView: selectTableView(state$.value)
+        }),
+        sort: getSort({
+          schema,
+          modelName: payload.modelName,
+          tableView: selectTableView(state$.value)
+        })
+      }
+      return { modelName: payload.modelName, variables }
+    }),
+    mergeMap(context => {
+      const query = doRequest.buildQuery(context.modelName, 'index')
+      return doRequest
+        .sendRequest(query, context.variables)
+        .then(({ data, error }) => ({ context, data, error }))
+    }),
+    map(({ context, data, error }) => {
+      if (error) {
+        return Actions.errorLogger({
+          message: `Error loading ${context.modelName} index.`
+        })
+      }
+      return Actions.updateModelIndex({ modelName: context.modelName, data })
+    })
+  )
 
-export const generateFetchDetailEpic = (schema, doRequest) => (action$, state$) => action$.pipe(
-  ofType(consts.FETCH_MODEL_DETAIL),
-  map(R.prop('payload')),
-  map(payload => {
-    const variables = { id: payload.id }
-    return { modelName: payload.modelName, id: payload.id, variables }
-  }),
-  mergeMap(context =>
-    doRequest(context.modelName, context.variables, 'detail').then(({ data, error }) => ({ context, data, error }))
-  ),
-  map(({ context, data, error }) => {
-    if (error) {
-      return Actions.errorLogger({ message: `Error loading ${context.modelName} details.` })
-    }
-    return Actions.updateModelIndex({ modelName: context.modelName, id: context.id, data })
-  })
-)
+export const generateFetchModelDetailEpic = (schema, doRequest) => (
+  action$,
+  state$
+) =>
+  action$.pipe(
+    ofType(consts.FETCH_MODEL_DETAIL),
+    map(R.prop('payload')),
+    map(payload => {
+      const variables = { id: payload.id }
+      return { modelName: payload.modelName, id: payload.id, variables }
+    }),
+    mergeMap(context => {
+      const query = doRequest.buildQuery(context.modelName, 'detail')
+      return doRequest
+        .sendRequest(query, context.variables)
+        .then(({ data, error }) => ({ context, data, error }))
+    }),
+    map(({ context, data, error }) => {
+      if (error) {
+        return Actions.errorLogger({
+          message: `Error loading ${context.modelName} details.`
+        })
+      }
+      return Actions.updateModelDetail({
+        modelName: context.modelName,
+        id: context.id,
+        data
+      })
+    })
+  )

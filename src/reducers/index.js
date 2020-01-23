@@ -1,6 +1,6 @@
 import { generateCreateReducer } from './create'
 import { generateEditReducer } from './edit'
-import { generateErrorLogger } from './logger'
+import { generateLoggerReducer } from './logger'
 import { generateModalReducer } from './modal'
 import { generateModelReducer } from './model'
 import { generateOptionsReducer } from './options'
@@ -10,7 +10,7 @@ import { generateTableViewReducer } from './tableView'
 export const generateConveyorReducers = schema => {
   const create = generateCreateReducer(schema)
   const edit = generateEditReducer(schema)
-  const logger = generateErrorLogger(schema)
+  const logger = generateLoggerReducer(schema)
   const modal = generateModalReducer(schema)
   const model = generateModelReducer(schema)
   const options = generateOptionsReducer(schema)
@@ -22,9 +22,9 @@ export const generateConveyorReducers = schema => {
     edit,
     logger,
     modal,
+    model,
     options,
     tooltip,
-    tableView,
-    model
+    tableView
   }
 }
