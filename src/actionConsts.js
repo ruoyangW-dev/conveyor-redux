@@ -1,4 +1,3 @@
-
 // delete
 
 export const INDEX_DELETE = 'INDEX_DELETE'
@@ -37,6 +36,8 @@ export const BREADCRUMB_CLICK = 'BREADCRUMB_CLICK'
 // tooltip
 
 export const TOOLTIP_OPEN = 'TOOLTIP_OPEN'
+export const FETCH_MODEL_TOOLTIP = 'FETCH_MODEL_TOOLTIP'
+export const UPDATE_MODEL_TOOLTIP = 'UPDATE_MODEL_TOOLTIP'
 
 // tableView
 
@@ -49,18 +50,17 @@ export const INDEX_TABLE_FILTER_DROPDOWN = 'INDEX_TABLE_FILTER_DROPDOWN'
 export const INDEX_TABLE_FILTER_SUBMIT = 'INDEX_TABLE_FILTER_SUBMIT'
 export const INDEX_TABLE_SORT_CHANGE = 'INDEX_TABLE_SORT_CHANGE'
 export const HIDE_TABLE_CHANGE = 'HIDE_TABLE_CHANGE'
-<<<<<<< HEAD
 
 // epics
 
-export const ERROR_LOGGER = 'ERROR_LOGGER'
 export const FETCH_MODEL_INDEX = 'FETCH_MODEL_INDEX'
 export const FETCH_MODEL_DETAIL = 'FETCH_MODEL_DETAIL'
-=======
 export const CHANGE_PAGE = 'CHANGE_PAGE'
 
 // model
 
->>>>>>> master
 export const UPDATE_MODEL_DETAIL = 'UPDATE_MODEL_DETAIL'
 export const UPDATE_MODEL_INDEX = 'UPDATE_MODEL_INDEX'
+
+// logger
+export const ERROR_LOGGER = 'ERROR_LOGGER'
