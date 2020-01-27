@@ -23,7 +23,7 @@ export const generateTableViewReducer = () => (state = initState, action) => {
     }
     case Actions.INDEX_CLEAR_FILTERS: {
       const modelName = R.prop('modelName', payload)
-      return removeAll(modelName)
+      return R.assocPath(['page', modelName], 0, removeAll(modelName))
     }
     case Actions.INDEX_CHANGE_FILTER_FIELD: {
       const { modelName, fieldName, index } = { ...payload }
@@ -61,11 +61,10 @@ export const generateTableViewReducer = () => (state = initState, action) => {
       const filtersAreActive = !(
         R.isNil(currentFilters) || Object.entries(currentFilters).length === 0
       )
-      return R.assocPath(
-        ['filtersAreActive', modelName],
-        filtersAreActive,
-        state
-      )
+      return R.pipe(
+        R.assocPath(['filtersAreActive', modelName], filtersAreActive),
+        R.assocPath(['page', modelName], 0)
+      )(state)
     }
     case Actions.INDEX_TABLE_FILTER_DROPDOWN: {
       const { modelName, fieldName, operator } = { ...payload }
@@ -77,7 +76,10 @@ export const generateTableViewReducer = () => (state = initState, action) => {
     }
     case Actions.INDEX_TABLE_SORT_CHANGE: {
       const { modelName, fieldName, sortKey } = { ...payload }
-      return R.assocPath(['sort', modelName], { fieldName, sortKey }, state)
+      return R.pipe(
+        R.assocPath(['sort', modelName], { fieldName, sortKey }),
+        R.assocPath(['page', modelName], 0)
+      )(state)
     }
     case Actions.HIDE_TABLE_CHANGE: {
       const { modelName, fieldName, id, hideTable } = { ...payload }

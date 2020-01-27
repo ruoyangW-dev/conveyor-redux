@@ -2,7 +2,7 @@
 # Build Conveyor Tarball Files
 
 rm -R lib
-npm run lib
-rm conveyor-redux-1.0.0.tgz
-npm pack --quiet
+yarn run lib
+rm conveyor-redux-v1.0.0.tgz
+yarn pack --quiet
 echo "!!! conveyor tar files ready !!!"
