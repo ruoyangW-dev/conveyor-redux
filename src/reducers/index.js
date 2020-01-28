@@ -6,6 +6,8 @@ import { generateModelReducer } from './model'
 import { generateOptionsReducer } from './options'
 import { generateTooltipReducer } from './tooltip'
 import { generateTableViewReducer } from './tableView'
+import { generateModelReducer } from './model'
+import { generateSearchReducer } from './search'
 
 export const generateConveyorReducers = schema => {
   const create = generateCreateReducer(schema)
@@ -16,6 +18,8 @@ export const generateConveyorReducers = schema => {
   const options = generateOptionsReducer(schema)
   const tooltip = generateTooltipReducer(schema)
   const tableView = generateTableViewReducer(schema)
+  const model = generateModelReducer(schema)
+  const search = generateSearchReducer(schema)
 
   return {
     create,
@@ -27,4 +31,8 @@ export const generateConveyorReducers = schema => {
     tooltip,
     tableView
   }
+  const model = generateModelReducer(schema)
+  const search = generateSearchReducer(schema)
+
+  return { create, edit, modal, options, tooltip, tableView, model, search }
 }

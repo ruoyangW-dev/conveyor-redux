@@ -2,9 +2,13 @@ import { ofType } from 'redux-observable'
 import { map, mergeMap } from 'rxjs/operators'
 import * as Actions from '../actions'
 import * as consts from '../actionConsts'
+import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 
-export const generateTooltipEpic = (schema, doRequest) => (action$, state$) =>
+export const generateFetchTooltipEpic = (schema, doRequest) => (
+  action$,
+  state$
+) =>
   action$.pipe(
     ofType(consts.FETCH_MODEL_TOOLTIP),
     map(R.prop('payload')),
@@ -20,6 +24,7 @@ export const generateTooltipEpic = (schema, doRequest) => (action$, state$) =>
     }),
     map(({ context, data, error }) => {
       if (error) {
+        Logger.epicError('fetchModelTooltipEpic', context, error)
         return Actions.errorLogger({
           message: `Error loading ${context.modelName} tooltip`
         })

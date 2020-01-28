@@ -6,6 +6,10 @@ const initState = {}
 
 export const generateOptionsReducer = schema => (state = initState, action) => {
   const payload = action.payload
+  const fieldName = R.prop('fieldName', action)
+  const modelName = R.prop('modelName', payload)
+  const value = R.prop('value', payload)
+
   switch (action.type) {
     case Actions.MENU_OPEN: {
       const { modelName, fieldName, rawData } = { ...payload }
@@ -21,6 +25,27 @@ export const generateOptionsReducer = schema => (state = initState, action) => {
         label: getDisplayValue({ schema, modelName: targetModel, node }),
         value: R.prop('id', node)
       }))
+
+      return R.assocPath([modelName, fieldName], options, state)
+    }
+    case Actions.DATA_OPTIONS_UPDATE: {
+      const targetModelName = R.path(
+        ['type', 'target'],
+        getField(schema, modelName, fieldName)
+      )
+      const options = value.map(option => ({
+        label: getDisplayValue({
+          schema,
+          modelName: targetModelName,
+          node: option
+        }),
+        value: R.prop('id', option)
+      }))
+
+      return R.assocPath([modelName, fieldName], options, state)
+    }
+    case Actions.EXISTING_VALUE_UPDATE: {
+      const options = value.map(option => ({ label: option, value: option }))
 
       return R.assocPath([modelName, fieldName], options, state)
     }
