@@ -58,3 +58,12 @@ export const changePage = actionDisp(Actions.CHANGE_PAGE)
 
 export const updateModelDetail = actionDisp(Actions.UPDATE_MODEL_DETAIL)
 export const updateModelIndex = actionDisp(Actions.UPDATE_MODEL_INDEX)
+
+// search
+
+export const fetchSearchEntries = actionDisp(Actions.FETCH_SEARCH_ENTRIES)
+export const searchQueryTextChange = actionDisp(Actions.SEARCH_QUERY_TEXT_CHANGED)
+export const searchQueryLinkClicked = actionDisp(Actions.SEARCH_QUERY_LINK_CLICKED)
+export const updateSearchEntries = actionDisp(Actions.UPDATE_SEARCH_ENTRIES)
+export const onSearchBlur = actionDisp(Actions.SEARCH_BLUR)
+export const onTriggerSearch = actionDisp(Actions.TRIGGER_SEARCH)
