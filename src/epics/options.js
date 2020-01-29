@@ -39,7 +39,7 @@ export const generateQuerySelectMenuOpenEpic = (schema, doRequest) => (
       if (error) {
         Logger.epicError('querySelectMenuOpenEpic', context, error)
 
-        return Actions.errorLogger({ message: 'Error loading form option.' })
+        return Actions.addDangerAlert({ message: 'Error loading form option.' })
       }
 
       return Actions.existingValueUpdate({
@@ -50,9 +50,12 @@ export const generateQuerySelectMenuOpenEpic = (schema, doRequest) => (
     })
   )
 
-export const generateMenuOpenEpic = (schema, doRequest) => (action$, state$) =>
+export const generateRelationshipSelectMenuOpenEpic = (schema, doRequest) => (
+  action$,
+  state$
+) =>
   action$.pipe(
-    ofType(consts.MENU_OPEN),
+    ofType(consts.RELATIONSHIP_SELECT_MENU_OPEN),
     map(R.prop('payload')),
     map(payload => {
       const modelName = R.prop('modelName', payload)
@@ -74,13 +77,13 @@ export const generateMenuOpenEpic = (schema, doRequest) => (action$, state$) =>
     }),
     switchMap(({ context, data, error }) => {
       if (error) {
-        Logger.epicError('menuOpenEpic', context, error)
+        Logger.epicError('relationshipSelectMenuOpenEpic', context, error)
 
-        return Actions.errorLogger({ message: 'Error loading form option.' })
+        return Actions.addDangerAlert({ message: 'Error loading form option.' })
       }
 
       return concat([
-        Actions.optionsUpdate({
+        Actions.dataOptionsUpdate({
           modelName: context.modelName,
           fieldName: context.fieldName,
           value: R.prop('result', data)

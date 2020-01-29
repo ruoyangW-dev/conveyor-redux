@@ -36,7 +36,7 @@ export const generateFetchModelIndexEpic = (schema, doRequest) => (
     }),
     map(({ context, data, error }) => {
       if (error) {
-        return Actions.errorLogger({
+        return Actions.addDangerAlert({
           message: `Error loading ${context.modelName} index.`
         })
       }
@@ -63,7 +63,7 @@ export const generateFetchModelDetailEpic = (schema, doRequest) => (
     }),
     map(({ context, data, error }) => {
       if (error) {
-        return Actions.errorLogger({
+        return Actions.addDangerAlert({
           message: `Error loading ${context.modelName} details.`
         })
       }

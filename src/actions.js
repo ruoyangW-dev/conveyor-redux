@@ -51,6 +51,8 @@ export const updateModelTooltip = actionDisp(Actions.UPDATE_MODEL_TOOLTIP)
 
 // tableView
 
+export const changePage = actionDisp(Actions.CHANGE_PAGE)
+export const hideTableChange = actionDisp(Actions.HIDE_TABLE_CHANGE)
 export const indexAddFilter = actionDisp(Actions.INDEX_ADD_FILTER)
 export const indexClearFilters = actionDisp(Actions.INDEX_CLEAR_FILTERS)
 export const indexChangeFilterField = actionDisp(
@@ -67,24 +69,36 @@ export const indexTableFilterDropdown = actionDisp(
   Actions.INDEX_TABLE_FILTER_DROPDOWN
 )
 export const indexTableSortChange = actionDisp(Actions.INDEX_TABLE_SORT_CHANGE)
-export const hideTableChange = actionDisp(Actions.HIDE_TABLE_CHANGE)
-
-// epics
-
-export const fetchModelDetail = actionDisp(Actions.FETCH_MODEL_DETAIL)
-export const fetchModelIndex = actionDisp(Actions.FETCH_MODEL_INDEX)
-export const changePage = actionDisp(Actions.CHANGE_PAGE)
 
 // model
 
+export const fetchModelDetail = actionDisp(Actions.FETCH_MODEL_DETAIL)
+export const fetchModelIndex = actionDisp(Actions.FETCH_MODEL_INDEX)
 export const updateModelDetail = actionDisp(Actions.UPDATE_MODEL_DETAIL)
 export const updateModelIndex = actionDisp(Actions.UPDATE_MODEL_INDEX)
 
 // search
 
 export const fetchSearchEntries = actionDisp(Actions.FETCH_SEARCH_ENTRIES)
-export const searchQueryTextChange = actionDisp(Actions.SEARCH_QUERY_TEXT_CHANGED)
-export const searchQueryLinkClicked = actionDisp(Actions.SEARCH_QUERY_LINK_CLICKED)
+export const searchQueryTextChange = actionDisp(
+  Actions.SEARCH_QUERY_TEXT_CHANGED
+)
+export const searchQueryLinkClicked = actionDisp(
+  Actions.SEARCH_QUERY_LINK_CLICKED
+)
 export const updateSearchEntries = actionDisp(Actions.UPDATE_SEARCH_ENTRIES)
 export const onSearchBlur = actionDisp(Actions.SEARCH_BLUR)
 export const onTriggerSearch = actionDisp(Actions.TRIGGER_SEARCH)
+
+// options
+
+export const dataOptionsUpdate = actionDisp(Actions.DATA_OPTIONS_UPDATE)
+export const existingValueUpdate = actionDisp(Actions.EXISTING_VALUE_UPDATE)
+export const querySelectMenuOpen = actionDisp(Actions.QUERY_SELECT_MENU_OPEN)
+export const relationshipSelectMenuOpen = actionDisp(
+  Actions.RELATIONSHIP_SELECT_MENU_OPEN
+)
+
+// alerts
+
+export const addDangerAlert = actionDisp(Actions.ADD_DANGER_ALERT)

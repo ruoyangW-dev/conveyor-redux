@@ -10,14 +10,18 @@ const handleError = ({ payload, type }) => {
   return R.assoc('type', type, payload)
 }
 
-export const generateLoggerReducer = schema => (state = initState, action) => {
+export const generateAlertReducer = schema => (state = initState, action) => {
   switch (action.type) {
-    case Actions.ERROR_LOGGER:
-      return [...state, handleError({ payload: action.payload, type: 'danger' })]
+    case Actions.ADD_DANGER_ALERT:
+      return [
+        ...state,
+        handleError({ payload: action.payload, type: 'danger' })
+      ]
 
     default:
       return state
   }
 }
 
-export const selectErrors = R.propOr(initState, 'errors')
+export const selectAlerts = R.propOr(initState, 'alerts')
+

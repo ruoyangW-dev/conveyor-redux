@@ -25,7 +25,7 @@ export const generateFetchTooltipEpic = (schema, doRequest) => (
     map(({ context, data, error }) => {
       if (error) {
         Logger.epicError('fetchModelTooltipEpic', context, error)
-        return Actions.errorLogger({
+        return Actions.addDangerAlert({
           message: `Error loading ${context.modelName} tooltip`
         })
       }
