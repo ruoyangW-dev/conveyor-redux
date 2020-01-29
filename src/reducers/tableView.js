@@ -12,6 +12,11 @@ export const generateTableViewReducer = () => (state = initState, action) => {
       R.dissocPath(['filter', modelName], state)
     )
   }
+  const setValues = type => {
+    const modelName = R.prop('modelName', payload)
+    const values = R.prop('values', payload)
+    return R.assocPath([modelName, type], values, state)
+  }
 
   switch (action.type) {
     case Actions.INDEX_ADD_FILTER: {
@@ -92,6 +97,12 @@ export const generateTableViewReducer = () => (state = initState, action) => {
     case Actions.CHANGE_PAGE: {
       const { modelName, updatedPageIndex } = { ...payload }
       return R.assocPath(['page', modelName], updatedPageIndex, state)
+    }
+    case Actions.UPDATE_OVERVIEW_DISPLAYED: {
+      return setValues('selected')
+    }
+    case Actions.UPDATE_OVERVIEW_SELECTED: {
+      return setValues('displayed')
     }
 
     default:

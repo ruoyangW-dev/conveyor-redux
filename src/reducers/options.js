@@ -5,8 +5,8 @@ import { getDisplayValue, getField } from 'conveyor'
 const initState = {}
 
 export const generateOptionsReducer = schema => (state = initState, action) => {
-  const payload = action.payload
-  const fieldName = R.prop('fieldName', action)
+  const payload = R.prop('payload', action)
+  const fieldName = R.prop('fieldName', payload)
   const modelName = R.prop('modelName', payload)
   const value = R.prop('value', payload)
 
@@ -56,3 +56,23 @@ export const generateOptionsReducer = schema => (state = initState, action) => {
 }
 
 export const selectOptions = state => R.prop('options', state)
+export const getOptions = (state, modelName, fieldName) =>
+  R.pathOr([], ['options', modelName, fieldName], state)
+
+export const filterSelectOptions = ({
+  state,
+  modelName,
+  fieldName,
+  condition
+}) => {
+  const relPath = ['options', modelName, fieldName]
+
+  if (R.path(relPath, state)) {
+    state = R.assocPath(
+      relPath,
+      R.filter(condition, R.pathOr([], relPath, state)),
+      state
+    )
+  }
+  return selectOptions(state)
+}

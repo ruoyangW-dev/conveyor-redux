@@ -69,6 +69,12 @@ export const indexTableFilterDropdown = actionDisp(
   Actions.INDEX_TABLE_FILTER_DROPDOWN
 )
 export const indexTableSortChange = actionDisp(Actions.INDEX_TABLE_SORT_CHANGE)
+export const updateOverviewDisplayed = actionDisp(
+  Actions.UPDATE_OVERVIEW_DISPLAYED
+)
+export const updateOverviewSelected = actionDisp(
+  Actions.UPDATE_OVERVIEW_SELECTED
+)
 
 // model
 
