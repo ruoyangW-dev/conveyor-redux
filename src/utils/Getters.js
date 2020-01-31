@@ -6,10 +6,13 @@ export const getFilters = ({ schema, modelName, tableView }) => {
   const getFieldFilter = field => {
     const fieldName = R.prop('fieldName', field)
     const operator = R.path(
-      ['filter', modelName, fieldName, 'operator', 'value'],
+      [modelName, 'filter', 'filterValue', fieldName, 'operator', 'value'],
       tableView
     )
-    const value = R.path(['filter', modelName, fieldName, 'value'], tableView)
+    const value = R.path(
+      [modelName, 'filter', 'filterValue', fieldName, 'value'],
+      tableView
+    )
     if (operator && field.type === inputTypes.BOOLEAN_TYPE) {
       return { operator, value: R.isNil(value) ? false : value }
     }
@@ -42,8 +45,8 @@ export const getFilters = ({ schema, modelName, tableView }) => {
 export const getSort = ({ schema, modelName, tableView }) => {
   // get sort from user input
   if (tableView) {
-    const sortKey = R.path(['sort', modelName, 'sortKey'], tableView)
-    const fieldName = R.path(['sort', modelName, 'fieldName'], tableView)
+    const sortKey = R.path([modelName, 'sort', 'sortKey'], tableView)
+    const fieldName = R.path([modelName, 'sort', 'fieldName'], tableView)
     if (sortKey && fieldName) {
       return [`${fieldName}_${sortKey}`]
     }
@@ -52,4 +55,3 @@ export const getSort = ({ schema, modelName, tableView }) => {
   // sortFields: camel-case fields followed by '_asc' or '_desc'.
   return R.path([modelName, 'sortFields'], schema)
 }
-

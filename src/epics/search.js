@@ -5,27 +5,21 @@ import * as consts from '../actionConsts'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 
-export const generateSearchQueryTextChangedEpic = (schema, doRequest) => (
-  action$,
-  state$
-) =>
+export const generateSearchQuerySubmitEpic = () => action$ =>
   action$.pipe(
-    ofType(consts.SEARCH_QUERY_TEXT_CHANGED),
+    ofType(consts.TRIGGER_SEARCH),
     map(R.prop('payload')),
     map(payload =>
       Actions.fetchSearchEntries({ queryString: payload.queryText })
     )
   )
 
-export const generateFetchSearchEntriesEpic = (schema, doRequest) => (
-  action$,
-  state$
-) =>
+export const generateFetchSearchEntriesEpic = (schema, doRequest) => action$ =>
   action$.pipe(
     ofType(consts.FETCH_SEARCH_ENTRIES),
     map(R.prop('payload')),
     map(payload => {
-      const query = doRequest.buildQuery(null, 'search')
+      const query = doRequest.buildQuery({ queryType: 'search' })
       const variables = {
         queryString: payload.queryString.replace(/[%_]/g, '\\$&')
       }
@@ -34,7 +28,7 @@ export const generateFetchSearchEntriesEpic = (schema, doRequest) => (
     }),
     mergeMap(context =>
       doRequest
-        .sendRequest(context.query, context.variables)
+        .sendRequest({ query: context.query, variables: context.variables })
         .then(({ data, error }) => ({ context, data, error }))
     ),
     map(({ context, data, error }) => {

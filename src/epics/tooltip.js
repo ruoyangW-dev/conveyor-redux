@@ -6,20 +6,19 @@ import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 
 export const generateFetchTooltipEpic = (schema, doRequest) => (
-  action$,
-  state$
+  action$
 ) =>
   action$.pipe(
     ofType(consts.FETCH_MODEL_TOOLTIP),
     map(R.prop('payload')),
     map(payload => {
       const variables = { id: payload.id }
-      const query = doRequest.buildQuery(payload.modelName, 'tooltip')
+      const query = doRequest.buildQuery({ modelName: payload.modelName, queryType: 'tooltip' })
       return { modelName: payload.modelName, id: payload.id, query, variables }
     }),
     mergeMap(context => {
       return doRequest
-        .sendRequest(context.query, context.variables)
+        .sendRequest({ query: context.query, variables: context.variables })
         .then(({ data, error }) => ({ context, data, error }))
     }),
     map(({ context, data, error }) => {

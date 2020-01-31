@@ -8,8 +8,7 @@ import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 
 export const generateQuerySelectMenuOpenEpic = (schema, doRequest) => (
-  action$,
-  state$
+  action$
 ) =>
   action$.pipe(
     ofType(consts.QUERY_SELECT_MENU_OPEN),
@@ -25,10 +24,10 @@ export const generateQuerySelectMenuOpenEpic = (schema, doRequest) => (
       return { variables, modelName, fieldName }
     }),
     mergeMap(context => {
-      const query = doRequest.buildQuery(context.modelName, 'index')
+      const query = doRequest.buildQuery({ modelName: context.modelName, queryType: 'index' })
 
       return doRequest
-        .sendRequest(query, context.variables)
+        .sendRequest({ query, variables: context.variables })
         .then(({ data, error }) => ({
           context,
           data,
@@ -51,8 +50,7 @@ export const generateQuerySelectMenuOpenEpic = (schema, doRequest) => (
   )
 
 export const generateRelationshipSelectMenuOpenEpic = (schema, doRequest) => (
-  action$,
-  state$
+  action$
 ) =>
   action$.pipe(
     ofType(consts.RELATIONSHIP_SELECT_MENU_OPEN),
@@ -69,10 +67,10 @@ export const generateRelationshipSelectMenuOpenEpic = (schema, doRequest) => (
       return { variables, modelName, fieldName, targetModel }
     }),
     mergeMap(context => {
-      const query = doRequest.buildQuery(context.targetModel, 'select')
+      const query = doRequest.buildQuery({ modelName: context.targetModel, queryType: 'select' })
 
       return doRequest
-        .sendRequest(query, context.variables)
+        .sendRequest({ query, variables: context.variables })
         .then(({ data, error }) => ({ context, data, error }))
     }),
     switchMap(({ context, data, error }) => {

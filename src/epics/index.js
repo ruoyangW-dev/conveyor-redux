@@ -11,12 +11,12 @@ import {
 import { generateRouteEpic } from './route'
 import {
   generateFetchSearchEntriesEpic,
-  generateSearchQueryTextChangedEpic
+  generateSearchQuerySubmitEpic
 } from './search'
 import {
   generateIndexTableFilterChangeEpic,
   generateIndexTableSortChangeEpic
-} from './tableView'
+} from './indexTable'
 import { generateFetchTooltipEpic } from './tooltip'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
@@ -40,7 +40,7 @@ export const generateConveyorEpics = (schema, doRequest) => {
     doRequest
   )
   const routeEpic = generateRouteEpic(schema, doRequest)
-  const searchQueryTextChangedEpic = generateSearchQueryTextChangedEpic(
+  const searchQuerySubmitEpic = generateSearchQuerySubmitEpic(
     schema,
     doRequest
   )
@@ -55,7 +55,7 @@ export const generateConveyorEpics = (schema, doRequest) => {
     querySelectMenuOpenEpic,
     relationshipSelectMenuOpenEpic,
     routeEpic,
-    searchQueryTextChangedEpic,
+    searchQuerySubmitEpic,
     tooltipEpic
   }
 }

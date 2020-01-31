@@ -29,9 +29,12 @@ export const generateFetchModelIndexEpic = (schema, doRequest) => (
       return { modelName: payload.modelName, variables }
     }),
     mergeMap(context => {
-      const query = doRequest.buildQuery(context.modelName, 'index')
+      const query = doRequest.buildQuery({
+        modelName: context.modelName,
+        queryType: 'index'
+      })
       return doRequest
-        .sendRequest(query, context.variables)
+        .sendRequest({ query, variables: context.variables })
         .then(({ data, error }) => ({ context, data, error }))
     }),
     map(({ context, data, error }) => {
@@ -44,10 +47,7 @@ export const generateFetchModelIndexEpic = (schema, doRequest) => (
     })
   )
 
-export const generateFetchModelDetailEpic = (schema, doRequest) => (
-  action$,
-  state$
-) =>
+export const generateFetchModelDetailEpic = (schema, doRequest) => action$ =>
   action$.pipe(
     ofType(consts.FETCH_MODEL_DETAIL),
     map(R.prop('payload')),
@@ -56,9 +56,12 @@ export const generateFetchModelDetailEpic = (schema, doRequest) => (
       return { modelName: payload.modelName, id: payload.id, variables }
     }),
     mergeMap(context => {
-      const query = doRequest.buildQuery(context.modelName, 'detail')
+      const query = doRequest.buildQuery({
+        modelName: context.modelName,
+        queryType: 'detail'
+      })
       return doRequest
-        .sendRequest(query, context.variables)
+        .sendRequest({ query, variables: context.variables })
         .then(({ data, error }) => ({ context, data, error }))
     }),
     map(({ context, data, error }) => {

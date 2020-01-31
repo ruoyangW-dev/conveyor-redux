@@ -52,7 +52,7 @@ export const updateModelTooltip = actionDisp(Actions.UPDATE_MODEL_TOOLTIP)
 // tableView
 
 export const changePage = actionDisp(Actions.CHANGE_PAGE)
-export const hideTableChange = actionDisp(Actions.HIDE_TABLE_CHANGE)
+export const collapseTableChange = actionDisp(Actions.COLLAPSE_TABLE_CHANGE)
 export const indexAddFilter = actionDisp(Actions.INDEX_ADD_FILTER)
 export const indexClearFilters = actionDisp(Actions.INDEX_CLEAR_FILTERS)
 export const indexChangeFilterField = actionDisp(
@@ -74,6 +74,9 @@ export const updateOverviewDisplayed = actionDisp(
 )
 export const updateOverviewSelected = actionDisp(
   Actions.UPDATE_OVERVIEW_SELECTED
+)
+export const changeRelTablePage = actionDisp(
+  Actions.CHANGE_REL_TABLE_PAGE
 )
 
 // model
