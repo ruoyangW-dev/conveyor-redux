@@ -14,7 +14,7 @@ export const getModelStoreOrder = (state, modelName) =>
 
 export const getPaginatedModel = (state, modelName) => {
   const amount = PAGINATION_AMT
-  const idx = R.pathOr(0, ['page', modelName], selectTableView(state))
+  const idx = R.pathOr(0, [modelName, 'page', 'currentPage'], selectTableView(state))
   const firstIdx = idx * amount
   const lastIdx = (idx + 1) * amount
 
@@ -77,6 +77,7 @@ export const generateModelReducer = () => (state = initState, action) => {
 
       return { ...state, [modelName]: store }
     }
+
     default:
       return state
   }

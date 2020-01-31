@@ -5,7 +5,11 @@ import { getDisplayValue, getField } from 'conveyor'
 const initState = {}
 
 export const generateOptionsReducer = schema => (state = initState, action) => {
-  const payload = action.payload
+  const payload = R.prop('payload', action)
+  const fieldName = R.prop('fieldName', payload)
+  const modelName = R.prop('modelName', payload)
+  const value = R.prop('value', payload)
+
   switch (action.type) {
     case Actions.MENU_OPEN: {
       const { modelName, fieldName, rawData } = { ...payload }
@@ -24,6 +28,27 @@ export const generateOptionsReducer = schema => (state = initState, action) => {
 
       return R.assocPath([modelName, fieldName], options, state)
     }
+    case Actions.DATA_OPTIONS_UPDATE: {
+      const targetModelName = R.path(
+        ['type', 'target'],
+        getField(schema, modelName, fieldName)
+      )
+      const options = value.map(option => ({
+        label: getDisplayValue({
+          schema,
+          modelName: targetModelName,
+          node: option
+        }),
+        value: R.prop('id', option)
+      }))
+
+      return R.assocPath([modelName, fieldName], options, state)
+    }
+    case Actions.EXISTING_VALUE_UPDATE: {
+      const options = value.map(option => ({ label: option, value: option }))
+
+      return R.assocPath([modelName, fieldName], options, state)
+    }
 
     default:
       return state
@@ -31,3 +56,23 @@ export const generateOptionsReducer = schema => (state = initState, action) => {
 }
 
 export const selectOptions = state => R.prop('options', state)
+export const getOptions = (state, modelName, fieldName) =>
+  R.pathOr([], ['options', modelName, fieldName], state)
+
+export const filterSelectOptions = ({
+  state,
+  modelName,
+  fieldName,
+  condition
+}) => {
+  const relPath = ['options', modelName, fieldName]
+
+  if (R.path(relPath, state)) {
+    state = R.assocPath(
+      relPath,
+      R.filter(condition, R.pathOr([], relPath, state)),
+      state
+    )
+  }
+  return selectOptions(state)
+}
