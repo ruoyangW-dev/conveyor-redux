@@ -1,4 +1,4 @@
-import { getFields, inputTypes, getInputType, isRel } from 'conveyor'
+import { getFields, inputTypes, getType, isRel } from 'conveyor'
 import * as R from 'ramda'
 
 export const getFilters = ({ schema, modelName, tableView }) => {
@@ -18,9 +18,10 @@ export const getFilters = ({ schema, modelName, tableView }) => {
     }
     if (operator && !R.isNil(value) && !R.isEmpty(value)) {
       if (isRel(field)) {
+        const inputType = getType({ schema, modelName, fieldName })
         if (
-          getInputType({ schema, modelName, fieldName }) ===
-          inputTypes.RELATIONSHIP_SINGLE
+          inputType ===
+          inputTypes.ONE_TO_ONE_TYPE || inputType === inputTypes.MANY_TO_ONE_TYPE
         ) {
           return { operator, value: R.propOr(value, 'value', value) }
         }
