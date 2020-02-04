@@ -1,9 +1,10 @@
 import * as Actions from '../actionConsts'
 import * as R from 'ramda'
-import { PAGINATION_AMT } from './model'
 import { getType } from 'conveyor'
 
-const initState = {}
+const DEFAULT_PAGINATION_AMT = 20
+
+const initState = { amtPerPage: DEFAULT_PAGINATION_AMT }
 
 export const generateTableViewReducer = (schema) => (state = initState, action) => {
   const payload = action.payload
@@ -125,18 +126,18 @@ export const generateTableViewReducer = (schema) => (state = initState, action) 
     case Actions.UPDATE_MODEL_INDEX: {
       const data = R.pathOr([], ['data', 'result'], payload)
       const modelName = R.prop('modelName', payload)
+      const amtPerPage = R.prop('amtPerPage', state) || DEFAULT_PAGINATION_AMT
 
       let lastIndex = null
       if (!R.isEmpty(data)) {
         const totalDataLength = data.length
-        lastIndex = Math.floor((totalDataLength - 1) / PAGINATION_AMT)
+        lastIndex = Math.floor((totalDataLength - 1) / amtPerPage)
       }
 
-      return R.assocPath(
-        [modelName, 'page', 'lastIndex'],
-        lastIndex,
-        state
-      )
+      return R.pipe(
+        R.assocPath([modelName, 'page', 'lastIndex'], lastIndex),
+        R.assocPath([modelName, 'page', 'total'], data.length)
+      )(state)
     }
     case Actions.UPDATE_MODEL_DETAIL: {
       const modelName = R.prop('modelName', payload)
@@ -145,6 +146,7 @@ export const generateTableViewReducer = (schema) => (state = initState, action) 
         ['data', 'result'],
         payload
       )
+      const amtPerPage = R.prop('amtPerPage', state) || DEFAULT_PAGINATION_AMT
 
       if (newNode) {
         for (const [fieldName, obj] of Object.entries(newNode)) {
@@ -153,13 +155,12 @@ export const generateTableViewReducer = (schema) => (state = initState, action) 
           // if multi-rel type
           if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
             const totalDataLength = obj.length
-            const lastIndexRel = Math.floor((totalDataLength - 1) / PAGINATION_AMT)
+            const lastIndexRel = Math.floor((totalDataLength - 1) / amtPerPage)
             if (lastIndexRel > 0) {
-              state = R.assocPath(
-                [modelName, 'fields', fieldName, 'page', 'lastIndex'],
-                lastIndexRel,
-                state
-              )
+              state = R.pipe(
+                R.assocPath([modelName, 'fields', fieldName, 'page', 'lastIndex'], lastIndexRel),
+                R.assocPath([modelName, 'fields', fieldName, 'page', 'total'], totalDataLength)
+              )(state)
             }
           }
         }
