@@ -1,30 +1,77 @@
 import * as R from 'ramda'
 import * as Actions from '../actionConsts'
 import { selectTableView } from './tableView'
+import { getType } from 'conveyor'
 
-export const PAGINATION_AMT = 20
+const DEFAULT_PAGINATION_AMT = 20
 
 const initState = {}
 
 export const getModelStore = (state, modelName) =>
   R.path(['model', modelName], state)
 
-export const getModelStoreOrder = (state, modelName) =>
-  R.path(['model', modelName, 'order'], state)
+const slicePageData = (data, idx, amount) => {
+  const firstIdx = idx * amount // obj of firstIdx included
+  const lastIdx = (idx + 1) * amount // obj of lastIdx NOT included => cutoff point
+
+  // slice(first_index, cutoff_index)
+  return data.slice(firstIdx, lastIdx)
+}
 
 export const getPaginatedModel = (state, modelName) => {
-  const amount = PAGINATION_AMT
-  const idx = R.pathOr(0, [modelName, 'page', 'currentPage'], selectTableView(state))
-  const firstIdx = idx * amount
-  const lastIdx = (idx + 1) * amount
-
-  return getOrderedValues(getModelStore(state, modelName)).slice(
-    firstIdx,
-    lastIdx
+  const idx = R.pathOr(
+    0,
+    [modelName, 'page', 'currentPage'],
+    selectTableView(state)
+  )
+  const amount = R.propOr(
+    DEFAULT_PAGINATION_AMT,
+    'amtPerPage',
+    selectTableView(state)
+  )
+  return slicePageData(
+    getOrderedValues(getModelStore(state, modelName)),
+    idx,
+    amount
   )
 }
 
+export const getPaginatedNode = (schema, state, modelName, id) => {
+  const modelStore = getModelStore(state, modelName)
+  const node = R.pathOr(null, ['values', id], modelStore)
+  const amount = R.propOr(
+    DEFAULT_PAGINATION_AMT,
+    'amtPerPage',
+    selectTableView(state)
+  )
+
+  // do not change the redux store
+  const updatedNode = {}
+  if (node) {
+    for (const [fieldName, obj] of Object.entries(node)) {
+      const type = getType({ schema, modelName, fieldName })
+
+      // if multi-rel type
+      if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
+        const idx = R.pathOr(
+          0,
+          [modelName, 'fields', fieldName, 'page', 'currentPage'],
+          selectTableView(state)
+        )
+        updatedNode[fieldName] = slicePageData(obj, idx, amount)
+      } else {
+        updatedNode[fieldName] = obj
+      }
+    }
+  }
+  return updatedNode
+}
+
 export const getAllModelStore = state => R.path(['model'], state)
+
+export const getTabIdentifier = ({ modelName, tabList }) => {
+  return R.prepend(modelName, tabList).join('.')
+}
 
 const getDefaultModelStore = () => ({ order: [], values: {} })
 
