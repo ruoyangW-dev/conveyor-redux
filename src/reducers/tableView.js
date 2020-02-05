@@ -6,7 +6,10 @@ const DEFAULT_PAGINATION_AMT = 20
 
 const initState = { amtPerPage: DEFAULT_PAGINATION_AMT }
 
-export const generateTableViewReducer = (schema) => (state = initState, action) => {
+export const generateTableViewReducer = schema => (
+  state = initState,
+  action
+) => {
   const payload = action.payload
   const removeAll = modelName => {
     return R.dissocPath(
@@ -23,7 +26,11 @@ export const generateTableViewReducer = (schema) => (state = initState, action) 
   switch (action.type) {
     case Actions.INDEX_ADD_FILTER: {
       const modelName = R.prop('modelName', payload)
-      const filterOrder = R.pathOr([], [modelName, 'filter', 'filterOrder'], state)
+      const filterOrder = R.pathOr(
+        [],
+        [modelName, 'filter', 'filterOrder'],
+        state
+      )
       const newFilterOrder = filterOrder.slice()
       newFilterOrder.push('')
       return R.assocPath(
@@ -34,7 +41,11 @@ export const generateTableViewReducer = (schema) => (state = initState, action) 
     }
     case Actions.INDEX_DELETE_FILTER: {
       const { modelName, index } = { ...payload }
-      const filterOrder = R.pathOr([], [modelName, 'filter', 'filterOrder'], state)
+      const filterOrder = R.pathOr(
+        [],
+        [modelName, 'filter', 'filterOrder'],
+        state
+      )
       const fieldName = filterOrder[index]
       const newFilterOrder = filterOrder.slice()
       newFilterOrder.splice(index, 1)
@@ -44,19 +55,24 @@ export const generateTableViewReducer = (schema) => (state = initState, action) 
       return R.assocPath(
         [modelName, 'filter', 'filterOrder'],
         newFilterOrder,
-        R.dissocPath(
-          [modelName, 'filter', 'filterValue', fieldName],
-          state
-        )
+        R.dissocPath([modelName, 'filter', 'filterValue', fieldName], state)
       )
     }
     case Actions.INDEX_CLEAR_FILTERS: {
       const modelName = R.prop('modelName', payload)
-      return removeAll(modelName)
+      return R.assocPath(
+        [modelName, 'page', 'currentPage'],
+        0,
+        removeAll(modelName)
+      )
     }
     case Actions.INDEX_CHANGE_FILTER_FIELD: {
       const { modelName, fieldName, index } = { ...payload }
-      const filterOrder = R.pathOr([], [modelName, 'filter', 'filterOrder'], state)
+      const filterOrder = R.pathOr(
+        [],
+        [modelName, 'filter', 'filterOrder'],
+        state
+      )
       const newFilterOrder = filterOrder.slice()
       newFilterOrder[index] = fieldName
       return R.assocPath(
@@ -83,21 +99,28 @@ export const generateTableViewReducer = (schema) => (state = initState, action) 
     }
     case Actions.INDEX_TABLE_FILTER_SUBMIT: {
       const modelName = R.prop('modelName', payload)
-      const currentFilters = R.pathOr([], [modelName, 'filter', 'filterOrder'], state)
-      const filtersAreActive = !(R.isNil(currentFilters) || Object.entries(currentFilters).length === 0)
-      return R.assocPath(
-        [modelName, 'filter', 'filtersAreActive'],
-        filtersAreActive,
+      const currentFilters = R.pathOr(
+        [],
+        [modelName, 'filter', 'filterOrder'],
         state
       )
+      const filtersAreActive = !(
+        R.isNil(currentFilters) || Object.entries(currentFilters).length === 0
+      )
+      return R.pipe(
+        R.assocPath(
+          [modelName, 'filter', 'filtersAreActive'],
+          filtersAreActive
+        ),
+        R.assocPath([modelName, 'page', 'currentPage'], 0)
+      )(state)
     }
     case Actions.INDEX_TABLE_SORT_CHANGE: {
       const { modelName, fieldName, sortKey } = { ...payload }
-      return R.assocPath(
-        [modelName, 'sort'],
-        { fieldName, sortKey },
-        state
-      )
+      return R.pipe(
+        R.assocPath([modelName, 'sort'], { fieldName, sortKey }),
+        R.assocPath([modelName, 'page', 'currentPage'], 0)
+      )(state)
     }
     case Actions.COLLAPSE_TABLE_CHANGE: {
       const { modelName, fieldName, collapse } = { ...payload }
@@ -158,8 +181,14 @@ export const generateTableViewReducer = (schema) => (state = initState, action) 
             const lastIndexRel = Math.floor((totalDataLength - 1) / amtPerPage)
             if (lastIndexRel > 0) {
               state = R.pipe(
-                R.assocPath([modelName, 'fields', fieldName, 'page', 'lastIndex'], lastIndexRel),
-                R.assocPath([modelName, 'fields', fieldName, 'page', 'total'], totalDataLength)
+                R.assocPath(
+                  [modelName, 'fields', fieldName, 'page', 'lastIndex'],
+                  lastIndexRel
+                ),
+                R.assocPath(
+                  [modelName, 'fields', fieldName, 'page', 'total'],
+                  totalDataLength
+                )
               )(state)
             }
           }
