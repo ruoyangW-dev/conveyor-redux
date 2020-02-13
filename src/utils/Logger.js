@@ -1,5 +1,3 @@
-/* global localStorage */
-
 const localStorageKey = 'debug'
 
 export const isEnabled = key => localStorage.getItem(key) !== null
@@ -35,5 +33,15 @@ export const rootEpicError = (epicName, error) => {
   }
   console.group(`unhandled error in ${epicName}`)
   console.log(error)
+  console.groupEnd()
+}
+
+export const inputValidationParseValidationErrors = (response, e) => {
+  if (!isEnabled()) { return }
+  console.group('inputValidation parseValidationErrors error')
+  console.log('response')
+  console.log(response)
+  console.log('\nexception')
+  console.log(e)
   console.groupEnd()
 }

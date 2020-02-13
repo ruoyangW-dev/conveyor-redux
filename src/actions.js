@@ -23,12 +23,14 @@ export const onDetailTableEditSubmit = actionDisp(
   Actions.DETAIL_TABLE_EDIT_SUBMIT
 )
 export const onDetailAttributeSubmit = actionDisp(
-  Actions.DETAIL_ATTRIBUTE_SUBMIT
+  Actions.DETAIL_ATTRIBUTE_EDIT_SUBMIT
 )
 export const onEditInputChange = actionDisp(Actions.EDIT_INPUT_CHANGE)
-export const onFileSubmit = actionDisp(Actions.FILE_SUBMIT)
+export const onInlineFileSubmit = actionDisp(Actions.INLINE_FILE_SUBMIT)
+export const onInlineFileDelete = actionDisp(Actions.INLINE_FILE_DELETE)
 export const onValidationErrorEdit = actionDisp(Actions.VALIDATION_ERROR_EDIT)
 export const onValidationErrorTableRow = actionDisp(Actions.VALIDATION_ERROR_TABLE_ROW)
+export const onDetailTableRemoveSubmit = actionDisp(Actions.DETAIL_TABLE_REMOVE_SUBMIT)
 
 // input
 
@@ -114,3 +116,4 @@ export const relationshipSelectMenuOpen = actionDisp(
 // alerts
 
 export const addDangerAlert = actionDisp(Actions.ADD_DANGER_ALERT)
+export const addSuccessAlert = actionDisp(Actions.ADD_SUCCESS_ALERT)

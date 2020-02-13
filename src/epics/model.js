@@ -1,7 +1,7 @@
 import * as Actions from '../actions'
 import * as consts from '../actionConsts'
 import * as R from 'ramda'
-import { getFilters, getSort } from '../utils/Getters'
+import { getFilters, getSort } from '../utils/epicHelpers'
 import { map, mergeMap } from 'rxjs/operators'
 import { ofType } from 'redux-observable'
 import { selectTableView } from '../reducers/tableView'
