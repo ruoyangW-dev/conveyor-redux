@@ -27,6 +27,8 @@ export const onDetailAttributeSubmit = actionDisp(
 )
 export const onEditInputChange = actionDisp(Actions.EDIT_INPUT_CHANGE)
 export const onFileSubmit = actionDisp(Actions.FILE_SUBMIT)
+export const onValidationErrorEdit = actionDisp(Actions.VALIDATION_ERROR_EDIT)
+export const onValidationErrorTableRow = actionDisp(Actions.VALIDATION_ERROR_TABLE_ROW)
 
 // input
 
@@ -42,6 +44,7 @@ export const onStackCreate = actionDisp(Actions.STACK_CREATE)
 export const onDetailCreate = actionDisp(Actions.DETAIL_CREATE)
 export const onIndexCreate = actionDisp(Actions.INDEX_CREATE)
 export const onBreadcrumbClick = actionDisp(Actions.BREADCRUMB_CLICK)
+export const onValidationErrorCreate = actionDisp(Actions.VALIDATION_ERROR_CREATE)
 
 // tooltip
 
