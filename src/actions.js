@@ -36,14 +36,14 @@ export const onMenuOpen = actionDisp(Actions.MENU_OPEN)
 
 // create
 
-export const onInputChange = actionDisp(Actions.INPUT_CHANGE)
-export const onCancel = actionDisp(Actions.CANCEL)
-export const onSave = actionDisp(Actions.SAVE)
-export const onSaveSuccessful = actionDisp(Actions.SAVE_SUCCESSFUL)
+export const onCreateInputChange = actionDisp(Actions.CREATE_INPUT_CHANGE)
+export const onCancelCreate = actionDisp(Actions.CANCEL_CREATE)
+export const onSaveCreate = actionDisp(Actions.SAVE_CREATE)
+export const onSaveCreateSuccessful = actionDisp(Actions.SAVE_CREATE_SUCCESSFUL)
 export const onStackCreate = actionDisp(Actions.STACK_CREATE)
 export const onDetailCreate = actionDisp(Actions.DETAIL_CREATE)
 export const onIndexCreate = actionDisp(Actions.INDEX_CREATE)
-export const onBreadcrumbClick = actionDisp(Actions.BREADCRUMB_CLICK)
+export const onUpdateFormStackIndex = actionDisp(Actions.UPDATE_FORM_STACK_INDEX)
 export const onValidationErrorCreate = actionDisp(Actions.VALIDATION_ERROR_CREATE)
 
 // tooltip
