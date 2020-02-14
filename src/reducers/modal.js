@@ -20,44 +20,14 @@ const groupModels = (collection, property) => {
 }
 
 export const generateModalReducer = () => (state = initState, action) => {
-  const payload = action.payload
   switch (action.type) {
-    case Actions.INDEX_DELETE: {
-      const { modelName, id } = { ...payload }
-      // use modelName and id to delete model
-      console.log('DELETE INDEX', modelName, id)
-      return state
-    }
-    case Actions.DETAIL_DELETE: {
-      const { modelName, id } = { ...payload }
-      // use modelName and id to delete model
-      console.log('DELETE DETAIL', modelName, id)
-      return state
-    }
-    case Actions.DETAIL_DELETE_FROM_DETAIL_PAGE: {
-      const { modelName, id } = { ...payload }
-      // use modelName and id to delete model
-      console.log('DELETE SELF', modelName, id)
-      return state
-    }
-    case Actions.DELETE_WARNING: {
-      const { modelName, id, rawDataList } = { ...payload }
-      // fetch models that will be deleted if model is deleted
-      console.log('DELETE WARNING', modelName, id)
-
-      // note: raw data must have '__typename' in delete query. otherwise
-      // delete warning table will not display correctly
-
-      // group data into an array of arrays. each sub- array
-      // holds model objects with name, __typename, & id attributes
-      const groupedData = groupModels(rawDataList, '__typename')
-
-      // add to store
+    case Actions.UPDATE_DELETE_DETAIL: {
+      const deletes = R.path(['payload', 'data', 'checkDelete'], action)
+      const groupedData = groupModels(deletes, '__typename')
       return { ...state, Delete: groupedData }
     }
-    case Actions.CANCEL_DELETE: {
-      // delete warning data from store
-      return { ...state, Delete: [] }
+    case Actions.CANCEL_DELETE_DETAIL: {
+      return { ...state, Delete: {} }
     }
     default:
       return state
@@ -65,3 +35,5 @@ export const generateModalReducer = () => (state = initState, action) => {
 }
 
 export const selectModal = state => R.prop('modal', state)
+export const selectModalStore = (state, modal) =>
+  R.path(['modal', modal], state)

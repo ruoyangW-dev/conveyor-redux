@@ -4,13 +4,9 @@ export const actionDisp = type => payload => ({ type, payload })
 
 // delete
 
-export const onIndexDelete = actionDisp(Actions.INDEX_DELETE)
-export const onDetailDelete = actionDisp(Actions.DETAIL_DELETE)
-export const onDetailDeleteFromDetailPage = actionDisp(
-  Actions.DETAIL_DELETE_FROM_DETAIL_PAGE
-)
-export const onDeleteWarning = actionDisp(Actions.DELETE_WARNING)
-export const onCancelDelete = actionDisp(Actions.CANCEL_DELETE)
+export const updateDeleteDetail = actionDisp(Actions.UPDATE_DELETE_DETAIL)
+export const cancelDeleteDetail = actionDisp(Actions.CANCEL_DELETE_DETAIL)
+export const fetchDeleteDetail = actionDisp(Actions.FETCH_DELETE_DETAIL)
 
 // edit
 
@@ -90,6 +86,11 @@ export const fetchModelDetail = actionDisp(Actions.FETCH_MODEL_DETAIL)
 export const fetchModelIndex = actionDisp(Actions.FETCH_MODEL_INDEX)
 export const updateModelDetail = actionDisp(Actions.UPDATE_MODEL_DETAIL)
 export const updateModelIndex = actionDisp(Actions.UPDATE_MODEL_INDEX)
+export const requestDeleteModel = actionDisp(Actions.REQUEST_DELETE_MODEL)
+export const updateDeleteModel = actionDisp(Actions.UPDATE_DELETE_MODEL)
+export const requestDeleteRelTableModel = actionDisp(Actions.REQUEST_DELETE_REL_TABLE_MODEL)
+export const requestDeleteModelFromDetailPage = actionDisp(Actions.REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE)
+export const removeInstance = actionDisp(Actions.REMOVE_INSTANCE)
 
 // search
 

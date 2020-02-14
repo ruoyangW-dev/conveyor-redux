@@ -124,6 +124,22 @@ export const generateModelReducer = () => (state = initState, action) => {
 
       return { ...state, [modelName]: store }
     }
+    case Actions.UPDATE_DELETE_MODEL: {
+      const id = R.path(['payload', 'id'], action)
+      const store = { ...R.propOr(getDefaultModelStore(), modelName, state) }
+      store.values = R.dissoc(id, store.values)
+      store.order = R.without([id], store.order)
+      return { ...state, [modelName]: store }
+    }
+    case Actions.REMOVE_INSTANCE: {
+      const modelName = R.path(['payload', 'modelName'], action)
+      const id = R.path(['payload', 'id'], action)
+      return R.assocPath(
+        [modelName, 'values', id.toString()],
+        { result: null },
+        state
+      )
+    }
 
     default:
       return state

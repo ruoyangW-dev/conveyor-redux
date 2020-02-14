@@ -123,7 +123,7 @@ export const generateEditReducer = schema => (state = initState, action) => {
       }, fields)
       return state
     }
-    case Actions.DETAIL_ATTRIBUTE_SUBMIT: {
+    case Actions.DETAIL_ATTRIBUTE_EDIT_SUBMIT: {
       const { modelName, id, fieldName } = { ...payload }
       return R.dissocPath([modelName, id, fieldName, 'errors'], state)
     }

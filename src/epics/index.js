@@ -2,7 +2,10 @@ import { combineEpics } from 'redux-observable'
 import { catchError } from 'rxjs/operators'
 import {
   generateFetchModelIndexEpic,
-  generateFetchModelDetailEpic
+  generateFetchModelDetailEpic,
+  generateRequestDeleteModelEpic,
+  generateRequestDeleteModelFromDetailPageEpic,
+  generateRequestDeleteRelTableModelEpic
 } from './model'
 import {
   generateRelationshipSelectMenuOpenEpic,
@@ -18,6 +21,14 @@ import {
   generateIndexTableSortChangeEpic
 } from './indexTable'
 import { generateFetchTooltipEpic } from './tooltip'
+import {
+  generateDetailAttributeEditSubmitEpic,
+  generateDetailTableEditSubmitEpic,
+  generateDetailTableRemoveSubmitEpic,
+  generateIndexEditSubmitEpic,
+  generateInlineFileDeleteEpic
+} from './edit'
+import { generateSaveCreateEpic } from './create'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
@@ -40,11 +51,35 @@ export const generateConveyorEpics = (schema, doRequest) => {
     doRequest
   )
   const routeEpic = generateRouteEpic(schema, doRequest)
-  const searchQuerySubmitEpic = generateSearchQuerySubmitEpic(
+  const searchQuerySubmitEpic = generateSearchQuerySubmitEpic(schema, doRequest)
+  const tooltipEpic = generateFetchTooltipEpic(schema, doRequest)
+  const detailAttributeEditSubmitEpic = generateDetailAttributeEditSubmitEpic(
     schema,
     doRequest
   )
-  const tooltipEpic = generateFetchTooltipEpic(schema, doRequest)
+  const detailTableEditSubmitEpic = generateDetailTableEditSubmitEpic(
+    schema,
+    doRequest
+  )
+  const detailTableRemoveSubmitEpic = generateDetailTableRemoveSubmitEpic(
+    schema,
+    doRequest
+  )
+  const indexEditSubmitEpic = generateIndexEditSubmitEpic(schema, doRequest)
+  const inlineFileDeleteEpic = generateInlineFileDeleteEpic(schema, doRequest)
+  const saveCreateEpic = generateSaveCreateEpic(schema, doRequest)
+  const requestDeleteModelEpic = generateRequestDeleteModelEpic(
+    schema,
+    doRequest
+  )
+  const requestDeleteModelFromDetailPageEpic = generateRequestDeleteModelFromDetailPageEpic(
+    schema,
+    doRequest
+  )
+  const requestDeleteRelTableModelEpic = generateRequestDeleteRelTableModelEpic(
+    schema,
+    doRequest
+  )
 
   return {
     fetchModelIndexEpic,
@@ -56,7 +91,16 @@ export const generateConveyorEpics = (schema, doRequest) => {
     relationshipSelectMenuOpenEpic,
     routeEpic,
     searchQuerySubmitEpic,
-    tooltipEpic
+    tooltipEpic,
+    detailAttributeEditSubmitEpic,
+    detailTableEditSubmitEpic,
+    detailTableRemoveSubmitEpic,
+    indexEditSubmitEpic,
+    inlineFileDeleteEpic,
+    saveCreateEpic,
+    requestDeleteModelEpic,
+    requestDeleteModelFromDetailPageEpic,
+    requestDeleteRelTableModelEpic
   }
 }
 

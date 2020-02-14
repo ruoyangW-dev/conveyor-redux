@@ -22,7 +22,7 @@ const modelIndexPath = ({ path, schema }) => {
   }
 }
 
-const modelDetailPath = ({ path, state, schema }) => {
+const modelDetailPath = ({ path, schema }) => {
   if (
     path.length >= 3 &&
     isModelPathPrefix(path, schema) &&
@@ -32,7 +32,7 @@ const modelDetailPath = ({ path, state, schema }) => {
   }
 }
 
-const modelCreatePath = ({ path, schema }) => {
+const modelCreatePath = ({ path }) => {
   if (path.length === 3 && isModelPathPrefix(path) && path[2] === 'create') {
     return []
   }
@@ -47,7 +47,7 @@ const getPath = locationChangeAction =>
     R.dropLastWhile(R.equals(''))
   )(locationChangeAction)
 
-export const generateRouteEpic = (schema, doRequest) => (action$, state$) =>
+export const generateRouteEpic = () => (action$, state$) =>
   action$.pipe(
     ofType(LOCATION_CHANGE),
     map(getPath),
