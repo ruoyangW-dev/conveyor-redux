@@ -28,6 +28,12 @@ import {
   generateIndexEditSubmitEpic,
   generateInlineFileDeleteEpic
 } from './edit'
+import {
+  generateDetailAttributeEditSubmitCheckEpic,
+  generateDetailTableEditSubmitCheckEpic,
+  generateIndexEditSubmitCheckEpic,
+  generateSaveCreateCheckEpic
+} from './validation'
 import { generateSaveCreateEpic } from './create'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
@@ -80,6 +86,14 @@ export const generateConveyorEpics = (schema, doRequest) => {
     schema,
     doRequest
   )
+  const detailAttributeEditSubmitCheckEpic = generateDetailAttributeEditSubmitCheckEpic(
+    schema
+  )
+  const detailTableEditSubmitCheckEpic = generateDetailTableEditSubmitCheckEpic(
+    schema
+  )
+  const indexEditSubmitCheckEpic = generateIndexEditSubmitCheckEpic(schema)
+  const saveCreateCheckEpic = generateSaveCreateCheckEpic(schema)
 
   return {
     fetchModelIndexEpic,
@@ -100,7 +114,11 @@ export const generateConveyorEpics = (schema, doRequest) => {
     saveCreateEpic,
     requestDeleteModelEpic,
     requestDeleteModelFromDetailPageEpic,
-    requestDeleteRelTableModelEpic
+    requestDeleteRelTableModelEpic,
+    detailAttributeEditSubmitCheckEpic,
+    detailTableEditSubmitCheckEpic,
+    indexEditSubmitCheckEpic,
+    saveCreateCheckEpic
   }
 }
 

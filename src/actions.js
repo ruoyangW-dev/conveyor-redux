@@ -18,7 +18,7 @@ export const onIndexEditSubmit = actionDisp(Actions.INDEX_EDIT_SUBMIT)
 export const onDetailTableEditSubmit = actionDisp(
   Actions.DETAIL_TABLE_EDIT_SUBMIT
 )
-export const onDetailAttributeSubmit = actionDisp(
+export const onDetailAttributeEditSubmit = actionDisp(
   Actions.DETAIL_ATTRIBUTE_EDIT_SUBMIT
 )
 export const onEditInputChange = actionDisp(Actions.EDIT_INPUT_CHANGE)
@@ -118,3 +118,10 @@ export const relationshipSelectMenuOpen = actionDisp(
 
 export const addDangerAlert = actionDisp(Actions.ADD_DANGER_ALERT)
 export const addSuccessAlert = actionDisp(Actions.ADD_SUCCESS_ALERT)
+
+// validation
+
+export const saveCreateCheck = actionDisp(Actions.SAVE_CREATE_CHECK)
+export const detailAttributeEditSubmitCheck = actionDisp(Actions.DETAIL_ATTRIBUTE_EDIT_SUBMIT_CHECK)
+export const detailTableEditSubmitCheck = actionDisp(Actions.DETAIL_TABLE_EDIT_SUBMIT_CHECK)
+export const indexEditSubmitCheck = actionDisp(Actions.INDEX_EDIT_SUBMIT_CHECK)
