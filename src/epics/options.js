@@ -1,4 +1,4 @@
-import { getSort } from '../utils/Getters'
+import { getSort } from '../utils/helpers'
 import { concat } from 'rxjs'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
 import { ofType } from 'redux-observable'

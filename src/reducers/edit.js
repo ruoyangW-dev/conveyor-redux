@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import * as Actions from '../actionConsts'
 import { getDisplayValue, getField } from 'conveyor'
+import { LOCATION_CHANGE } from 'connected-react-router'
 
 const initState = {}
 
@@ -47,6 +48,8 @@ const getEditValue = (schema, { modelName, fieldName, value }) => {
 export const generateEditReducer = schema => (state = initState, action) => {
   const payload = action.payload
   switch (action.type) {
+    case LOCATION_CHANGE:
+      return initState
     case Actions.TABLE_ROW_EDIT: {
       const { modelName, id, node } = { ...payload }
       const nodeFlattened = R.mapObjIndexed((value, fieldName) => {
@@ -74,46 +77,55 @@ export const generateEditReducer = schema => (state = initState, action) => {
     }
     case Actions.TABLE_EDIT_CANCEL: {
       const { modelName, id } = { ...payload }
-      return R.dissocPath([modelName, id], state)
+      state = R.dissocPath([modelName, id], state)
+
+      // if no ids for model are being edited, remove the model from the edit store
+      if (R.isEmpty(R.prop(modelName, state))) {
+        return R.dissoc(modelName, state)
+      }
+      return state
     }
     case Actions.ATTRIBUTE_EDIT_CANCEL: {
       const { modelName, fieldName, id } = { ...payload }
 
       // Remove the field from the edit store
-      return R.dissocPath([modelName, id, fieldName], state)
+      state = R.dissocPath([modelName, id, fieldName], state)
+
+      // if the instance of the model has no fields being edited, remove it from the store
+      if (R.isEmpty(R.path([modelName, id], state))) {
+        state = R.dissocPath([modelName, id], state)
+      }
+
+      // if no instances of the model are being edited, remove the model from the edit store
+      if (R.isEmpty(R.prop(modelName, state))) {
+        state = R.dissoc(modelName, state)
+      }
+      return state
     }
-    case Actions.INDEX_EDIT_SUBMIT: {
-      const modelName = R.prop('modelName', payload)
-      const id = R.prop('id', payload)
-
-      // use 'rawEditValues' to save data in backend...
-      const rawEditValues = R.path([modelName, id], state)
-      console.log('INDEX EDIT SUBMIT', rawEditValues)
-
-      // on success, delete value from edit
-      return R.dissocPath([modelName, id], state)
+    case Actions.VALIDATION_ERROR_EDIT: {
+      const { modelName, id, fieldName, errors } = { ...payload }
+      R.forEach(fieldNameError => {
+        if (fieldNameError === fieldName) {
+          state = R.assocPath(
+            [modelName, id.toString(), fieldNameError, 'errors'],
+            R.prop(fieldNameError, errors),
+            state
+          )
+        }
+      }, Object.keys(errors))
+      return state
     }
     case Actions.DETAIL_TABLE_EDIT_SUBMIT: {
-      const modelName = R.prop('modelName', payload)
-      const id = R.prop('id', payload)
-
-      // use 'rawEditValues' to save data in backend...
-      const rawEditValues = R.path([modelName, id], state)
-      console.log('DETAIL TABLE EDIT SUBMIT', rawEditValues)
-
-      // on success, delete value from edit
-      return R.dissocPath([modelName, id], state)
+      const { modelName, id } = { ...payload }
+      const fields = Object.keys(R.path([modelName, id], state))
+      R.forEach(f => {
+        state = R.dissocPath(R.concat([modelName, id], [f, 'errors']), state)
+      }, fields)
+      return state
     }
-    case Actions.DETAIL_ATTRIBUTE_SUBMIT: {
-      const modelName = R.prop('modelName', payload)
-      const id = R.prop('id', payload)
-
-      // use 'rawEditValues' to save data in backend...
-      const rawEditValues = R.path([modelName, id], state)
-      console.log('DETAIL ATTRIBUTE SUBMIT', rawEditValues)
-
-      // on success, delete value from edit
-      return R.dissocPath([modelName, id], state)
+    case Actions.DETAIL_ATTRIBUTE_EDIT_SUBMIT: {
+      const { modelName, id, fieldName } = { ...payload }
+      return R.dissocPath([modelName, id, fieldName, 'errors'], state)
     }
     case Actions.EDIT_INPUT_CHANGE: {
       const { modelName, id, fieldName, value } = { ...payload }
@@ -124,10 +136,18 @@ export const generateEditReducer = schema => (state = initState, action) => {
         state
       )
     }
-    case Actions.FILE_SUBMIT: {
-      // handle file here
+    case Actions.VALIDATION_ERROR_TABLE_ROW: {
+      const { modelName, id, errors } = { ...payload }
+      R.forEach(fieldNameError => {
+        state = R.assocPath(
+          [modelName, id.toString(), fieldNameError, 'errors'],
+          R.prop(fieldNameError, errors),
+          state
+        )
+      }, Object.keys(errors))
       return state
     }
+
     default:
       return state
   }

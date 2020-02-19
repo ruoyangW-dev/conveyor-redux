@@ -1,10 +1,16 @@
 import * as Actions from '../actions'
 import * as consts from '../actionConsts'
 import * as R from 'ramda'
-import { getFilters, getSort } from '../utils/Getters'
-import { map, mergeMap } from 'rxjs/operators'
+import { getFilters, getSort } from '../utils/helpers'
+import { map, mergeMap, switchMap } from 'rxjs/operators'
 import { ofType } from 'redux-observable'
 import { selectTableView } from '../reducers/tableView'
+import { getModelLabel } from 'conveyor'
+import { concat } from 'rxjs'
+import * as Logger from '../utils/Logger'
+
+const getDeleteErrors = ({ data, context }) =>
+  R.path(['delete' + context.modelName, 'errors'], data)
 
 export const generateFetchModelIndexEpic = (schema, doRequest) => (
   action$,
@@ -75,5 +81,191 @@ export const generateFetchModelDetailEpic = (schema, doRequest) => action$ =>
         id: context.id,
         data
       })
+    })
+  )
+
+export const generateRequestDeleteModelEpic = (schema, doRequest) => action$ =>
+  action$.pipe(
+    ofType(consts.REQUEST_DELETE_MODEL),
+    map(R.prop('payload')),
+    map(payload => {
+      const query = doRequest.buildQuery({
+        modelName: payload.modelName,
+        queryType: 'delete'
+      })
+      const variables = { id: payload.id }
+      return {
+        modelName: payload.modelName,
+        id: payload.id,
+        query,
+        variables
+      }
+    }),
+    mergeMap(context =>
+      doRequest
+        .sendRequest({
+          query: context.query,
+          variables: context.variables
+        })
+        .then(({ data, error }) => ({ context, data, error }))
+    ),
+    switchMap(({ context, data, error }) => {
+      const displayName = getModelLabel({
+        schema,
+        modelName: context.modelName
+      })
+
+      // get errors from context
+      const errors = getDeleteErrors({ data, context })
+      if (errors) {
+        Logger.epicError('requestDeleteModelEpic', context, error)
+        const contactErrors = R.join('. ', errors)
+        return concat([
+          Actions.addDangerAlert({
+            message: `Error deleting ${displayName}. ${contactErrors}`
+          })
+        ])
+      }
+
+      // get errors from 'error' prop
+      if (error) {
+        Logger.epicError('requestDeleteModelEpic', context, error)
+        return concat([
+          Actions.addDangerAlert({
+            message: `Error deleting ${displayName}.`
+          })
+        ])
+      }
+
+      return concat([
+        Actions.updateDeleteModel({
+          modelName: context.modelName,
+          id: context.id
+        }),
+        Actions.addSuccessAlert({
+          message: `${displayName} was successfully deleted.`
+        })
+      ])
+    })
+  )
+
+// deletes child, then fetchs parent detail
+export const generateRequestDeleteRelTableModelEpic = (
+  schema,
+  doRequest
+) => action$ =>
+  action$.pipe(
+    ofType(consts.REQUEST_DELETE_REL_TABLE_MODEL),
+    map(R.prop('payload')),
+    map(payload => {
+      const query = doRequest.buildQuery({
+        modelName: payload.modelName,
+        queryType: 'delete'
+      })
+      const variables = { id: payload.id }
+      return { ...payload, query, variables }
+    }),
+    mergeMap(context =>
+      doRequest
+        .sendRequest({
+          query: context.query,
+          variables: context.variables
+        })
+        .then(({ data, error }) => ({ context, data, error }))
+    ),
+    switchMap(({ context, data, error }) => {
+      const displayName = getModelLabel({
+        schema,
+        modelName: context.modelName
+      })
+
+      // get errors from context
+      const errors = getDeleteErrors({ data, context })
+      if (errors) {
+        Logger.epicError('requestDeleteModelEpic', context, error)
+        const contactErrors = R.join('. ', errors)
+        return concat([
+          Actions.addDangerAlert({
+            message: `Error deleting ${displayName}. ${contactErrors}`
+          })
+        ])
+      }
+
+      if (error) {
+        Logger.epicError('requestDeleteRelTableModelEpic', context, error)
+        return concat([
+          Actions.addDangerAlert({ message: `Error deleting ${displayName}.` })
+        ])
+      }
+
+      return concat([
+        Actions.fetchModelDetail({
+          modelName: context.parentModel,
+          id: context.parentId
+        }),
+        Actions.addSuccessAlert({
+          message: `${displayName} was successfully deleted.`
+        })
+      ])
+    })
+  )
+
+export const generateRequestDeleteModelFromDetailPageEpic = (
+  schema,
+  doRequest
+) => action$ =>
+  action$.pipe(
+    ofType(consts.REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE),
+    map(R.prop('payload')),
+    map(payload => {
+      const query = doRequest.buildQuery({
+        modelName: payload.modelName,
+        queryType: 'delete'
+      })
+      const variables = { id: payload.id }
+      return { modelName: payload.modelName, id: payload.id, query, variables }
+    }),
+    mergeMap(context =>
+      doRequest
+        .sendRequest({
+          query: context.query,
+          variables: context.variables
+        })
+        .then(({ data, error }) => ({ context, data, error }))
+    ),
+    switchMap(({ context, data, error }) => {
+      const displayName = getModelLabel({
+        schema,
+        modelName: context.modelName
+      })
+
+      // get errors from context
+      const errors = getDeleteErrors({ data, context })
+      if (errors) {
+        Logger.epicError('requestDeleteModelEpic', context, error)
+        const contactErrors = R.join('. ', errors)
+        return concat([
+          Actions.addDangerAlert({
+            message: `Error deleting ${displayName}. ${contactErrors}`
+          })
+        ])
+      }
+
+      if (error) {
+        Logger.epicError('requestDeleteModelFromDetailPageEpic', context, error)
+        return concat([
+          Actions.addDangerAlert({ message: `Error deleting ${displayName}.` })
+        ])
+      }
+
+      return concat([
+        Actions.removeInstance({
+          modelName: context.modelName,
+          id: context.id
+        }),
+        Actions.addSuccessAlert({
+          message: `${displayName} was successfully deleted.`
+        })
+      ])
     })
   )
