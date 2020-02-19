@@ -202,6 +202,7 @@ export const getCreateSubmitValues = ({ schema, formStack, modelName }) => {
     {},
     ...Object.entries(createFields).map(([fieldName]) => ({
       [fieldName]: editFieldToQueryInput({
+        schema,
         modelName,
         fieldName,
         value: getInputValue(fieldName, formStack)
@@ -217,4 +218,50 @@ export const getCreateSubmitValues = ({ schema, formStack, modelName }) => {
       getField(schema, modelName, fieldName)
     )
   }, inputs)
+}
+
+export const fileSubmitToBlob = ({ payload, query, value }) => {
+  const formData = new FormData()
+  const modelName = R.prop('modelName', payload)
+  const fieldName = R.prop('fieldName', payload)
+  const id = R.prop('id', payload)
+  const fileData = R.propOr(false, 'fileData', payload)
+
+  let variableInputDict
+  let fileInputDict
+
+  if (fileData) {
+    variableInputDict = R.map(
+      () => consts.CREATE_FILE,
+      fileData
+    )
+    fileInputDict = fileData
+  } else if (value) {
+    variableInputDict = { [fieldName]: consts.CREATE_FILE }
+    // type needed => reconciliation is not in schema
+    const arrayBuffer = editFieldToQueryInput({
+      modelName,
+      fieldName,
+      value,
+      type: inputTypes.FILE_TYPE
+    })
+    fileInputDict = { [fieldName]: arrayBuffer }
+  }
+  if (query) {
+    formData.append('query', query)
+  }
+  const variables = JSON.stringify({
+    id,
+    input: variableInputDict
+  })
+  formData.append('variables', variables)
+
+  for (const [fieldName, contents] of Object.entries(fileInputDict)) {
+    formData.append(
+      fieldName,
+      new Blob([contents], { type: 'application/octet-stream' }),
+      fieldName
+    )
+  }
+  return formData
 }

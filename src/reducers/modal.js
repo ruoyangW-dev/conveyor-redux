@@ -27,7 +27,7 @@ export const generateModalReducer = () => (state = initState, action) => {
       return { ...state, Delete: groupedData }
     }
     case Actions.CANCEL_DELETE_DETAIL: {
-      return { ...state, Delete: {} }
+      return { ...state, Delete: undefined }
     }
     default:
       return state

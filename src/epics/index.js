@@ -35,6 +35,7 @@ import {
   generateSaveCreateCheckEpic
 } from './validation'
 import { generateSaveCreateEpic } from './create'
+import { generateFetchDeleteDetailEpic } from './modal'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
@@ -94,6 +95,7 @@ export const generateConveyorEpics = (schema, doRequest) => {
   )
   const indexEditSubmitCheckEpic = generateIndexEditSubmitCheckEpic(schema)
   const saveCreateCheckEpic = generateSaveCreateCheckEpic(schema)
+  const fetchDeleteDetailEpic = generateFetchDeleteDetailEpic(doRequest)
 
   return {
     fetchModelIndexEpic,
@@ -118,7 +120,8 @@ export const generateConveyorEpics = (schema, doRequest) => {
     detailAttributeEditSubmitCheckEpic,
     detailTableEditSubmitCheckEpic,
     indexEditSubmitCheckEpic,
-    saveCreateCheckEpic
+    saveCreateCheckEpic,
+    fetchDeleteDetailEpic
   }
 }
 

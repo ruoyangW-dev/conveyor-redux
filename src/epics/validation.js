@@ -28,7 +28,7 @@ export const generateSaveCreateCheckEpic = schema => (action$, state$) =>
     map(R.prop('payload')),
     map(payload => {
       const modelName = R.prop('modelName', payload)
-      const stack = R.path(['value', 'formStack', 'stack'], state$)
+      const stack = R.path(['value', 'create', 'stack'], state$)
       const fields = R.path([stack.length - 1, 'fields'], stack)
       const requiredFields = R.filter(
         val => val !== 'id',

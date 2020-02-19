@@ -13,22 +13,6 @@ import {
   prepValidationErrors
 } from '../utils/helpers'
 
-const getCreateMutation = (schema, modelName) => {
-  const queryName = R.path([modelName, 'queryName'], schema)
-  const mutationString = `
-        mutation Create${modelName}($input: ${modelName}InputRequired!) {
-            create${modelName}(input: $input) {
-                ${queryName} {
-                  __typename
-                  id
-                }
-                errors
-            }
-        }
-    `
-  return `${mutationString}`
-}
-
 export const generateSaveCreateEpic = (schema, doRequest) => (
   actions$,
   state$
@@ -38,7 +22,10 @@ export const generateSaveCreateEpic = (schema, doRequest) => (
     map(R.prop('payload')),
     map(payload => {
       const formStack = selectCreate(state$.value)
-      const query = getCreateMutation(schema, payload.modelName)
+      const query = doRequest.buildQuery({
+        modelName: payload.modelName,
+        queryType: 'create'
+      })
       const createValues = getCreateSubmitValues({
         schema,
         formStack,
@@ -119,4 +106,3 @@ export const generateSaveCreateEpic = (schema, doRequest) => (
       return concat(actions)
     })
   )
-

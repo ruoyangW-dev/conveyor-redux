@@ -11,23 +11,9 @@ import {
   isValidationError,
   prepValidationErrors,
   getEditMutationInputVariables,
-  getDeleteErrors
+  getDeleteErrors,
+  fileSubmitToBlob
 } from '../utils/helpers'
-
-const getEditMutation = (schema, modelName) => {
-  const queryName = R.path([modelName, 'queryName'], schema)
-  return `
-        mutation Update${modelName}($input: ${modelName}Input!, $id: Int!) {
-            update${modelName}(input: $input, id: $id) {
-              ${queryName} {
-                __typename
-                id
-              }
-              errors
-            }
-        }
-    `
-}
 
 export const generateDetailAttributeEditSubmitEpic = (schema, doRequest) => (
   action$,
@@ -51,7 +37,10 @@ export const generateDetailAttributeEditSubmitEpic = (schema, doRequest) => (
         value
       })
       const variables = { id, input: { [fieldName]: inputValue } }
-      const query = getEditMutation(schema, modelName)
+      const query = doRequest.buildQuery({
+        modelName,
+        queryType: 'update'
+      })
 
       return { id, modelName, variables, query, fieldName }
     }),
@@ -118,7 +107,10 @@ export const generateDetailTableEditSubmitEpic = (
       const input = getEditMutationInputVariables({ schema, modelName, node })
       const normalInput = R.omit(imageFieldsList, input)
       const variables = { id, input: { ...normalInput } }
-      const query = getEditMutation(schema, modelName)
+      const query = doRequest.buildQuery({
+        modelName,
+        queryType: 'update'
+      })
       return {
         id,
         modelName,
@@ -207,7 +199,10 @@ export const generateDetailTableRemoveSubmitEpic = (schema, doRequest) => (
     map(payload => {
       const { modelName, fieldName, id, removedId } = { ...payload }
 
-      const query = getEditMutation(schema, modelName)
+      const query = doRequest.buildQuery({
+        modelName,
+        queryType: 'update'
+      })
 
       const updatedFieldList = R.pipe(
         R.pathOr([], ['value', 'model', modelName, 'values', id, fieldName]),
@@ -281,7 +276,10 @@ export const generateIndexEditSubmitEpic = (schema, doRequest) => action$ =>
       const node = R.prop('changedFields', payload)
       const input = getEditMutationInputVariables({ schema, modelName, node })
       const variables = { id, input: { ...input } }
-      const query = getEditMutation(schema, modelName)
+      const query = doRequest.buildQuery({
+        modelName,
+        queryType: 'update'
+      })
 
       return { id, modelName, variables, query }
     }),
@@ -329,7 +327,10 @@ export const generateInlineFileDeleteEpic = (schema, doRequest) => action$ =>
       const modelName = R.prop('modelName', payload)
       const id = R.prop('id', payload)
       return {
-        query: getEditMutation(schema, modelName),
+        query: doRequest.buildQuery({
+          modelName,
+          queryType: 'update'
+        }),
         id,
         modelName,
         variables: {
@@ -365,69 +366,78 @@ export const generateInlineFileDeleteEpic = (schema, doRequest) => action$ =>
     })
   )
 
-/*
-  export const generateInlineFileSubmitEpic = (schema, doRequest) => (action$, state$) => action$.pipe(
+export const generateInlineFileSubmitEpic = (schema, doRequest) => (
+  action$,
+  state$
+) =>
+  action$.pipe(
     ofType(consts.INLINE_FILE_SUBMIT),
     map(R.prop('payload')),
     map(payload => {
       const modelName = R.prop('modelName', payload)
       const fieldName = R.prop('fieldName', payload)
       const id = R.prop('id', payload)
-      return ({
+      return {
         formData: fileSubmitToBlob({
           payload,
-          query: getEditMutation(schema, modelName),
-          value: R.path([
-            'value', 'edit', modelName, id, fieldName, 'currentValue'
-          ], state$)
+          query: doRequest.buildQuery({
+            modelName,
+            queryType: 'update'
+          }),
+          value: R.path(
+            ['value', 'edit', modelName, id, fieldName, 'currentValue'],
+            state$
+          )
         }),
         modelName: modelName,
         fieldName: fieldName,
         id: id,
         ...payload
-      })
+      }
     }),
     mergeMap(context =>
-      sendRequest(
-        () => {
-          const request = new Request(msdConfig.GRAPHQL_ENDPOINT)
-          const init = {
-            method: 'POST',
-            body: context.formData
-          }
-          return fetch(request, init)
-        },
-        context
-      )
+      doRequest
+        .sendRequest({
+          formData: context.formData
+        })
+        .then(({ error }) => ({ context, error }))
     ),
-    switchMap(({ context, data, error }) => {
+    switchMap(({ context, error }) => {
       if (error) {
         Logger.epicError('inlineFileSubmitEpic', context, error)
         return concat([
-          Actions.addDangerAlert({ message: `Could not save Image for ${context.modelName}.` })
+          Actions.addDangerAlert({
+            message: `Could not save Image for ${context.modelName}.`
+          })
         ])
       }
       let actions = [
-        Actions.attributeEditClose({ modelName: context.modelName, fieldName: context.fieldName, id: context.id }),
-        Actions.fetchModelDetail({ modelName: context.modelName, id: context.id })
+        Actions.onAttributeEditCancel({
+          modelName: context.modelName,
+          fieldName: context.fieldName,
+          id: context.id
+        }),
+        Actions.fetchModelDetail({
+          modelName: context.modelName,
+          id: context.id
+        })
       ]
       const parentModelName = R.prop('parentModelName', context)
       const parentId = R.prop('parentId', context)
       // if comes from detail table:
       if (parentModelName && parentId) {
         actions = R.append(
-          Actions.fetchModelDetail({ modelName: parentModelName, id: parentId }),
+          Actions.fetchModelDetail({
+            modelName: parentModelName,
+            id: parentId
+          }),
           actions
         )
       }
       if (R.prop('fromCreate', context)) {
         // comes from create page
-        actions = R.append(
-          Actions.createSuccessful({}),
-          actions
-        )
+        actions = R.append(Actions.onSaveCreateSuccessful({}), actions)
       }
       return concat(actions)
     })
   )
-  */
