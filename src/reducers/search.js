@@ -14,7 +14,14 @@ export const initState = {
   dropdown: false
 }
 
-export const generateSearchReducer = schema => (state = initState, action) => {
+export const generateSearchReducer = ({ schema, customActions = {} }) => (
+  state = initState,
+  action
+) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   switch (action.type) {
     case UPDATE_SEARCH_ENTRIES: {
       const data = R.pathOr({}, ['payload', 'data'], action)

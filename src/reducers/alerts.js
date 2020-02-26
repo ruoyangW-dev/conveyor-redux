@@ -10,7 +10,14 @@ const handleError = ({ payload, type }) => {
   return R.assoc('type', type, payload)
 }
 
-export const generateAlertReducer = () => (state = initState, action) => {
+export const generateAlertReducer = ({ customActions = {} }) => (
+  state = initState,
+  action
+) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   switch (action.type) {
     case Actions.ADD_DANGER_ALERT:
       return [
@@ -24,4 +31,3 @@ export const generateAlertReducer = () => (state = initState, action) => {
 }
 
 export const selectAlerts = R.propOr(initState, 'alerts')
-

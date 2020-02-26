@@ -4,7 +4,14 @@ import { getDisplayValue, getField } from 'conveyor'
 
 const initState = {}
 
-export const generateOptionsReducer = schema => (state = initState, action) => {
+export const generateOptionsReducer = ({ schema, customActions = {} }) => (
+  state = initState,
+  action
+) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   const payload = R.prop('payload', action)
   const fieldName = R.prop('fieldName', payload)
   const modelName = R.prop('modelName', payload)

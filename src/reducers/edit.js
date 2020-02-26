@@ -45,7 +45,14 @@ const getEditValue = (schema, { modelName, fieldName, value }) => {
   return value
 }
 
-export const generateEditReducer = schema => (state = initState, action) => {
+export const generateEditReducer = ({ schema, customActions = {} }) => (
+  state = initState,
+  action
+) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   const payload = action.payload
   switch (action.type) {
     case LOCATION_CHANGE:

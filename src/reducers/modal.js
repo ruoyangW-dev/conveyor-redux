@@ -19,7 +19,14 @@ const groupModels = (collection, property) => {
   return result
 }
 
-export const generateModalReducer = () => (state = initState, action) => {
+export const generateModalReducer = ({ customActions = {} }) => (
+  state = initState,
+  action
+) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   switch (action.type) {
     case Actions.UPDATE_DELETE_DETAIL: {
       const deletes = R.path(['payload', 'data', 'checkDelete'], action)

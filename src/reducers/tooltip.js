@@ -20,7 +20,14 @@ export const isOneToMany = field => {
   return R.pathOr(false, ['type', 'type'], field) === 'OneToMany'
 }
 
-export const generateTooltipReducer = schema => (state = initState, action) => {
+export const generateTooltipReducer = ({ schema, customActions = {} }) => (
+  state = initState,
+  action
+) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   const payload = R.prop('payload', action)
   switch (action.type) {
     case Actions.TOOLTIP_OPEN: {

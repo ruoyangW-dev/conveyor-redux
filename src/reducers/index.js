@@ -7,27 +7,45 @@ import { generateOptionsReducer } from './options'
 import { generateTooltipReducer } from './tooltip'
 import { generateTableViewReducer } from './tableView'
 import { generateSearchReducer } from './search'
+import * as R from 'ramda'
 
-export const generateConveyorReducers = schema => {
-  const alerts = generateAlertReducer(schema)
-  const create = generateCreateReducer(schema)
-  const edit = generateEditReducer(schema)
-  const modal = generateModalReducer(schema)
-  const model = generateModelReducer(schema)
-  const options = generateOptionsReducer(schema)
-  const tooltip = generateTooltipReducer(schema)
-  const tableView = generateTableViewReducer(schema)
-  const search = generateSearchReducer(schema)
+const generateReducerMap = {
+  alerts: generateAlertReducer,
+  create: generateCreateReducer,
+  edit: generateEditReducer,
+  modal: generateModalReducer,
+  model: generateModelReducer,
+  options: generateOptionsReducer,
+  tooltip: generateTooltipReducer,
+  tableView: generateTableViewReducer,
+  search: generateSearchReducer
+}
 
-  return {
-    alerts,
-    create,
-    edit,
-    modal,
-    model,
-    options,
-    search,
-    tooltip,
-    tableView
-  }
+const validateCustomReducer = (customReducer, key) => {
+  return R.filter(
+    R.identity,
+    R.mapObjIndexed((actionFunc, action) => {
+      if (R.type(actionFunc) === 'Function') {
+        return actionFunc
+      } else {
+        console.warn(
+          `WARNING: Non-function type supplied for custom action (${action}) in reducer (${key}) --- IGNORING!`
+        )
+        return undefined
+      }
+    }, customReducer)
+  )
+}
+
+export const generateConveyorReducers = ({ schema, customReducers = {} }) => {
+  return R.filter(
+    R.identity,
+    R.mapObjIndexed((generateReducer, key) => {
+      if (customReducers[key] === false) {
+        return undefined
+      }
+      console.log(key, validateCustomReducer(customReducers[key], key))
+      return generateReducer({ schema, customActions: validateCustomReducer(customReducers[key], key) })
+    }, generateReducerMap)
+  )
 }

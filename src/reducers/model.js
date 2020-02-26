@@ -96,7 +96,14 @@ const updateIndex = (state, modelName, data) => {
   return { ...state, [modelName]: newStore }
 }
 
-export const generateModelReducer = () => (state = initState, action) => {
+export const generateModelReducer = ({ customActions = {} }) => (
+  state = initState,
+  action
+) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   const modelName = R.path(['payload', 'modelName'], action)
 
   switch (action.type) {

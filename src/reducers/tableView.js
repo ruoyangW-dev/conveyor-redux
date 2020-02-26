@@ -6,10 +6,14 @@ const DEFAULT_PAGINATION_AMT = 20
 
 const initState = { amtPerPage: DEFAULT_PAGINATION_AMT }
 
-export const generateTableViewReducer = schema => (
+export const generateTableViewReducer = ({ schema, customActions = {} }) => (
   state = initState,
   action
 ) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   const payload = action.payload
   const removeAll = modelName => {
     return R.dissocPath(

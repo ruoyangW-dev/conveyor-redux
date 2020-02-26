@@ -53,7 +53,7 @@ const handleDetailCreate = (schema, state, action) => {
     node
   })
   const parentId = R.prop('id', node)
-  
+
   const type = getType({
     schema,
     modelName: R.path(['payload', 'modelName'], action),
@@ -104,7 +104,14 @@ const handleClearErrorSave = state => {
   return R.dissocPath(['stack', R.prop('index', state), 'errors'], state)
 }
 
-export const generateCreateReducer = schema => (state = initState, action) => {
+export const generateCreateReducer = ({ schema, customActions = {} }) => (
+  state = initState,
+  action
+) => {
+  if (R.has(action.type, customActions)) {
+    return customActions[action.type](state)
+  }
+
   switch (action.type) {
     case Actions.CREATE_INPUT_CHANGE:
       return handleCreateInputChange(state, action)
