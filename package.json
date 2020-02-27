@@ -1,6 +1,6 @@
 {
   "name": "conveyor-redux",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generates reducers and epics for use with conveyor",
   "author": "Moebius Solutions",
   "license": "BSD-3-Clause",

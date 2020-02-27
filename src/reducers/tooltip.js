@@ -25,7 +25,7 @@ export const generateTooltipReducer = ({ schema, customActions = {} }) => (
   action
 ) => {
   if (R.has(action.type, customActions)) {
-    return customActions[action.type](state)
+    return customActions[action.type](state, action)
   }
 
   const payload = R.prop('payload', action)

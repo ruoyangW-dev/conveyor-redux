@@ -19,7 +19,7 @@ export const generateSearchReducer = ({ schema, customActions = {} }) => (
   action
 ) => {
   if (R.has(action.type, customActions)) {
-    return customActions[action.type](state)
+    return customActions[action.type](state, action)
   }
 
   switch (action.type) {

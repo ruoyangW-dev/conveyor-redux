@@ -27,11 +27,15 @@ const validateCustomReducer = (customReducer, key) => {
     R.mapObjIndexed((actionFunc, action) => {
       if (R.type(actionFunc) === 'Function') {
         return actionFunc
-      } else {
+      }
+      else if(actionFunc === false) {
+        return R.identity
+      }
+      else {
         console.warn(
           `WARNING: Non-function type supplied for custom action (${action}) in reducer (${key}) --- IGNORING!`
         )
-        return undefined
+        return R.identity
       }
     }, customReducer)
   )
@@ -44,7 +48,6 @@ export const generateConveyorReducers = ({ schema, customReducers = {} }) => {
       if (customReducers[key] === false) {
         return undefined
       }
-      console.log(key, validateCustomReducer(customReducers[key], key))
       return generateReducer({ schema, customActions: validateCustomReducer(customReducers[key], key) })
     }, generateReducerMap)
   )

@@ -101,7 +101,7 @@ export const generateModelReducer = ({ customActions = {} }) => (
   action
 ) => {
   if (R.has(action.type, customActions)) {
-    return customActions[action.type](state)
+    return customActions[action.type](state, action)
   }
 
   const modelName = R.path(['payload', 'modelName'], action)

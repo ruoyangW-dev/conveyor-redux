@@ -15,7 +15,7 @@ export const generateAlertReducer = ({ customActions = {} }) => (
   action
 ) => {
   if (R.has(action.type, customActions)) {
-    return customActions[action.type](state)
+    return customActions[action.type](state, action)
   }
 
   switch (action.type) {
