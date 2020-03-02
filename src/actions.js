@@ -46,7 +46,6 @@ export const onValidationErrorCreate = actionDisp(Actions.VALIDATION_ERROR_CREAT
 
 // tooltip
 
-export const onTooltipOpen = actionDisp(Actions.TOOLTIP_OPEN)
 export const fetchModelTooltip = actionDisp(Actions.FETCH_MODEL_TOOLTIP)
 export const updateModelTooltip = actionDisp(Actions.UPDATE_MODEL_TOOLTIP)
 

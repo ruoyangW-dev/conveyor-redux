@@ -6,7 +6,7 @@ import {
   getType,
   isRel,
   storeValueToArrayBuffer
-} from 'conveyor'
+} from '@autoinvent/conveyor'
 import * as R from 'ramda'
 import * as consts from '../actionConsts'
 import * as Logger from './Logger'

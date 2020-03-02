@@ -1,33 +1,41 @@
-import { generateAlertReducer } from './alerts'
-import { generateCreateReducer } from './create'
-import { generateEditReducer } from './edit'
-import { generateModalReducer } from './modal'
-import { generateModelReducer } from './model'
-import { generateOptionsReducer } from './options'
-import { generateTooltipReducer } from './tooltip'
-import { generateTableViewReducer } from './tableView'
-import { generateSearchReducer } from './search'
+import * as R from 'ramda'
+import { combineReducers } from 'redux'
+import { AlertsReducer } from './alerts'
+import { CreateReducer } from './create'
+import { EditReducer } from './edit'
+import { ModalReducer } from './modal'
+import { ModelReducer } from './model'
+import { OptionsReducer } from './options'
+import { TooltipReducer } from './tooltip'
+import { TableViewReducer } from './tableView'
+import { SearchReducer } from './search'
 
-export const generateConveyorReducers = schema => {
-  const alerts = generateAlertReducer(schema)
-  const create = generateCreateReducer(schema)
-  const edit = generateEditReducer(schema)
-  const modal = generateModalReducer(schema)
-  const model = generateModelReducer(schema)
-  const options = generateOptionsReducer(schema)
-  const tooltip = generateTooltipReducer(schema)
-  const tableView = generateTableViewReducer(schema)
-  const search = generateSearchReducer(schema)
+const conveyorReducerMap = {
+  alerts: AlertsReducer,
+  create: CreateReducer,
+  edit: EditReducer,
+  modal: ModalReducer,
+  model: ModelReducer,
+  options: OptionsReducer,
+  tooltip: TooltipReducer,
+  tableView: TableViewReducer,
+  search: SearchReducer
+}
 
-  return {
-    alerts,
-    create,
-    edit,
-    modal,
-    model,
-    options,
-    search,
-    tooltip,
-    tableView
+export class ConveyorReducer {
+  constructor(schema, overrides) {
+    const mergedReducerMap = R.filter(
+      R.identity,
+      R.mergeRight(conveyorReducerMap, overrides)
+    )
+    R.forEachObjIndexed((Reducer, key) => {
+      this[key] = new Reducer(schema)
+    }, mergedReducerMap)
+  }
+
+  makeReducer() {
+    return combineReducers(
+      R.map(Reducer => (state, action) => Reducer.reduce(state, action), this)
+    )
   }
 }

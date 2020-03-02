@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import {
   SEARCH_QUERY_TEXT_CHANGED,
   SEARCH_QUERY_LINK_CLICKED,
@@ -5,71 +6,67 @@ import {
   SEARCH_BLUR,
   TRIGGER_SEARCH
 } from '../actionConsts'
-import * as R from 'ramda'
-import { getDisplayValue, getModelLabel } from 'conveyor'
+import { initState } from '../utils/search'
+import { getDisplayValue, getModelLabel } from '@autoinvent/conveyor'
 
-export const initState = {
-  queryText: '',
-  entries: [],
-  dropdown: false
-}
+export class SearchReducer {
+  constructor(schema) {
+    this.schema = schema
+  }
 
-export const generateSearchReducer = schema => (state = initState, action) => {
-  switch (action.type) {
-    case UPDATE_SEARCH_ENTRIES: {
-      const data = R.pathOr({}, ['payload', 'data'], action)
-      if (R.pathOr(0, ['search', 'length'], data) <= 0) {
-        return { ...state, entries: [] }
-      }
+  [UPDATE_SEARCH_ENTRIES](state, action) {
+    const data = R.pathOr({}, ['payload', 'data'], action)
+    if (R.pathOr(0, ['search', 'length'], data) <= 0) {
+      return { ...state, entries: [] }
+    }
 
-      const entries = R.pipe(
-        R.propOr([], 'search'),
-        R.map(entry => ({
-          id: entry.id,
+    const entries = R.pipe(
+      R.propOr([], 'search'),
+      R.map(entry => ({
+        id: entry.id,
+        modelName: entry.__typename,
+        modelLabel: getModelLabel({
+          schema: this.schema,
           modelName: entry.__typename,
-          modelLabel: getModelLabel({
-            schema,
-            modelName: entry.__typename,
-            node: entry
-          }),
-          name: getDisplayValue({
-            schema,
-            modelName: entry.__typename,
-            node: entry
-          })
-        })),
-        R.map(obj => ({
-          ...obj,
-          detailURL: `/${obj.modelName}/${obj.id}`
-        }))
-      )(data)
-      return { ...state, entries }
+          node: entry
+        }),
+        name: getDisplayValue({
+          schema: this.schema,
+          modelName: entry.__typename,
+          node: entry
+        })
+      })),
+      R.map(obj => ({
+        ...obj,
+        detailURL: `/${obj.modelName}/${obj.id}`
+      }))
+    )(data)
+    return { ...state, entries }
+  }
+
+  [SEARCH_QUERY_TEXT_CHANGED](state, action){
+    const newQueryText = action.payload.queryText
+    if (newQueryText) {
+      return R.assoc('queryText', newQueryText, state)
     }
-    case SEARCH_QUERY_TEXT_CHANGED: {
-      const newQueryText = action.payload.queryText
-      if (newQueryText) {
-        return R.assoc('queryText', newQueryText, state)
-      }
-      return initState
-    }
-    case SEARCH_QUERY_LINK_CLICKED:
-      return initState
-    case SEARCH_BLUR:
-      return R.assoc('dropdown', false, state)
-    case TRIGGER_SEARCH:
-      return R.assoc('dropdown', true, state)
-    default:
-      return state
+    return initState
+  }
+
+  [SEARCH_QUERY_LINK_CLICKED](){
+    return initState
+  }
+
+  [SEARCH_BLUR](state){
+    return R.assoc('dropdown', false, state)
+  }
+
+  [TRIGGER_SEARCH](state){
+    return R.assoc('dropdown', true, state)
+  }
+
+  reduce(state = initState, action) {
+    if (this && R.type(this[action.type]) === 'Function')
+      return this[action.type](state, action)
+    else return state
   }
 }
-
-export const selectSearch = R.propOr(initState, 'search')
-
-export const selectSearchDropdown = state =>
-  R.prop('dropdown', selectSearch(state))
-
-export const selectSearchEntries = state =>
-  R.prop('entries', selectSearch(state))
-
-export const selectSearchQueryText = state =>
-  R.prop('queryText', selectSearch(state))

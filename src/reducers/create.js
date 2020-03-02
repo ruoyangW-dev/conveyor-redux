@@ -1,132 +1,70 @@
 import * as R from 'ramda'
-import * as Actions from '../actionConsts'
-import { getDisplayValue, getType } from 'conveyor'
+import {
+  initState,
+  handleCreateInputChange,
+  handleStackPop,
+  handleClearErrorSave,
+  handleStackPush,
+  handleDetailCreate,
+  handleEnterFormStack,
+  handleValidationErrorCreate
+} from '../utils/create'
+import {
+  CREATE_INPUT_CHANGE,
+  CANCEL_CREATE,
+  SAVE_CREATE_SUCCESSFUL,
+  SAVE_CREATE,
+  STACK_CREATE,
+  DETAIL_CREATE,
+  INDEX_CREATE,
+  UPDATE_FORM_STACK_INDEX,
+  VALIDATION_ERROR_CREATE
+} from '../actionConsts'
 
-const initState = {
-  index: -1,
-  stack: []
-}
-
-const handleStackPop = state => {
-  const stack = R.prop('stack', state)
-  stack.pop()
-  const newIndex = R.prop('index', state) - 1
-  state = R.assoc('stack', stack, state)
-  return R.assoc('index', newIndex, state)
-}
-
-const handleStackPush = (state, action) => {
-  const stack = R.prop('stack', state)
-  const newIndex = R.prop('index', state) + 1
-  state = R.assoc(
-    'stack',
-    R.append({ modelName: R.path(['payload', 'modelName'], action) }, stack),
-    state
-  )
-  state = R.assoc('index', newIndex, state)
-  return R.assocPath(['stack', newIndex, 'fields'], {}, state)
-}
-
-export const clearFormStack = () => {
-  return initState
-}
-
-const handleEnterFormStack = (state, action) => {
-  state = clearFormStack()
-  const originPath = R.path(['payload', 'path'], action)
-  state = handleStackPush(state, action)
-  return R.assoc('originPath', originPath, state)
-}
-
-const handleDetailCreate = (schema, state, action) => {
-  const payload = R.prop('payload', action)
-  const node = R.prop('node', payload)
-  const targetInverseFieldName = R.prop('targetInverseFieldName', payload)
-  const parentModelName = R.pipe(
-    R.prop('path'),
-    R.split('/'),
-    R.nth(1)
-  )(payload)
-  const parentName = getDisplayValue({
-    schema,
-    modelName: parentModelName,
-    node
-  })
-  const parentId = R.prop('id', node)
-  
-  const type = getType({
-    schema,
-    modelName: R.path(['payload', 'modelName'], action),
-    fieldName: targetInverseFieldName
-  })
-  const fieldData = {
-    label: parentName,
-    value: parentId,
-    disabled: true
+export class CreateReducer {
+  constructor(schema) {
+    this.schema = schema
   }
-  const prepopulatedField = type.includes('ToMany') ? [fieldData] : fieldData
-  state = R.assocPath(
-    ['stack', 0, 'fields', targetInverseFieldName],
-    prepopulatedField,
-    handleEnterFormStack(state, action)
-  )
-  state = R.assoc('originModelName', parentModelName, state)
-  state = R.assoc('originFieldName', targetInverseFieldName, state)
-  return R.assoc('originNode', node, state)
-}
 
-const handleCreateInputChange = (state, action) => {
-  const currentIndex = R.prop('index', state)
-  const payload = R.prop('payload', action)
-  return R.assocPath(
-    ['stack', currentIndex, 'fields', payload.fieldName],
-    payload.value,
-    state
-  )
-}
+  [CREATE_INPUT_CHANGE](state, action) {
+    return handleCreateInputChange(state, action)
+  }
 
-const handleValidationErrorCreate = (state, action) => {
-  const payload = R.prop('payload', action)
-  const stackIndex = R.prop('index', state)
-  const errors = R.propOr([], 'errors', payload)
+  [CANCEL_CREATE](state) {
+    return handleStackPop(state)
+  }
 
-  R.forEach(fieldNameError => {
-    state = R.assocPath(
-      R.prop(fieldNameError, errors),
-      ['stack', stackIndex, 'errors', fieldNameError],
-      state
-    )
-  }, Object.keys(errors))
-  return state
-}
+  [SAVE_CREATE_SUCCESSFUL](state) {
+    return handleStackPop(state)
+  }
 
-const handleClearErrorSave = state => {
-  return R.dissocPath(['stack', R.prop('index', state), 'errors'], state)
-}
+  [SAVE_CREATE](state) {
+    return handleClearErrorSave(state)
+  }
 
-export const generateCreateReducer = schema => (state = initState, action) => {
-  switch (action.type) {
-    case Actions.CREATE_INPUT_CHANGE:
-      return handleCreateInputChange(state, action)
-    case Actions.CANCEL_CREATE:
-    case Actions.SAVE_CREATE_SUCCESSFUL:
-      return handleStackPop(state)
-    case Actions.SAVE_CREATE:
-      return handleClearErrorSave(state)
-    case Actions.STACK_CREATE:
-      return handleStackPush(state, action)
-    case Actions.DETAIL_CREATE:
-      return handleDetailCreate(schema, state, action)
-    case Actions.INDEX_CREATE:
-      return handleEnterFormStack(state, action)
-    case Actions.UPDATE_FORM_STACK_INDEX:
-      return R.assoc('index', R.path(['payload', 'index'], action), state)
-    case Actions.VALIDATION_ERROR_CREATE:
-      return handleValidationErrorCreate(state, action)
+  [STACK_CREATE](state, action) {
+    return handleStackPush(state, action)
+  }
 
-    default:
-      return state
+  [DETAIL_CREATE](state, action) {
+    return handleDetailCreate(this.schema, state, action)
+  }
+
+  [INDEX_CREATE](state, action) {
+    return handleEnterFormStack(state, action)
+  }
+
+  [UPDATE_FORM_STACK_INDEX](state, action) {
+    return R.assoc('index', R.path(['payload', 'index'], action), state)
+  }
+
+  [VALIDATION_ERROR_CREATE](state, action) {
+    return handleValidationErrorCreate(state, action)
+  }
+
+  reduce(state = initState, action) {
+    if (this && R.type(this[action.type]) === 'Function')
+      return this[action.type](state, action)
+    else return state
   }
 }
-
-export const selectCreate = state => R.propOr(initState, 'create', state)
