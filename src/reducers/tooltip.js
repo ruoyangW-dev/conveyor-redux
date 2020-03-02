@@ -1,194 +1,116 @@
 import * as R from 'ramda'
-import * as Actions from '../actionConsts'
+import { UPDATE_MODEL_TOOLTIP } from '../actionConsts'
 import {
   getDisplayValue,
   getField,
-  getTooltipFields,
   getFieldLabel,
   getType,
   getEnumLabel,
-  isManyToMany
-} from 'conveyor'
+  inputTypes
+} from '@autoinvent/conveyor'
+import { initState } from '../utils/tooltip'
 
-export const initState = []
-
-export const isManyToOne = field => {
-  return R.pathOr(false, ['type', 'type'], field) === 'ManyToOne'
-}
-
-export const isOneToMany = field => {
-  return R.pathOr(false, ['type', 'type'], field) === 'OneToMany'
-}
-
-export const generateTooltipReducer = ({ schema, customActions = {} }) => (
-  state = initState,
-  action
-) => {
-  if (R.has(action.type, customActions)) {
-    return customActions[action.type](state, action)
+export class TooltipReducer {
+  constructor(schema) {
+    this.schema = schema
   }
 
-  const payload = R.prop('payload', action)
-  switch (action.type) {
-    case Actions.TOOLTIP_OPEN: {
-      const id = R.prop('id', payload)
-      const modelName = R.prop('modelName', payload)
-      const rawData = R.prop('rawData', payload)
+  [UPDATE_MODEL_TOOLTIP](state, action) {
+    const payload = R.prop('payload', action)
+    const { id, modelName, data } = { ...payload }
+    const result = R.prop('result', data)
+    const tooltipData = []
 
-      // example of what tooltip data would look like
-      // modelName => [list of id's] => [list object attributes]
-      const tooltipData = []
+    for (const fieldName in result) {
+      const value = R.prop(fieldName, result)
+      const name = getFieldLabel({ schema: this.schema, modelName, fieldName })
+      const type = getType({ schema: this.schema, modelName, fieldName })
+      const field = getField(this.schema, modelName, fieldName)
 
-      // get fields that should appear in tooltip
-      // >>> ["name", "description"]
-      const showTooltipFields = getTooltipFields(schema, modelName)
-
-      R.mapObjIndexed((value, name) => {
-        const field = getField(schema, modelName, name)
-        if (R.contains(name, showTooltipFields)) {
-          // add values to 'tooltipData' in this format:
-          // { name: <fieldName>, value: [{value}, ... ] }
-          if (value === null) {
-            tooltipData.push({
-              name,
-              value: [
-                {
-                  text: 'N/A'
-                }
-              ]
-            })
-          } else if (isOneToMany(field)) {
-            const relModelName = R.path(['type', 'target'], field)
-            const values = value.map(node => {
-              const text = getDisplayValue({
-                schema,
-                modelName: relModelName,
-                node
-              })
-              return {
-                text,
-                url: `/${relModelName}/${R.prop('id', node)}`
-              }
-            })
-            tooltipData.push({
-              name,
-              value: values
-            })
-          } else if (isManyToOne(field)) {
-            const relModelName = R.path(['type', 'target'], field)
-            const text = getDisplayValue({
-              schema,
-              modelName: relModelName,
-              node: value
-            })
-            tooltipData.push({
-              name,
-              value: [
-                {
-                  text,
-                  url: `/${relModelName}/${R.prop('id', value)}`
-                }
-              ]
-            })
-          } else {
-            tooltipData.push({
-              name,
-              value: [
-                {
-                  text: value
-                }
-              ]
-            })
-          }
-        }
-      }, rawData)
-      return R.assocPath([modelName, id.toString()], tooltipData, state)
-    }
-    case Actions.UPDATE_MODEL_TOOLTIP: {
-      const id = R.prop('id', payload)
-      const modelName = R.prop('modelName', payload)
-      const result = R.path(['data', 'result'], payload)
-      const tooltipData = []
-
-      for (const fieldName in result) {
-        const value = R.prop(fieldName, result)
-        const name = getFieldLabel({ schema, modelName, fieldName })
-        const type = getType({ schema, modelName, fieldName })
-        const field = getField(schema, modelName, fieldName)
-
-        if (value === null) {
-          tooltipData.push({
-            name,
-            value: [
-              {
-                text: 'N/A'
-              }
-            ]
-          })
-        } else if (type === 'enum') {
-          tooltipData.push({
-            name,
-            value: [
-              {
-                text: getEnumLabel({ schema, modelName, fieldName, value })
-              }
-            ]
-          })
-        } else if (isManyToMany(field)) {
-          const relModelName = R.path(['type', 'target'], field)
-          const values = value.map(node => {
-            const text = getDisplayValue({
-              schema,
-              modelName: relModelName,
-              node
-            })
-
-            return {
-              text,
-              url: `/${relModelName}/${R.prop('id', node)}`
+      if (value === null) {
+        tooltipData.push({
+          name,
+          value: [
+            {
+              text: 'N/A'
             }
-          })
-          tooltipData.push({
-            name,
-            value: values
-          })
-        } else if (isManyToOne(field)) {
-          const relModelName = R.path(
-            ['type', 'target'],
-            getField(schema, modelName, fieldName)
-          )
+          ]
+        })
+      } else if (type === 'enum') {
+        tooltipData.push({
+          name,
+          value: [
+            {
+              text: getEnumLabel({
+                schema: this.schema,
+                modelName,
+                fieldName,
+                value
+              })
+            }
+          ]
+        })
+      } else if (
+        getType({ schema: this.schema, modelName, fieldName }) ===
+        inputTypes.MANY_TO_MANY_TYPE
+      ) {
+        const relModelName = R.path(['type', 'target'], field)
+        const values = value.map(node => {
           const text = getDisplayValue({
-            schema,
+            schema: this.schema,
             modelName: relModelName,
-            node: value
+            node
           })
-          tooltipData.push({
-            name,
-            value: [
-              {
-                text,
-                url: `/${relModelName}/${R.prop('id', value)}`
-              }
-            ]
-          })
-        } else {
-          tooltipData.push({
-            name,
-            value: [
-              {
-                text: value
-              }
-            ]
-          })
-        }
-      }
 
-      return R.assocPath([modelName, id.toString()], tooltipData, state)
+          return {
+            text,
+            url: `/${relModelName}/${R.prop('id', node)}`
+          }
+        })
+        tooltipData.push({
+          name,
+          value: values
+        })
+      } else if (
+        getType({ schema: this.schema, modelName, fieldName }) ===
+        inputTypes.MANY_TO_ONE_TYPE
+      ) {
+        const relModelName = R.path(
+          ['type', 'target'],
+          getField(this.schema, modelName, fieldName)
+        )
+        const text = getDisplayValue({
+          schema: this.schema,
+          modelName: relModelName,
+          node: value
+        })
+        tooltipData.push({
+          name,
+          value: [
+            {
+              text,
+              url: `/${relModelName}/${R.prop('id', value)}`
+            }
+          ]
+        })
+      } else {
+        tooltipData.push({
+          name,
+          value: [
+            {
+              text: value
+            }
+          ]
+        })
+      }
     }
 
-    default:
-      return state
+    return R.assocPath([modelName, id.toString()], tooltipData, state)
+  }
+
+  reduce(state = initState, action) {
+    if (this && R.type(this[action.type]) === 'Function')
+      return this[action.type](state, action)
+    else return state
   }
 }
-
-export const selectTooltip = R.propOr(initState, 'tooltip')

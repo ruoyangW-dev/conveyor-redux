@@ -5,8 +5,8 @@ import * as R from 'ramda'
 import * as consts from '../actionConsts'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
-import { getFields, inputTypes } from 'conveyor'
-import { selectCreate } from '../reducers/create'
+import { getFields, inputTypes } from '@autoinvent/conveyor'
+import { selectCreate } from '../utils/create'
 import {
   getCreateSubmitValues,
   isValidationError,

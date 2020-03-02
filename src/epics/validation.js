@@ -3,11 +3,11 @@ import { map } from 'rxjs/operators'
 import * as consts from '../actionConsts'
 import * as R from 'ramda'
 import * as Actions from '../actions'
-import { getRequiredFields, getFieldLabel } from 'conveyor'
+import { getRequiredFields, getFieldLabel } from '@autoinvent/conveyor'
 
 const tableChangedFields = ({ modelName, id, state$ }) =>
   R.pipe(
-    R.path(['value', 'edit', modelName, id]),
+    R.path(['value', 'conveyor', 'edit', modelName, id]),
     R.filter(
       val => !R.equals(R.prop('currentValue', val), R.prop('initialValue', val))
     ),
@@ -28,7 +28,7 @@ export const generateSaveCreateCheckEpic = schema => (action$, state$) =>
     map(R.prop('payload')),
     map(payload => {
       const modelName = R.prop('modelName', payload)
-      const stack = R.path(['value', 'create', 'stack'], state$)
+      const stack = R.path(['value', 'conveyor', 'create', 'stack'], state$)
       const fields = R.path([stack.length - 1, 'fields'], stack)
       const requiredFields = R.filter(
         val => val !== 'id',
@@ -65,11 +65,11 @@ export const generateDetailAttributeEditSubmitCheckEpic = schema => (
       const fieldName = R.prop('fieldName', payload)
       const id = R.prop('id', payload)
       const currentValue = R.path(
-        ['value', 'edit', modelName, id, fieldName, 'currentValue'],
+        ['value', 'conveyor', 'edit', modelName, id, fieldName, 'currentValue'],
         state$
       )
       const initialValue = R.path(
-        ['value', 'edit', modelName, id, fieldName, 'initialValue'],
+        ['value', 'conveyor', 'edit', modelName, id, fieldName, 'initialValue'],
         state$
       )
 

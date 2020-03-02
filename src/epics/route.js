@@ -2,7 +2,7 @@ import { LOCATION_CHANGE } from 'connected-react-router'
 import { ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
-import { getHasIndex, getHasDetail } from 'conveyor'
+import { getHasIndex, getHasDetail } from '@autoinvent/conveyor'
 import * as R from 'ramda'
 import * as Actions from '../actions'
 

@@ -1,7 +1,7 @@
 import { ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
-import { getFieldLabel, getFields, inputTypes, getModelLabel } from 'conveyor'
+import { getFieldLabel, getFields, inputTypes, getModelLabel } from '@autoinvent/conveyor'
 import * as R from 'ramda'
 import * as Actions from '../actions'
 import * as consts from '../actionConsts'
@@ -27,7 +27,7 @@ export const generateDetailAttributeEditSubmitEpic = (schema, doRequest) => (
       const fieldName = R.prop('fieldName', payload)
       const id = R.prop('id', payload)
       const value = R.path(
-        ['value', 'edit', modelName, id, fieldName, 'currentValue'],
+        ['value', 'conveyor', 'edit', modelName, id, fieldName, 'currentValue'],
         state$
       )
       const inputValue = editFieldToQueryInput({
@@ -205,7 +205,7 @@ export const generateDetailTableRemoveSubmitEpic = (schema, doRequest) => (
       })
 
       const updatedFieldList = R.pipe(
-        R.pathOr([], ['value', 'model', modelName, 'values', id, fieldName]),
+        R.pathOr([], ['value', 'conveyor', 'model', modelName, 'values', id, fieldName]),
         R.map(obj => obj.id),
         R.without([removedId])
       )(state$)
@@ -385,7 +385,7 @@ export const generateInlineFileSubmitEpic = (schema, doRequest) => (
             queryType: 'update'
           }),
           value: R.path(
-            ['value', 'edit', modelName, id, fieldName, 'currentValue'],
+            ['value', 'conveyor', 'edit', modelName, id, fieldName, 'currentValue'],
             state$
           )
         }),

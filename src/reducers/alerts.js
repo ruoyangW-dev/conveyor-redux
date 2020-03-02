@@ -1,33 +1,19 @@
-import * as Actions from '../actionConsts'
 import * as R from 'ramda'
+import { initState, handleError } from '../utils/alerts'
+import { ADD_DANGER_ALERT } from '../actionConsts'
 
-export const initState = []
-
-const handleError = ({ payload, type }) => {
-  if (!payload.expiresOn && !payload.noExpire) {
-    payload.expiresOn = Date.now() + 5 * 1000
-  }
-  return R.assoc('type', type, payload)
-}
-
-export const generateAlertReducer = ({ customActions = {} }) => (
-  state = initState,
-  action
-) => {
-  if (R.has(action.type, customActions)) {
-    return customActions[action.type](state, action)
+export class AlertsReducer {
+  constructor(schema) {
+    this.schema = schema
   }
 
-  switch (action.type) {
-    case Actions.ADD_DANGER_ALERT:
-      return [
-        ...state,
-        handleError({ payload: action.payload, type: 'danger' })
-      ]
+  [ADD_DANGER_ALERT](state, action) {
+    return [...state, handleError({ payload: action.payload, type: 'danger' })]
+  }
 
-    default:
-      return state
+  reduce(state = initState, action) {
+    if (this && R.type(this[action.type]) === 'Function')
+      return this[action.type](state, action)
+    else return state
   }
 }
-
-export const selectAlerts = R.propOr(initState, 'alerts')
