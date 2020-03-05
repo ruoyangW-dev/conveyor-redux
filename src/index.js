@@ -1,5 +1,5 @@
 import { ConveyorReducer } from './reducers'
-import { generateConveyorEpics } from './epics'
+import { ConveyorEpic } from './epics'
 
 export { ConveyorReducer }
-export { generateConveyorEpics }
+export { ConveyorEpic }

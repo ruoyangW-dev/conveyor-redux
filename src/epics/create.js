@@ -2,7 +2,7 @@ import { ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
 import * as R from 'ramda'
-import * as consts from '../actionConsts'
+import { SAVE_CREATE } from '../actionConsts'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import { getFields, inputTypes } from '@autoinvent/conveyor'
@@ -12,97 +12,102 @@ import {
   isValidationError,
   prepValidationErrors
 } from '../utils/helpers'
+import { Epic } from './epic'
 
-export const generateSaveCreateEpic = (schema, doRequest) => (
-  actions$,
-  state$
-) =>
-  actions$.pipe(
-    ofType(consts.SAVE_CREATE),
-    map(R.prop('payload')),
-    map(payload => {
-      const formStack = selectCreate(state$.value)
-      const query = doRequest.buildQuery({
-        modelName: payload.modelName,
-        queryType: 'create'
-      })
-      const createValues = getCreateSubmitValues({
-        schema,
-        formStack,
-        modelName: payload.modelName
-      })
-
-      const imageFields = R.filter(
-        obj => R.prop('type', obj) === inputTypes.FILE_TYPE,
-        getFields(schema, payload.modelName)
-      )
-      const imageFieldsList = Object.keys(imageFields)
-      const omitList = R.append('id', imageFieldsList)
-
-      const variables = {
-        input: R.omit(omitList, createValues)
-      }
-
-      return {
-        modelName: payload.modelName,
-        variables,
-        query,
-        inputWithFile: R.filter(
-          n => !R.isNil(n),
-          R.pick(imageFieldsList, createValues)
-        )
-      }
-    }),
-    mergeMap(context =>
-      doRequest
-        .sendRequest({
-          query: context.query,
-          variables: context.variables
+export class CreateEpic extends Epic {
+  [SAVE_CREATE](action$, state$) {
+    return action$.pipe(
+      ofType(SAVE_CREATE),
+      map(R.prop('payload')),
+      map(payload => {
+        const formStack = selectCreate(state$.value)
+        const query = this.doRequest.buildQuery({
+          modelName: payload.modelName,
+          queryType: 'create'
         })
-        .then(({ data, error }) => ({ context, data, error }))
-    ),
-    mergeMap(({ context, data, error }) => {
-      if (error) {
-        Logger.epicError('saveCreateEpic', context, error)
-        const errorActions = []
-        if (isValidationError(error.response)) {
-          const errors = prepValidationErrors({ schema, context, error })
-          errorActions.push(Actions.onValidationErrorCreate({ errors }))
+        const createValues = getCreateSubmitValues({
+          schema: this.schema,
+          formStack,
+          modelName: payload.modelName
+        })
+
+        const imageFields = R.filter(
+          obj => R.prop('type', obj) === inputTypes.FILE_TYPE,
+          getFields(this.schema, payload.modelName)
+        )
+        const imageFieldsList = Object.keys(imageFields)
+        const omitList = R.append('id', imageFieldsList)
+
+        const variables = {
+          input: R.omit(omitList, createValues)
         }
-        errorActions.push(
-          Actions.addDangerAlert({ message: 'Error submitting form.' })
-        )
-        return concat(errorActions)
-      }
 
-      let actions = [
-        Actions.addSuccessAlert({
-          message: `${context.modelName} successfully created.`
-        })
-      ]
+        return {
+          modelName: payload.modelName,
+          variables,
+          query,
+          inputWithFile: R.filter(
+            n => !R.isNil(n),
+            R.pick(imageFieldsList, createValues)
+          )
+        }
+      }),
+      mergeMap(context =>
+        this.doRequest
+          .sendRequest({
+            query: context.query,
+            variables: context.variables
+          })
+          .then(({ data, error }) => ({ context, data, error }))
+      ),
+      mergeMap(({ context, data, error }) => {
+        if (error) {
+          Logger.epicError('saveCreateEpic', context, error)
+          const errorActions = []
+          if (isValidationError(error.response)) {
+            const errors = prepValidationErrors({
+              schema: this.schema,
+              context,
+              error
+            })
+            errorActions.push(Actions.onValidationErrorCreate({ errors }))
+          }
+          errorActions.push(
+            Actions.addDangerAlert({ message: 'Error submitting form.' })
+          )
+          return concat(errorActions)
+        }
 
-      const IdPath = [
-        'create' + context.modelName,
-        R.path([context.modelName, 'queryName'], schema), // camelcase modelName
-        'id'
-      ]
+        let actions = [
+          Actions.addSuccessAlert({
+            message: `${context.modelName} successfully created.`
+          })
+        ]
 
-      // images exist
-      if (!R.isEmpty(R.prop('inputWithFile', context))) {
-        actions = R.append(
-          Actions.onInlineFileSubmit({
-            modelName: context.modelName,
-            id: R.path(IdPath, data),
-            fileData: context.inputWithFile,
-            fromCreate: true
-          }),
-          actions
-        )
-      } else {
-        // createSuccessful called in inlineFileSubmit; otherwise prepend it here
-        actions = R.prepend(Actions.onSaveCreateSuccessful({}), actions)
-      }
+        const IdPath = [
+          'create' + context.modelName,
+          R.path([context.modelName, 'queryName'], this.schema), // camelcase modelName
+          'id'
+        ]
 
-      return concat(actions)
-    })
-  )
+        // images exist
+        if (!R.isEmpty(R.prop('inputWithFile', context))) {
+          actions = R.append(
+            Actions.onInlineFileSubmit({
+              modelName: context.modelName,
+              id: R.path(IdPath, data),
+              fileData: context.inputWithFile,
+              fromCreate: true
+            }),
+            actions
+          )
+        } else {
+          // createSuccessful called in inlineFileSubmit; otherwise prepend it here
+          actions = R.prepend(Actions.onSaveCreateSuccessful({}), actions)
+        }
+
+        return concat(actions)
+      })
+    )
+  }
+}
