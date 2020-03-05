@@ -24,6 +24,14 @@ const conveyorReducerMap = {
 
 export class ConveyorReducer {
   constructor(schema, overrides) {
+
+    // this is temporary. take away once class guaranteed to
+    // receive the schema prop as a 'SchemaBuilder' type, not JSON type
+    // once done, can uninstall conveyor-schema from package.json
+    if (!('schemaJSON' in schema)) {
+      schema = new SchemaBuilder(schema)
+    }
+
     const mergedReducerMap = R.filter(
       R.identity,
       R.mergeRight(conveyorReducerMap, overrides)

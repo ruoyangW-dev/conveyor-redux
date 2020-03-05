@@ -1,13 +1,5 @@
 import * as R from 'ramda'
 import { UPDATE_MODEL_TOOLTIP } from '../actionConsts'
-import {
-  getDisplayValue,
-  getField,
-  getFieldLabel,
-  getType,
-  getEnumLabel,
-  inputTypes
-} from '@autoinvent/conveyor'
 import { initState } from '../utils/tooltip'
 
 export class TooltipReducer {
@@ -23,9 +15,10 @@ export class TooltipReducer {
 
     for (const fieldName in result) {
       const value = R.prop(fieldName, result)
-      const name = getFieldLabel({ schema: this.schema, modelName, fieldName })
-      const type = getType({ schema: this.schema, modelName, fieldName })
-      const field = getField(this.schema, modelName, fieldName)
+      // todo: add 'node' and/or 'data' props into 'schema.getFieldLabel'
+      const name = this.schema.getFieldLabel({ modelName, fieldName })
+      const type = this.schema.getType(modelName, fieldName)
+      const field = this.schema.getField(modelName, fieldName)
 
       if (value === null) {
         tooltipData.push({
@@ -41,23 +34,21 @@ export class TooltipReducer {
           name,
           value: [
             {
-              text: getEnumLabel({
-                schema: this.schema,
+              text: this.schema.getEnumLabel(
                 modelName,
                 fieldName,
                 value
-              })
+              )
             }
           ]
         })
       } else if (
-        getType({ schema: this.schema, modelName, fieldName }) ===
-        inputTypes.MANY_TO_MANY_TYPE
+        this.schema.isManyToMany(modelName, fieldName)
       ) {
         const relModelName = R.path(['type', 'target'], field)
+        // todo: add 'customProps' from outside source to all functions
         const values = value.map(node => {
-          const text = getDisplayValue({
-            schema: this.schema,
+          const text = this.schema.getDisplayValue({
             modelName: relModelName,
             node
           })
@@ -72,15 +63,13 @@ export class TooltipReducer {
           value: values
         })
       } else if (
-        getType({ schema: this.schema, modelName, fieldName }) ===
-        inputTypes.MANY_TO_ONE_TYPE
+        this.schema.isManyToOne(modelName, fieldName)
       ) {
         const relModelName = R.path(
           ['type', 'target'],
-          getField(this.schema, modelName, fieldName)
+          this.schema.getField(modelName, fieldName)
         )
-        const text = getDisplayValue({
-          schema: this.schema,
+        const text = this.schema.getDisplayValue({
           modelName: relModelName,
           node: value
         })

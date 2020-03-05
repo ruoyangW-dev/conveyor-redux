@@ -58,7 +58,7 @@ export const generateRelationshipSelectMenuOpenEpic = (schema, doRequest) => (
     map(payload => {
       const modelName = R.prop('modelName', payload)
       const fieldName = R.prop('fieldName', payload)
-      const field = R.path([modelName, 'fields', fieldName], schema)
+      const field = schema.getField(modelName, fieldName)
       const targetModel = R.path(['type', 'target'], field)
       const variables = {
         sort: getSort({ schema, modelName: targetModel })

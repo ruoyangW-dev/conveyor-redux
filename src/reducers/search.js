@@ -7,7 +7,6 @@ import {
   TRIGGER_SEARCH
 } from '../actionConsts'
 import { initState } from '../utils/search'
-import { getDisplayValue, getModelLabel } from '@autoinvent/conveyor'
 
 export class SearchReducer {
   constructor(schema) {
@@ -25,13 +24,11 @@ export class SearchReducer {
       R.map(entry => ({
         id: entry.id,
         modelName: entry.__typename,
-        modelLabel: getModelLabel({
-          schema: this.schema,
+        modelLabel: this.schema.getModelLabel({
           modelName: entry.__typename,
           node: entry
         }),
-        name: getDisplayValue({
-          schema: this.schema,
+        name: this.schema.getDisplayValue({
           modelName: entry.__typename,
           node: entry
         })

@@ -3,7 +3,6 @@ import { map } from 'rxjs/operators'
 import * as consts from '../actionConsts'
 import * as R from 'ramda'
 import * as Actions from '../actions'
-import { getRequiredFields, getFieldLabel } from '@autoinvent/conveyor'
 
 const tableChangedFields = ({ modelName, id, state$ }) =>
   R.pipe(
@@ -17,7 +16,8 @@ const tableChangedFields = ({ modelName, id, state$ }) =>
 const getMissingFieldsMessage = ({ schema, missingFields, modelName }) =>
   R.reduce(
     (acc, fieldName) =>
-      acc + getFieldLabel({ schema, modelName, fieldName }) + ', ',
+      // todo add 'node' and 'data' props
+      acc + schema.getFieldLabel({ modelName, fieldName }) + ', ',
     '',
     missingFields
   ).slice(0, -2)
@@ -32,7 +32,7 @@ export const generateSaveCreateCheckEpic = schema => (action$, state$) =>
       const fields = R.path([stack.length - 1, 'fields'], stack)
       const requiredFields = R.filter(
         val => val !== 'id',
-        getRequiredFields(schema, modelName)
+        schema.getRequiredFields(modelName)
       )
       const missingFields = requiredFields.filter(
         fieldName => !(fieldName in fields)
@@ -81,7 +81,7 @@ export const generateDetailAttributeEditSubmitCheckEpic = schema => (
       // check for required field
       const requiredFields = R.filter(
         val => val !== 'id',
-        getRequiredFields(schema, modelName)
+        schema.getRequiredFields(modelName)
       )
       if (!currentValue && R.contains(fieldName, requiredFields)) {
         return Actions.addDangerAlert({
@@ -116,7 +116,7 @@ export const generateDetailTableEditSubmitCheckEpic = schema => (
       // check for required field(s)
       const requiredFields = R.filter(
         val => val !== 'id',
-        getRequiredFields(schema, modelName)
+        schema.getRequiredFields(modelName)
       )
       const missingFields = requiredFields.filter(
         fieldName =>
@@ -161,7 +161,7 @@ export const generateIndexEditSubmitCheckEpic = schema => (action$, state$) =>
       // check for required field(s)
       const requiredFields = R.filter(
         val => val !== 'id',
-        getRequiredFields(schema, modelName)
+        schema.getRequiredFields(modelName)
       )
       const missingFields = requiredFields.filter(
         fieldName =>

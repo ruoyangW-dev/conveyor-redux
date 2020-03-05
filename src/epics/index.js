@@ -41,6 +41,14 @@ import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 
 export const generateConveyorEpics = (schema, doRequest) => {
+
+    // this is temporary. take away once class guaranteed to
+    // receive the schema prop as a 'SchemaBuilder' type, not JSON type
+    // once done, can uninstall conveyor-schema from package.json
+    if (!('schemaJSON' in schema)) {
+      schema = new SchemaBuilder(schema)
+    }
+
   const fetchModelIndexEpic = generateFetchModelIndexEpic(schema, doRequest)
   const fetchModelDetailEpic = generateFetchModelDetailEpic(schema, doRequest)
   const fetchSearchEntriesEpic = generateFetchSearchEntriesEpic(

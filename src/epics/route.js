@@ -2,7 +2,6 @@ import { LOCATION_CHANGE } from 'connected-react-router'
 import { ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
-import { getHasIndex, getHasDetail } from '@autoinvent/conveyor'
 import * as R from 'ramda'
 import * as Actions from '../actions'
 
@@ -10,13 +9,14 @@ const isModelPathPrefix = (path, schema) =>
   path.length >= 2 &&
   path[0] === '' &&
   R.propOr(false, path[1]) &&
-  (getHasIndex(schema, path[1]) || getHasDetail(schema, path[1]))
+  (schema.getHasIndex(path[1]) || schema.getHasDetail(path[1]))
 
 const modelIndexPath = ({ path, schema }) => {
   if (path.length === 2 && isModelPathPrefix(path, schema)) {
     const modelName = path[1]
 
-    if (getHasIndex(schema, modelName)) {
+    // getHasIndex() may return true by default => must check if modelName str in JSON object
+    if (schema.getHasIndex(modelName) && (modelName in schema.schemaJSON)) {
       return [Actions.fetchModelIndex({ modelName })]
     }
   }

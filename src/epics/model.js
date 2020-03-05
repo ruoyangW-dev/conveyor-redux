@@ -5,7 +5,6 @@ import { getFilters, getSort } from '../utils/helpers'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
 import { ofType } from 'redux-observable'
 import { selectTableView } from '../utils/tableView'
-import { getModelLabel } from '@autoinvent/conveyor'
 import { concat } from 'rxjs'
 import * as Logger from '../utils/Logger'
 
@@ -110,8 +109,8 @@ export const generateRequestDeleteModelEpic = (schema, doRequest) => action$ =>
         .then(({ data, error }) => ({ context, data, error }))
     ),
     switchMap(({ context, data, error }) => {
-      const displayName = getModelLabel({
-        schema,
+      // todo: pass 'node' and 'data' props
+      const displayName = schema.getModelLabel({
         modelName: context.modelName
       })
 
@@ -174,8 +173,8 @@ export const generateRequestDeleteRelTableModelEpic = (
         .then(({ data, error }) => ({ context, data, error }))
     ),
     switchMap(({ context, data, error }) => {
-      const displayName = getModelLabel({
-        schema,
+      // todo: pass node and data props in
+      const displayName = schema.getModelLabel({
         modelName: context.modelName
       })
 
@@ -234,8 +233,8 @@ export const generateRequestDeleteModelFromDetailPageEpic = (
         .then(({ data, error }) => ({ context, data, error }))
     ),
     switchMap(({ context, data, error }) => {
-      const displayName = getModelLabel({
-        schema,
+      // todo: pass node and data props in
+      const displayName = schema.getModelLabel({
         modelName: context.modelName
       })
 

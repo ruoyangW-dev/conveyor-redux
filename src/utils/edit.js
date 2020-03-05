@@ -1,18 +1,16 @@
 import * as R from 'ramda'
-import { getDisplayValue, getField } from '@autoinvent/conveyor'
 
 export const initState = {}
 
 export const getEditValue = ({ schema, modelName, fieldName, value }) => {
-  const field = getField(schema, modelName, fieldName)
+  const field = schema.getField(modelName, fieldName)
   const fieldType = R.prop('type', field)
   if (R.type(fieldType) === 'Object') {
     const type = R.prop('type', fieldType)
     const relModelName = R.prop('target', fieldType)
     if (type.includes('ToMany')) {
       return value.map(node => {
-        const displayName = getDisplayValue({
-          schema,
+        const displayName = schema.getDisplayValue({
           modelName: relModelName,
           node
         })
@@ -24,8 +22,7 @@ export const getEditValue = ({ schema, modelName, fieldName, value }) => {
         return null
       }
       return {
-        label: getDisplayValue({
-          schema,
+        label: schema.getDisplayValue({
           modelName: relModelName,
           node: value
         }),

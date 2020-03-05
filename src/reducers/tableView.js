@@ -22,7 +22,6 @@ import {
   removeAll,
   setValues
 } from '../utils/tableView'
-import { getType } from '@autoinvent/conveyor'
 
 export class TableViewReducer {
   constructor(schema) {
@@ -200,7 +199,7 @@ export class TableViewReducer {
 
     if (newNode) {
       for (const [fieldName, obj] of Object.entries(newNode)) {
-        const type = getType({ schema: this.schema, modelName, fieldName })
+        const type = this.schema.getType(modelName, fieldName)
 
         // if multi-rel type
         if (type && type.includes('ToMany') && !R.isEmpty(obj)) {

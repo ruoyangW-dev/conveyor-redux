@@ -1,18 +1,13 @@
 import {
-  getField,
-  getFields,
-  getFieldLabel,
-  inputTypes,
-  getType,
-  isRel,
   storeValueToArrayBuffer
 } from '@autoinvent/conveyor'
+import { inputTypes } from '@autoinvent/conveyor-schema'
 import * as R from 'ramda'
 import * as consts from '../actionConsts'
 import * as Logger from './Logger'
 
 export const getFilters = ({ schema, modelName, tableView }) => {
-  const fields = getFields(schema, modelName)
+  const fields = schema.getFields(modelName)
   const getFieldFilter = field => {
     const fieldName = R.prop('fieldName', field)
     const operator = R.path(
@@ -27,8 +22,8 @@ export const getFilters = ({ schema, modelName, tableView }) => {
       return { operator, value: R.isNil(value) ? false : value }
     }
     if (operator && !R.isNil(value) && !R.isEmpty(value)) {
-      if (isRel(field)) {
-        const inputType = getType({ schema, modelName, fieldName })
+      if (schema.isRel(modelName, fieldName)) {
+        const inputType = schema.getType(modelName, fieldName)
         if (
           inputType === inputTypes.ONE_TO_ONE_TYPE ||
           inputType === inputTypes.MANY_TO_ONE_TYPE
@@ -46,7 +41,7 @@ export const getFilters = ({ schema, modelName, tableView }) => {
   }
   let filters = R.map(getFieldFilter, fields)
   // filterFields: default filters, in addition filters set by user; always active
-  const defaultFilters = R.path([modelName, 'filterFields'], schema)
+  const defaultFilters = R.path([modelName, 'filterFields'], schema.schemaJSON)
   if (defaultFilters) {
     filters = R.merge(filters, defaultFilters)
   }
@@ -64,7 +59,7 @@ export const getSort = ({ schema, modelName, tableView }) => {
   }
   // otherwise, get default sort from schema
   // sortFields: camel-case fields followed by '_asc' or '_desc'.
-  return R.path([modelName, 'sortFields'], schema)
+  return R.path([modelName, 'sortFields'], schema.schemaJSON)
 }
 
 export const editFieldToQueryInput = ({
@@ -75,7 +70,7 @@ export const editFieldToQueryInput = ({
   type
 }) => {
   if (type === undefined) {
-    type = getType({ schema, modelName, fieldName })
+    type = schema.getType(modelName, fieldName)
   }
   if (fieldName === '__typename') {
     return
@@ -104,9 +99,10 @@ export const isValidationError = response => R.prop('status', response) === 200
 
 const errorMap = ({ schema, type, fields, modelName }) => {
   let fieldNames = []
-  R.forEach(field => {
+  R.forEach(fieldName => {
     fieldNames = R.append(
-      getFieldLabel({ schema, modelName, fieldName: field }),
+      // todo: pass 'node' and 'data' props
+      schema.getFieldLabel({ modelName, fieldName }),
       fieldNames
     )
   }, fields)
@@ -189,7 +185,7 @@ const getInputValue = (fieldName, formStack) => {
 export const getCreateSubmitValues = ({ schema, formStack, modelName }) => {
   const createFields = R.filter(
     field => R.propOr(true, 'showCreate', field),
-    getFields(schema, modelName)
+    schema.getFields(modelName)
   )
   const formStackIndex = R.prop('index', formStack)
   const origin = R.prop('originModelName', formStack)
@@ -215,7 +211,7 @@ export const getCreateSubmitValues = ({ schema, formStack, modelName }) => {
     return R.propOr(
       true,
       'submitCreate',
-      getField(schema, modelName, fieldName)
+      schema.getField(modelName, fieldName)
     )
   }, inputs)
 }

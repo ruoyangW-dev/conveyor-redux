@@ -1,6 +1,5 @@
 import * as R from 'ramda'
 import { selectTableView } from '../utils/tableView'
-import { getType } from '@autoinvent/conveyor'
 
 export const initState = {}
 
@@ -48,7 +47,7 @@ export const getPaginatedNode = (schema, state, modelName, id) => {
   const updatedNode = {}
   if (node) {
     for (const [fieldName, obj] of Object.entries(node)) {
-      const type = getType({ schema, modelName, fieldName })
+      const type = schema.getType(modelName, fieldName)
 
       // if multi-rel type
       if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
