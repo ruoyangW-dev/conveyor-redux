@@ -39,6 +39,7 @@ import { generateFetchDeleteDetailEpic } from './modal'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
 export const generateConveyorEpics = (schema, doRequest) => {
 

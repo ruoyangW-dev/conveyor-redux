@@ -21,6 +21,7 @@ const conveyorReducerMap = {
   tableView: TableViewReducer,
   search: SearchReducer
 }
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
 export class ConveyorReducer {
   constructor(schema, overrides) {

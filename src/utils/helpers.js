@@ -18,21 +18,17 @@ export const getFilters = ({ schema, modelName, tableView }) => {
       [modelName, 'filter', 'filterValue', fieldName, 'value'],
       tableView
     )
-    if (operator && field.type === inputTypes.BOOLEAN_TYPE) {
+    if (operator && schema.isBoolean(modelName, fieldName)) {
       return { operator, value: R.isNil(value) ? false : value }
     }
     if (operator && !R.isNil(value) && !R.isEmpty(value)) {
       if (schema.isRel(modelName, fieldName)) {
-        const inputType = schema.getType(modelName, fieldName)
-        if (
-          inputType === inputTypes.ONE_TO_ONE_TYPE ||
-          inputType === inputTypes.MANY_TO_ONE_TYPE
-        ) {
+        if (schema.isManyToOne(modelName, fieldName) || schema.isOneToOne(modelName, fieldName)) {
           return { operator, value: R.propOr(value, 'value', value) }
         }
         return { operator, value: value.map(val => val.value) }
       }
-      if (field.type === inputTypes.ENUM_TYPE) {
+      if (schema.isEnum(modelName, fieldName)) {
         return { operator, value: value.value }
       }
       return { operator, value }
@@ -239,6 +235,7 @@ export const fileSubmitToBlob = ({ payload, query, value }) => {
       modelName,
       fieldName,
       value,
+      // todo: consider adding inputTypes to the SchemaBuilder object, so you don't have to import conveyor-schema into this library
       type: inputTypes.FILE_TYPE
     })
     fileInputDict = { [fieldName]: arrayBuffer }

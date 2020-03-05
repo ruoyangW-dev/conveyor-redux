@@ -1,7 +1,6 @@
 import { ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
-import { inputTypes } from '@autoinvent/conveyor-schema'
 import * as R from 'ramda'
 import * as Actions from '../actions'
 import * as consts from '../actionConsts'
@@ -99,7 +98,7 @@ export const generateDetailTableEditSubmitEpic = (
       const node = R.prop('changedFields', payload)
 
       const imageFields = R.filter(
-        obj => R.prop('type', obj) === inputTypes.FILE_TYPE,
+        obj => schema.isFile(modelName, R.prop('fieldName', obj)),
         schema.getFields(payload.modelName)
       )
       const imageFieldsList = Object.keys(imageFields)
