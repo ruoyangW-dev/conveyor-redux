@@ -1,10 +1,15 @@
-import {
-  storeValueToArrayBuffer
-} from '@autoinvent/conveyor'
-import { inputTypes } from '@autoinvent/conveyor-schema'
 import * as R from 'ramda'
+import { inputTypes } from '@autoinvent/conveyor-schema'
+import * as Actions from '../actions'
 import * as consts from '../actionConsts'
 import * as Logger from './Logger'
+
+export const storeValueToArrayBuffer = value => {
+  const arrayBuffer = new ArrayBuffer(value.length)
+  const view = new DataView(arrayBuffer)
+  for (let i = 0; i < value.length; ++i) { view.setUint8(i, value[i]) }
+  return arrayBuffer
+}
 
 export const getFilters = ({ schema, modelName, tableView }) => {
   const fields = schema.getFields(modelName)
@@ -223,10 +228,7 @@ export const fileSubmitToBlob = ({ payload, query, value }) => {
   let fileInputDict
 
   if (fileData) {
-    variableInputDict = R.map(
-      () => consts.CREATE_FILE,
-      fileData
-    )
+    variableInputDict = R.map(() => consts.CREATE_FILE, fileData)
     fileInputDict = fileData
   } else if (value) {
     variableInputDict = { [fieldName]: consts.CREATE_FILE }
@@ -258,3 +260,63 @@ export const fileSubmitToBlob = ({ payload, query, value }) => {
   }
   return formData
 }
+
+// RouteEpic helpers
+export const isModelPathPrefix = (path, schema) =>
+  path.length >= 2 &&
+  path[0] === '' &&
+  R.propOr(false, path[1], schema.schemaJSON) &&
+  (schema.getHasIndex(path[1]) || schema.getHasDetail(path[1]))
+
+export const modelIndexPath = ({ path, schema }) => {
+  if (path.length === 2 && isModelPathPrefix(path, schema)) {
+    const modelName = path[1]
+
+    if (schema.getHasIndex(modelName) && modelName in schema.schemaJSON) {
+      return [Actions.fetchModelIndex({ modelName })]
+    }
+  }
+}
+
+export const modelDetailPath = ({ path, schema }) => {
+  if (
+    path.length >= 3 &&
+    isModelPathPrefix(path, schema) &&
+    path[2] !== 'create'
+  ) {
+    return [Actions.fetchModelDetail({ modelName: path[1], id: path[2] })]
+  }
+}
+
+export const modelCreatePath = ({ path }) => {
+  if (path.length === 3 && isModelPathPrefix(path) && path[2] === 'create') {
+    return []
+  }
+}
+
+export const pathFunctions = [modelIndexPath, modelDetailPath, modelCreatePath]
+
+export const getPath = locationChangeAction =>
+  R.pipe(
+    R.pathOr('', ['payload', 'location', 'pathname']),
+    pathname => pathname.split('/'),
+    R.dropLastWhile(R.equals(''))
+  )(locationChangeAction)
+
+// ValidationEpic helpers
+export const tableChangedFields = ({ modelName, id, state$ }) =>
+  R.pipe(
+    R.path(['value', 'conveyor', 'edit', modelName, id]),
+    R.filter(
+      val => !R.equals(R.prop('currentValue', val), R.prop('initialValue', val))
+    ),
+    R.map(field => R.prop('currentValue', field))
+  )(state$)
+
+export const getMissingFieldsMessage = ({ schema, missingFields, modelName }) =>
+  R.reduce(
+    (acc, fieldName) =>
+      acc + schema.getFieldLabel({ modelName, fieldName }) + ', ',
+    '',
+    missingFields
+  ).slice(0, -2)

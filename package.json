@@ -20,7 +20,6 @@
     "eslint-plugin-import": "^2.20.1"
   },
   "dependencies": {
-    "@autoinvent/conveyor": "^0.1.0",
     "@babel/runtime-corejs3": "^7.8.3",
     "connected-react-router": "^6.6.1",
     "core-js": "^3.6.4",
