@@ -26,7 +26,7 @@ export class SearchEpic extends Epic {
         const variables = {
           queryString: payload.queryString.replace(/[%_]/g, '\\$&')
         }
-  
+
         return { queryString: payload.queryString, query, variables }
       }),
       mergeMap(context =>
@@ -37,12 +37,12 @@ export class SearchEpic extends Epic {
       map(({ context, data, error }) => {
         if (error) {
           Logger.epicError('fetchSearchEntriesEpic', context, error)
-  
+
           return Actions.addDangerAlert({
             message: 'Error loading search results.'
           })
         }
-  
+
         return Actions.updateSearchEntries({
           queryString: context.queryString,
           data

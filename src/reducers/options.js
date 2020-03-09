@@ -5,7 +5,6 @@ import {
   EXISTING_VALUE_UPDATE
 } from '../actionConsts'
 import { initState } from '../utils/options'
-import { getDisplayValue, getField } from '@autoinvent/conveyor'
 
 export class OptionsReducer {
   constructor(schema) {
@@ -17,15 +16,14 @@ export class OptionsReducer {
     const { modelName, fieldName, rawData } = { ...payload }
 
     // get schema data about the field
-    const field1 = getField(this.schema, modelName, fieldName)
+    const field1 = this.schema.getField(modelName, fieldName)
 
     // get the target model from the field:
     const targetModel = R.path(['type', 'target'], field1)
 
     // get drop-down options
     const options = rawData.map(node => ({
-      label: getDisplayValue({
-        schema: this.schema,
+      label: this.schema.getDisplayValue({
         modelName: targetModel,
         node
       }),
@@ -40,11 +38,10 @@ export class OptionsReducer {
     const { modelName, fieldName, value } = { ...payload }
     const targetModelName = R.path(
       ['type', 'target'],
-      getField(this.schema, modelName, fieldName)
+      this.schema.getField(modelName, fieldName)
     )
     const options = value.map(option => ({
-      label: getDisplayValue({
-        schema: this.schema,
+      label: this.schema.getDisplayValue({
         modelName: targetModelName,
         node: option
       }),

@@ -1,5 +1,4 @@
 import * as R from 'ramda'
-import { getDisplayValue, getType } from '@autoinvent/conveyor'
 
 export const initState = {
   index: -1,
@@ -46,18 +45,16 @@ export const handleDetailCreate = (schema, state, action) => {
     R.split('/'),
     R.nth(1)
   )(payload)
-  const parentName = getDisplayValue({
-    schema,
+  const parentName = schema.getDisplayValue({
     modelName: parentModelName,
     node
   })
   const parentId = R.prop('id', node)
 
-  const type = getType({
-    schema,
-    modelName: R.path(['payload', 'modelName'], action),
-    fieldName: targetInverseFieldName
-  })
+  const type = schema.getType(
+    R.path(['payload', 'modelName'], action),
+    targetInverseFieldName
+  )
   const fieldData = {
     label: parentName,
     value: parentId,

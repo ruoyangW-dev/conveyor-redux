@@ -11,7 +11,6 @@ import { getFilters, getSort, getDeleteErrors } from '../utils/helpers'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
 import { ofType } from 'redux-observable'
 import { selectTableView } from '../utils/tableView'
-import { getModelLabel } from '@autoinvent/conveyor'
 import { concat } from 'rxjs'
 import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
@@ -114,8 +113,8 @@ export class ModelEpic extends Epic {
           .then(({ data, error }) => ({ context, data, error }))
       ),
       switchMap(({ context, data, error }) => {
-        const displayName = getModelLabel({
-          schema: this.schema,
+        // todo: pass 'node' and 'data' props
+        const displayName = this.schema.getModelLabel({
           modelName: context.modelName
         })
 
@@ -175,8 +174,8 @@ export class ModelEpic extends Epic {
           .then(({ data, error }) => ({ context, data, error }))
       ),
       switchMap(({ context, data, error }) => {
-        const displayName = getModelLabel({
-          schema: this.schema,
+        // todo: pass node and data props in
+        const displayName = this.schema.getModelLabel({
           modelName: context.modelName
         })
 
@@ -240,8 +239,8 @@ export class ModelEpic extends Epic {
           .then(({ data, error }) => ({ context, data, error }))
       ),
       switchMap(({ context, data, error }) => {
-        const displayName = getModelLabel({
-          schema: this.schema,
+        // todo: pass node and data props in
+        const displayName = this.schema.getModelLabel({
           modelName: context.modelName
         })
 

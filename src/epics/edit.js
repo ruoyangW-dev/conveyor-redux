@@ -1,12 +1,6 @@
 import { ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
-import {
-  getFieldLabel,
-  getFields,
-  inputTypes,
-  getModelLabel
-} from '@autoinvent/conveyor'
 import * as R from 'ramda'
 import * as Actions from '../actions'
 import {
@@ -121,8 +115,8 @@ export class EditEpic extends Epic {
         const node = R.prop('changedFields', payload)
 
         const imageFields = R.filter(
-          obj => R.prop('type', obj) === inputTypes.FILE_TYPE,
-          getFields(this.schema, payload.modelName)
+          obj => this.schema.isFile(modelName, R.prop('fieldName', obj)),
+          this.schema.getFields(modelName)
         )
         const imageFieldsList = Object.keys(imageFields)
 
@@ -190,7 +184,7 @@ export class EditEpic extends Epic {
         if (!R.isEmpty(R.prop('inputWithFile', context))) {
           const path = [
             'update' + context.modelName,
-            R.path([context.modelName, 'queryName'], this.schema), // camelcase modelName
+            R.path([context.modelName, 'queryName'], this.schema.schemaJSON), // camelcase modelName
             'id'
           ]
 
@@ -256,12 +250,12 @@ export class EditEpic extends Epic {
           .then(({ data, error }) => ({ context, data, error }))
       ),
       switchMap(({ context, data, error }) => {
-        const displayName = getModelLabel({
-          schema: this.schema,
+        // todo: 'schema.getModelLabel' needs 'node'/ 'data'/ 'customProps' props
+        const displayName = this.schema.getModelLabel({
           modelName: context.modelName
         })
-        const fieldLabel = getFieldLabel({
-          schema: this.schema,
+        // todo: 'schema.getFieldLabel' needs 'node'/'data'/ 'customProps' props
+        const fieldLabel = this.schema.getFieldLabel({
           modelName: context.modelName,
           fieldName: context.fieldName
         })

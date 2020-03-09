@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   conveyor: new ConveyorReducer(schema, overrides).makeReducer(), ...otherReducers 
 })
 ```
-Where `schema` is the same schema used for conveyor, and [`overrides`](#reducer-overrides) is an map object which maps a reducer (key) to a class (value).
+Where `schema` is the same schema used for conveyor (a 'SchemaBuilder' type object created with conveyor-schema), and [`overrides`](#reducer-overrides) is an map object which maps a reducer (key) to a class (value).
 
 
 ### Reducer Overrides

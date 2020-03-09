@@ -5,7 +5,6 @@ import * as R from 'ramda'
 import { SAVE_CREATE } from '../actionConsts'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
-import { getFields, inputTypes } from '@autoinvent/conveyor'
 import { selectCreate } from '../utils/create'
 import {
   getCreateSubmitValues,
@@ -32,8 +31,9 @@ export class CreateEpic extends Epic {
         })
 
         const imageFields = R.filter(
-          obj => R.prop('type', obj) === inputTypes.FILE_TYPE,
-          getFields(this.schema, payload.modelName)
+          obj =>
+            this.schema.isFile(payload.modelName, R.prop('fieldName', obj)),
+          this.schema.getFields(payload.modelName)
         )
         const imageFieldsList = Object.keys(imageFields)
         const omitList = R.append('id', imageFieldsList)
@@ -86,7 +86,7 @@ export class CreateEpic extends Epic {
 
         const IdPath = [
           'create' + context.modelName,
-          R.path([context.modelName, 'queryName'], this.schema), // camelcase modelName
+          R.path([context.modelName, 'queryName'], this.schema.schemaJSON), // camelcase modelName
           'id'
         ]
 

@@ -9,7 +9,6 @@ import {
 } from '../actionConsts'
 import { getMissingFieldsMessage, tableChangedFields } from '../utils/helpers'
 import * as Actions from '../actions'
-import { getRequiredFields } from '@autoinvent/conveyor'
 import { Epic } from './epic'
 
 export class ValidationEpic extends Epic {
@@ -23,7 +22,7 @@ export class ValidationEpic extends Epic {
         const fields = R.path([stack.length - 1, 'fields'], stack)
         const requiredFields = R.filter(
           val => val !== 'id',
-          getRequiredFields(this.schema, modelName)
+          this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
           fieldName => !(fieldName in fields)
@@ -86,7 +85,7 @@ export class ValidationEpic extends Epic {
         // check for required field
         const requiredFields = R.filter(
           val => val !== 'id',
-          getRequiredFields(this.schema, modelName)
+          this.schema.getRequiredFields(modelName)
         )
         if (!currentValue && R.contains(fieldName, requiredFields)) {
           return Actions.addDangerAlert({
@@ -119,7 +118,7 @@ export class ValidationEpic extends Epic {
         // check for required field(s)
         const requiredFields = R.filter(
           val => val !== 'id',
-          getRequiredFields(this.schema, modelName)
+          this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
           fieldName =>
@@ -165,7 +164,7 @@ export class ValidationEpic extends Epic {
         // check for required field(s)
         const requiredFields = R.filter(
           val => val !== 'id',
-          getRequiredFields(this.schema, modelName)
+          this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
           fieldName =>
