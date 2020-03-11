@@ -24,14 +24,14 @@ import {
 import { Epic } from './epic'
 
 export class EditEpic extends Epic {
-  [DETAIL_ATTRIBUTE_EDIT_SUBMIT](action$, state$) {
+  [DETAIL_ATTRIBUTE_EDIT_SUBMIT](action$: any, state$: any) {
     return action$.pipe(
       ofType(DETAIL_ATTRIBUTE_EDIT_SUBMIT),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
-        const fieldName = R.prop('fieldName', payload)
-        const id = R.prop('id', payload)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as string
+        const fieldName = R.prop('fieldName', payload) as string
+        const id = R.prop('id', payload) as string
         const value = R.path(
           [
             'value',
@@ -51,15 +51,15 @@ export class EditEpic extends Epic {
           value
         })
         const variables = { id, input: { [fieldName]: inputValue } }
-        const query = this.doRequest.buildQuery({
+        const query = this.queryBuilder.buildQuery({
           modelName,
           queryType: 'update'
         })
 
         return { id, modelName, variables, query, fieldName }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -103,19 +103,19 @@ export class EditEpic extends Epic {
     )
   }
 
-  [DETAIL_TABLE_EDIT_SUBMIT](action$) {
+  [DETAIL_TABLE_EDIT_SUBMIT](action$: any) {
     return action$.pipe(
       ofType(DETAIL_TABLE_EDIT_SUBMIT),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as string
         const parentModelName = R.prop('parentModelName', payload)
         const parentId = R.prop('parentId', payload)
         const id = R.prop('id', payload)
         const node = R.prop('changedFields', payload)
 
         const imageFields = R.filter(
-          obj => this.schema.isFile(modelName, R.prop('fieldName', obj)),
+          (obj: any) => this.schema.isFile(modelName, R.prop('fieldName', obj)),
           this.schema.getFields(modelName)
         )
         const imageFieldsList = Object.keys(imageFields)
@@ -127,7 +127,7 @@ export class EditEpic extends Epic {
         })
         const normalInput = R.omit(imageFieldsList, input)
         const variables = { id, input: { ...normalInput } }
-        const query = this.doRequest.buildQuery({
+        const query = this.queryBuilder.buildQuery({
           modelName,
           queryType: 'update'
         })
@@ -144,8 +144,8 @@ export class EditEpic extends Epic {
           )
         }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -182,9 +182,12 @@ export class EditEpic extends Epic {
 
         // images exist
         if (!R.isEmpty(R.prop('inputWithFile', context))) {
-          const path = [
+          const path: string[] = [
             'update' + context.modelName,
-            R.path([context.modelName, 'queryName'], this.schema.schemaJSON), // camelcase modelName
+            R.path(
+              [context.modelName, 'queryName'],
+              this.schema.schemaJSON
+            ) as string, // camelcase modelName
             'id'
           ]
 
@@ -214,14 +217,14 @@ export class EditEpic extends Epic {
     )
   }
 
-  [DETAIL_TABLE_REMOVE_SUBMIT](action$, state$) {
+  [DETAIL_TABLE_REMOVE_SUBMIT](action$: any, state$: any) {
     return action$.pipe(
       ofType(DETAIL_TABLE_REMOVE_SUBMIT),
       map(R.prop('payload')),
-      map(payload => {
+      map((payload: EpicPayload) => {
         const { modelName, fieldName, id, removedId } = { ...payload }
 
-        const query = this.doRequest.buildQuery({
+        const query = this.queryBuilder.buildQuery({
           modelName,
           queryType: 'update'
         })
@@ -229,28 +232,37 @@ export class EditEpic extends Epic {
         const updatedFieldList = R.pipe(
           R.pathOr(
             [],
-            ['value', 'conveyor', 'model', modelName, 'values', id, fieldName]
+            [
+              'value',
+              'conveyor',
+              'model',
+              modelName as string,
+              'values',
+              id as string,
+              fieldName as string
+            ]
           ),
-          R.map(obj => obj.id),
+          R.map((obj: any) => obj.id),
           R.without([removedId])
         )(state$)
 
         const variables = {
           id: Number(id),
-          input: { [fieldName]: updatedFieldList }
+          input: { [fieldName as string]: updatedFieldList }
         }
         return { ...payload, query, variables }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
           })
           .then(({ data, error }) => ({ context, data, error }))
       ),
-      switchMap(({ context, data, error }) => {
+      switchMap(({ context, data, error }): any => {
         // todo: 'schema.getModelLabel' needs 'node'/ 'data'/ 'customProps' props
+        // @ts-ignore
         const displayName = this.schema.getModelLabel({
           modelName: context.modelName
         })
@@ -292,29 +304,29 @@ export class EditEpic extends Epic {
     )
   }
 
-  [INDEX_EDIT_SUBMIT](action$) {
+  [INDEX_EDIT_SUBMIT](action$: any) {
     return action$.pipe(
       ofType(INDEX_EDIT_SUBMIT),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
-        const id = R.prop('id', payload)
-        const node = R.prop('changedFields', payload)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as string
+        const id = R.prop('id', payload) as string
+        const node = R.prop('changedFields', payload) as any
         const input = getEditMutationInputVariables({
           schema: this.schema,
           modelName,
           node
         })
         const variables = { id, input: { ...input } }
-        const query = this.doRequest.buildQuery({
+        const query = this.queryBuilder.buildQuery({
           modelName,
           queryType: 'update'
         })
 
         return { id, modelName, variables, query }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -353,16 +365,16 @@ export class EditEpic extends Epic {
     )
   }
 
-  [INLINE_FILE_DELETE](action$) {
+  [INLINE_FILE_DELETE](action$: any) {
     return action$.pipe(
       ofType(INLINE_FILE_DELETE),
       map(R.prop('payload')),
-      map(payload => {
-        const fieldName = R.prop('fieldName', payload)
-        const modelName = R.prop('modelName', payload)
-        const id = R.prop('id', payload)
+      map((payload: EpicPayload) => {
+        const fieldName = R.prop('fieldName', payload) as string
+        const modelName = R.prop('modelName', payload) as string
+        const id = R.prop('id', payload) as string
         return {
-          query: this.doRequest.buildQuery({
+          query: this.queryBuilder.buildQuery({
             modelName,
             queryType: 'update'
           }),
@@ -376,8 +388,8 @@ export class EditEpic extends Epic {
           }
         }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -402,18 +414,18 @@ export class EditEpic extends Epic {
     )
   }
 
-  [INLINE_FILE_SUBMIT](action$, state$) {
+  [INLINE_FILE_SUBMIT](action$: any, state$: any) {
     return action$.pipe(
       ofType(INLINE_FILE_SUBMIT),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
-        const fieldName = R.prop('fieldName', payload)
-        const id = R.prop('id', payload)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as string
+        const fieldName = R.prop('fieldName', payload) as string
+        const id = R.prop('id', payload) as string
         return {
           formData: fileSubmitToBlob({
             payload,
-            query: this.doRequest.buildQuery({
+            query: this.queryBuilder.buildQuery({
               modelName,
               queryType: 'update'
             }),
@@ -436,8 +448,8 @@ export class EditEpic extends Epic {
           ...payload
         }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             formData: context.formData
           })

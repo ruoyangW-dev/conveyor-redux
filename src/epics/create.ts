@@ -14,26 +14,29 @@ import {
 import { Epic } from './epic'
 
 export class CreateEpic extends Epic {
-  [SAVE_CREATE](action$, state$) {
+  [SAVE_CREATE](action$: any, state$: any) {
     return action$.pipe(
       ofType(SAVE_CREATE),
       map(R.prop('payload')),
-      map(payload => {
+      map((payload: EpicPayload) => {
         const formStack = selectCreate(state$.value)
-        const query = this.doRequest.buildQuery({
+        const query = this.queryBuilder.buildQuery({
           modelName: payload.modelName,
           queryType: 'create'
         })
         const createValues = getCreateSubmitValues({
           schema: this.schema,
           formStack,
-          modelName: payload.modelName
+          modelName: payload.modelName as string
         })
 
         const imageFields = R.filter(
-          obj =>
-            this.schema.isFile(payload.modelName, R.prop('fieldName', obj)),
-          this.schema.getFields(payload.modelName)
+          (obj: any) =>
+            this.schema.isFile(
+              payload.modelName as string,
+              R.prop('fieldName', obj)
+            ),
+          this.schema.getFields(payload.modelName as string)
         )
         const imageFieldsList = Object.keys(imageFields)
         const omitList = R.append('id', imageFieldsList)
@@ -52,8 +55,8 @@ export class CreateEpic extends Epic {
           )
         }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -84,9 +87,12 @@ export class CreateEpic extends Epic {
           })
         ]
 
-        const IdPath = [
+        const IdPath: string[] = [
           'create' + context.modelName,
-          R.path([context.modelName, 'queryName'], this.schema.schemaJSON), // camelcase modelName
+          R.path(
+            [context.modelName, 'queryName'],
+            this.schema.schemaJSON
+          ) as string, // camelcase modelName
           'id'
         ]
 

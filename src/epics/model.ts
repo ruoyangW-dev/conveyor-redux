@@ -16,83 +16,90 @@ import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
 
 export class ModelEpic extends Epic {
-  [FETCH_MODEL_INDEX](action$, state$) {
+  [FETCH_MODEL_INDEX](action$: any, state$: any) {
     return action$.pipe(
       ofType(FETCH_MODEL_INDEX),
       map(R.prop('payload')),
-      map(payload => {
+      map((payload: EpicPayload) => {
         const variables = {
           filter: getFilters({
             schema: this.schema,
-            modelName: payload.modelName,
+            modelName: payload.modelName as string,
             tableView: selectTableView(state$.value)
           }),
           sort: getSort({
             schema: this.schema,
-            modelName: payload.modelName,
+            modelName: payload.modelName as string,
             tableView: selectTableView(state$.value)
           })
         }
         return { modelName: payload.modelName, variables }
       }),
-      mergeMap(context => {
-        const query = this.doRequest.buildQuery({
+      mergeMap((context: any) => {
+        const query = this.queryBuilder.buildQuery({
           modelName: context.modelName,
           queryType: 'index'
         })
-        return this.doRequest
+        return this.queryBuilder
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),
-      map(({ context, data, error }) => {
-        if (error) {
-          return Actions.addDangerAlert({
-            message: `Error loading ${context.modelName} index.`
+      map(
+        ({ context, data, error }: { context: any; data: any; error: any }) => {
+          if (error) {
+            return Actions.addDangerAlert({
+              message: `Error loading ${context.modelName} index.`
+            })
+          }
+          return Actions.updateModelIndex({
+            modelName: context.modelName,
+            data
           })
         }
-        return Actions.updateModelIndex({ modelName: context.modelName, data })
-      })
+      )
     )
   }
 
-  [FETCH_MODEL_DETAIL](action$) {
+  [FETCH_MODEL_DETAIL](action$: any) {
     return action$.pipe(
       ofType(FETCH_MODEL_DETAIL),
       map(R.prop('payload')),
-      map(payload => {
+      map((payload: EpicPayload) => {
         const variables = { id: payload.id }
         return { modelName: payload.modelName, id: payload.id, variables }
       }),
-      mergeMap(context => {
-        const query = this.doRequest.buildQuery({
+      mergeMap((context: any) => {
+        const query = this.queryBuilder.buildQuery({
           modelName: context.modelName,
           queryType: 'detail'
         })
-        return this.doRequest
+        return this.queryBuilder
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),
-      map(({ context, data, error }) => {
-        if (error) {
-          return Actions.addDangerAlert({
-            message: `Error loading ${context.modelName} details.`
+      map(
+        ({ context, data, error }: { context: any; data: any; error: any }) => {
+          if (error) {
+            return Actions.addDangerAlert({
+              message: `Error loading ${context.modelName} details.`
+            })
+          }
+          return Actions.updateModelDetail({
+            modelName: context.modelName,
+            id: context.id,
+            data
           })
         }
-        return Actions.updateModelDetail({
-          modelName: context.modelName,
-          id: context.id,
-          data
-        })
-      })
+      )
     )
   }
 
-  [REQUEST_DELETE_MODEL](action$) {
+  [REQUEST_DELETE_MODEL](action$: any) {
     return action$.pipe(
       ofType(REQUEST_DELETE_MODEL),
       map(R.prop('payload')),
-      map(payload => {
-        const query = this.doRequest.buildQuery({
+      map((payload: EpicPayload) => {
+        const query = this.queryBuilder.buildQuery({
           modelName: payload.modelName,
           queryType: 'delete'
         })
@@ -104,8 +111,8 @@ export class ModelEpic extends Epic {
           variables
         }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -114,6 +121,7 @@ export class ModelEpic extends Epic {
       ),
       switchMap(({ context, data, error }) => {
         // todo: pass 'node' and 'data' props
+        // @ts-ignore
         const displayName = this.schema.getModelLabel({
           modelName: context.modelName
         })
@@ -153,20 +161,20 @@ export class ModelEpic extends Epic {
     )
   }
 
-  [REQUEST_DELETE_REL_TABLE_MODEL](action$) {
+  [REQUEST_DELETE_REL_TABLE_MODEL](action$: any) {
     return action$.pipe(
       ofType(REQUEST_DELETE_REL_TABLE_MODEL),
       map(R.prop('payload')),
-      map(payload => {
-        const query = this.doRequest.buildQuery({
+      map((payload: EpicPayload) => {
+        const query = this.queryBuilder.buildQuery({
           modelName: payload.modelName,
           queryType: 'delete'
         })
         const variables = { id: payload.id }
         return { ...payload, query, variables }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -175,6 +183,7 @@ export class ModelEpic extends Epic {
       ),
       switchMap(({ context, data, error }) => {
         // todo: pass node and data props in
+        // @ts-ignore
         const displayName = this.schema.getModelLabel({
           modelName: context.modelName
         })
@@ -213,12 +222,12 @@ export class ModelEpic extends Epic {
     )
   }
 
-  [REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE](action$) {
+  [REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE](action$: any) {
     return action$.pipe(
       ofType(REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE),
       map(R.prop('payload')),
-      map(payload => {
-        const query = this.doRequest.buildQuery({
+      map((payload: EpicPayload) => {
+        const query = this.queryBuilder.buildQuery({
           modelName: payload.modelName,
           queryType: 'delete'
         })
@@ -230,8 +239,8 @@ export class ModelEpic extends Epic {
           variables
         }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -240,6 +249,7 @@ export class ModelEpic extends Epic {
       ),
       switchMap(({ context, data, error }) => {
         // todo: pass node and data props in
+        // @ts-ignore
         const displayName = this.schema.getModelLabel({
           modelName: context.modelName
         })

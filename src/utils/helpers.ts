@@ -3,23 +3,34 @@ import { inputTypes } from '@autoinvent/conveyor-schema'
 import * as Actions from '../actions'
 import * as consts from '../actionConsts'
 import * as Logger from './Logger'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
-export const storeValueToArrayBuffer = value => {
+export const storeValueToArrayBuffer = (value: number[]) => {
   const arrayBuffer = new ArrayBuffer(value.length)
   const view = new DataView(arrayBuffer)
-  for (let i = 0; i < value.length; ++i) { view.setUint8(i, value[i]) }
+  for (let i = 0; i < value.length; ++i) {
+    view.setUint8(i, value[i])
+  }
   return arrayBuffer
 }
 
-export const getFilters = ({ schema, modelName, tableView }) => {
+export const getFilters = ({
+  schema,
+  modelName,
+  tableView
+}: {
+  schema: SchemaBuilder
+  modelName: string
+  tableView: any
+}) => {
   const fields = schema.getFields(modelName)
-  const getFieldFilter = field => {
-    const fieldName = R.prop('fieldName', field)
-    const operator = R.path(
+  const getFieldFilter = (field: any) => {
+    const fieldName: string = R.prop('fieldName', field)
+    const operator: string | undefined = R.path(
       [modelName, 'filter', 'filterValue', fieldName, 'operator', 'value'],
       tableView
     )
-    const value = R.path(
+    const value: any = R.path(
       [modelName, 'filter', 'filterValue', fieldName, 'value'],
       tableView
     )
@@ -28,10 +39,13 @@ export const getFilters = ({ schema, modelName, tableView }) => {
     }
     if (operator && !R.isNil(value) && !R.isEmpty(value)) {
       if (schema.isRel(modelName, fieldName)) {
-        if (schema.isManyToOne(modelName, fieldName) || schema.isOneToOne(modelName, fieldName)) {
+        if (
+          schema.isManyToOne(modelName, fieldName) ||
+          schema.isOneToOne(modelName, fieldName)
+        ) {
           return { operator, value: R.propOr(value, 'value', value) }
         }
-        return { operator, value: value.map(val => val.value) }
+        return { operator, value: value.map((val: any) => val.value) }
       }
       if (schema.isEnum(modelName, fieldName)) {
         return { operator, value: value.value }
@@ -40,20 +54,37 @@ export const getFilters = ({ schema, modelName, tableView }) => {
     }
     return undefined
   }
-  let filters = R.map(getFieldFilter, fields)
+  let filters: any = R.map(getFieldFilter, fields)
   // filterFields: default filters, in addition filters set by user; always active
-  const defaultFilters = R.path([modelName, 'filterFields'], schema.schemaJSON)
+  const defaultFilters: any = R.path(
+    [modelName, 'filterFields'],
+    schema.schemaJSON
+  )
   if (defaultFilters) {
     filters = R.merge(filters, defaultFilters)
   }
-  return R.filter(R.identity, filters)
+  return R.filter<any>(R.identity, filters)
 }
 
-export const getSort = ({ schema, modelName, tableView }) => {
+export const getSort = ({
+  schema,
+  modelName,
+  tableView
+}: {
+  schema: SchemaBuilder
+  modelName: string
+  tableView?: any
+}): any => {
   // get sort from user input
   if (tableView) {
-    const sortKey = R.path([modelName, 'sort', 'sortKey'], tableView)
-    const fieldName = R.path([modelName, 'sort', 'fieldName'], tableView)
+    const sortKey: string | undefined = R.path(
+      [modelName, 'sort', 'sortKey'],
+      tableView
+    )
+    const fieldName: string | undefined = R.path(
+      [modelName, 'sort', 'fieldName'],
+      tableView
+    )
     if (sortKey && fieldName) {
       return [`${fieldName}_${sortKey}`]
     }
@@ -69,8 +100,14 @@ export const editFieldToQueryInput = ({
   fieldName,
   value,
   type
+}: {
+  schema?: SchemaBuilder
+  modelName: string
+  fieldName: string
+  value: any
+  type?: any
 }) => {
-  if (type === undefined) {
+  if (type === undefined && schema) {
     type = schema.getType(modelName, fieldName)
   }
   if (fieldName === '__typename') {
@@ -80,7 +117,7 @@ export const editFieldToQueryInput = ({
     if (R.isNil(value)) {
       return []
     }
-    return value.map(value => R.prop('value', value))
+    return value.map((value: any) => R.prop('value', value))
   } else if (type.includes('ToOne')) {
     return R.propOr(null, 'value', value)
   } else if (type === 'enum') {
@@ -96,10 +133,21 @@ export const editFieldToQueryInput = ({
   return value
 }
 
-export const isValidationError = response => R.prop('status', response) === 200
+export const isValidationError = (response: any) =>
+  R.prop('status', response) === 200
 
-const errorMap = ({ schema, type, fields, modelName }) => {
-  let fieldNames = []
+const errorMap = ({
+  schema,
+  type,
+  fields,
+  modelName
+}: {
+  schema: SchemaBuilder
+  type: string
+  fields: string[]
+  modelName: string
+}) => {
+  let fieldNames: string[] = []
   R.forEach(fieldName => {
     fieldNames = R.append(
       // todo: pass 'node' and 'data' props
@@ -131,13 +179,20 @@ const errorMap = ({ schema, type, fields, modelName }) => {
   }
 }
 
-const getValidationMessage = ({ schema, context, parsedErrors }) =>
-  R.mapObjIndexed((fieldErrors, key) => {
-    let errorsList = []
-    R.forEach(e => {
+const getValidationMessage = ({
+  schema,
+  context,
+  parsedErrors
+}: {
+  schema: SchemaBuilder
+  context: any
+  parsedErrors: any
+}) =>
+  R.mapObjIndexed((fieldErrors: any, key: string) => {
+    let errorsList: string[] = []
+    R.forEach((e: any) => {
       const message = errorMap({
         type: R.prop('type', e),
-        fieldName: key,
         fields: R.prop('group', e),
         modelName: R.prop('modelName', context),
         schema
@@ -149,23 +204,42 @@ const getValidationMessage = ({ schema, context, parsedErrors }) =>
     return errorsList
   }, parsedErrors)
 
-const parseValidationErrors = response => {
-  const errorsStr = R.path(['errors', 0, 'message'], response)
+const parseValidationErrors = (response: any) => {
+  const errorsStr: string | undefined = R.path(
+    ['errors', 0, 'message'],
+    response
+  )
   let errors = []
   try {
-    errors = JSON.parse(errorsStr)
+    errors = JSON.parse(errorsStr as string)
   } catch (e) {
     Logger.inputValidationParseValidationErrors(response, e)
   }
   return errors
 }
 
-export const prepValidationErrors = ({ schema, context, error }) => {
+export const prepValidationErrors = ({
+  schema,
+  context,
+  error
+}: {
+  schema: SchemaBuilder
+  context: any
+  error: any
+}) => {
   const parsedErrors = parseValidationErrors(error.response)
   return getValidationMessage({ schema, context, parsedErrors })
 }
 
-export const getEditMutationInputVariables = ({ schema, modelName, node }) =>
+export const getEditMutationInputVariables = ({
+  schema,
+  modelName,
+  node
+}: {
+  schema: SchemaBuilder
+  modelName: string
+  node: any
+}): any =>
   R.pipe(
     R.mapObjIndexed((value, fieldName) =>
       editFieldToQueryInput({ schema, modelName, fieldName, value })
@@ -174,16 +248,30 @@ export const getEditMutationInputVariables = ({ schema, modelName, node }) =>
     R.dissoc('id')
   )(node)
 
-export const getDeleteErrors = ({ data, context }) =>
+export const getDeleteErrors = ({
+  data,
+  context
+}: {
+  data: any
+  context: any
+}): string[] | undefined =>
   R.path(['delete' + context.modelName, 'errors'], data)
 
-const getInputValue = (fieldName, formStack) => {
+const getInputValue = (fieldName: string, formStack: any) => {
   const index = R.prop('index', formStack)
   return R.path(['stack', index, 'fields', fieldName], formStack)
 }
 
 // get input values from a create form
-export const getCreateSubmitValues = ({ schema, formStack, modelName }) => {
+export const getCreateSubmitValues = ({
+  schema,
+  formStack,
+  modelName
+}: {
+  schema: SchemaBuilder
+  formStack: any
+  modelName: string
+}) => {
   const createFields = R.filter(
     field => R.propOr(true, 'showCreate', field),
     schema.getFields(modelName)
@@ -209,25 +297,34 @@ export const getCreateSubmitValues = ({ schema, formStack, modelName }) => {
   return R.pickBy((_, fieldName) => {
     // Ignore fields who have submitCreate as false,
     // defaults to true
-    return R.propOr(
-      true,
-      'submitCreate',
-      schema.getField(modelName, fieldName)
-    )
+    return R.propOr(true, 'submitCreate', schema.getField(modelName, fieldName))
   }, inputs)
 }
 
-export const fileSubmitToBlob = ({ payload, query, value }) => {
+export const fileSubmitToBlob = ({
+  payload,
+  query,
+  value
+}: {
+  payload: any
+  query: any
+  value: any
+}) => {
   const formData = new FormData()
   const modelName = R.prop('modelName', payload)
   const fieldName = R.prop('fieldName', payload)
   const id = R.prop('id', payload)
-  const fileData = R.propOr(false, 'fileData', payload)
+  const fileData: Record<string, BlobPart> | undefined = R.propOr(
+    false,
+    'fileData',
+    payload
+  )
 
   let variableInputDict
-  let fileInputDict
+  let fileInputDict: Record<string, BlobPart> = {}
 
   if (fileData) {
+    // @ts-ignore
     variableInputDict = R.map(() => consts.CREATE_FILE, fileData)
     fileInputDict = fileData
   } else if (value) {
@@ -237,7 +334,6 @@ export const fileSubmitToBlob = ({ payload, query, value }) => {
       modelName,
       fieldName,
       value,
-      // todo: consider adding inputTypes to the SchemaBuilder object, so you don't have to import conveyor-schema into this library
       type: inputTypes.FILE_TYPE
     })
     fileInputDict = { [fieldName]: arrayBuffer }
@@ -262,13 +358,19 @@ export const fileSubmitToBlob = ({ payload, query, value }) => {
 }
 
 // RouteEpic helpers
-export const isModelPathPrefix = (path, schema) =>
+export const isModelPathPrefix = (path: string[], schema: SchemaBuilder) =>
   path.length >= 2 &&
   path[0] === '' &&
   R.propOr(false, path[1], schema.schemaJSON) &&
   (schema.getHasIndex(path[1]) || schema.getHasDetail(path[1]))
 
-export const modelIndexPath = ({ path, schema }) => {
+export const modelIndexPath = ({
+  path,
+  schema
+}: {
+  path: string[]
+  schema: SchemaBuilder
+}) => {
   if (path.length === 2 && isModelPathPrefix(path, schema)) {
     const modelName = path[1]
 
@@ -278,7 +380,13 @@ export const modelIndexPath = ({ path, schema }) => {
   }
 }
 
-export const modelDetailPath = ({ path, schema }) => {
+export const modelDetailPath = ({
+  path,
+  schema
+}: {
+  path: string[]
+  schema: SchemaBuilder
+}) => {
   if (
     path.length >= 3 &&
     isModelPathPrefix(path, schema) &&
@@ -288,15 +396,25 @@ export const modelDetailPath = ({ path, schema }) => {
   }
 }
 
-export const modelCreatePath = ({ path }) => {
-  if (path.length === 3 && isModelPathPrefix(path) && path[2] === 'create') {
+export const modelCreatePath = ({
+  path,
+  schema
+}: {
+  path: string[]
+  schema: SchemaBuilder
+}) => {
+  if (
+    path.length === 3 &&
+    isModelPathPrefix(path, schema) &&
+    path[2] === 'create'
+  ) {
     return []
   }
 }
 
 export const pathFunctions = [modelIndexPath, modelDetailPath, modelCreatePath]
 
-export const getPath = locationChangeAction =>
+export const getPath = (locationChangeAction: string) =>
   R.pipe(
     R.pathOr('', ['payload', 'location', 'pathname']),
     pathname => pathname.split('/'),
@@ -304,18 +422,36 @@ export const getPath = locationChangeAction =>
   )(locationChangeAction)
 
 // ValidationEpic helpers
-export const tableChangedFields = ({ modelName, id, state$ }) =>
+export const tableChangedFields = ({
+  modelName,
+  id,
+  state$
+}: {
+  modelName: string
+  id: string
+  state$: any
+}): any =>
   R.pipe(
     R.path(['value', 'conveyor', 'edit', modelName, id]),
+    // @ts-ignore
     R.filter(
-      val => !R.equals(R.prop('currentValue', val), R.prop('initialValue', val))
+      (val: any) =>
+        !R.equals(R.prop('currentValue', val), R.prop('initialValue', val))
     ),
-    R.map(field => R.prop('currentValue', field))
+    R.map((field: any) => R.prop('currentValue', field))
   )(state$)
 
-export const getMissingFieldsMessage = ({ schema, missingFields, modelName }) =>
+export const getMissingFieldsMessage = ({
+  schema,
+  missingFields,
+  modelName
+}: {
+  schema: SchemaBuilder
+  missingFields: any
+  modelName: string
+}) =>
   R.reduce(
-    (acc, fieldName) =>
+    (acc: string, fieldName: string) =>
       acc + schema.getFieldLabel({ modelName, fieldName }) + ', ',
     '',
     missingFields

@@ -1,11 +1,12 @@
 import * as R from 'ramda'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
 export const initState = {
   index: -1,
   stack: []
 }
 
-export const handleStackPop = state => {
+export const handleStackPop = (state: any) => {
   const stack = R.prop('stack', state)
   stack.pop()
   const newIndex = R.prop('index', state) - 1
@@ -13,7 +14,7 @@ export const handleStackPop = state => {
   return R.assoc('index', newIndex, state)
 }
 
-export const handleStackPush = (state, action) => {
+export const handleStackPush = (state: any, action: any) => {
   const stack = R.prop('stack', state)
   const newIndex = R.prop('index', state) + 1
   state = R.assoc(
@@ -29,18 +30,23 @@ export const clearFormStack = () => {
   return initState
 }
 
-export const handleEnterFormStack = (state, action) => {
+export const handleEnterFormStack = (state: any, action: any) => {
   state = clearFormStack()
   const originPath = R.path(['payload', 'path'], action)
   state = handleStackPush(state, action)
   return R.assoc('originPath', originPath, state)
 }
 
-export const handleDetailCreate = (schema, state, action) => {
+export const handleDetailCreate = (
+  schema: SchemaBuilder,
+  state: any,
+  action: any
+) => {
   const payload = R.prop('payload', action)
   const node = R.prop('node', payload)
   const targetInverseFieldName = R.prop('targetInverseFieldName', payload)
   const parentModelName = R.pipe(
+    // @ts-ignore
     R.prop('path'),
     R.split('/'),
     R.nth(1)
@@ -52,7 +58,7 @@ export const handleDetailCreate = (schema, state, action) => {
   const parentId = R.prop('id', node)
 
   const type = schema.getType(
-    R.path(['payload', 'modelName'], action),
+    R.path(['payload', 'modelName'], action) as string,
     targetInverseFieldName
   )
   const fieldData = {
@@ -71,7 +77,7 @@ export const handleDetailCreate = (schema, state, action) => {
   return R.assoc('originNode', node, state)
 }
 
-export const handleCreateInputChange = (state, action) => {
+export const handleCreateInputChange = (state: any, action: any) => {
   const currentIndex = R.prop('index', state)
   const payload = R.prop('payload', action)
   return R.assocPath(
@@ -81,14 +87,14 @@ export const handleCreateInputChange = (state, action) => {
   )
 }
 
-export const handleValidationErrorCreate = (state, action) => {
+export const handleValidationErrorCreate = (state: any, action: any) => {
   const payload = R.prop('payload', action)
   const stackIndex = R.prop('index', state)
-  const errors = R.propOr([], 'errors', payload)
+  const errors: any[] = R.propOr([], 'errors', payload)
 
   R.forEach(fieldNameError => {
     state = R.assocPath(
-      R.prop(fieldNameError, errors),
+      R.prop(fieldNameError as any, errors),
       ['stack', stackIndex, 'errors', fieldNameError],
       state
     )
@@ -96,9 +102,9 @@ export const handleValidationErrorCreate = (state, action) => {
   return state
 }
 
-export const handleClearErrorSave = state => {
+export const handleClearErrorSave = (state: any) => {
   return R.dissocPath(['stack', R.prop('index', state), 'errors'], state)
 }
 
-export const selectCreate = state =>
+export const selectCreate = (state: any) =>
   R.pathOr(initState, ['conveyor', 'create'], state)

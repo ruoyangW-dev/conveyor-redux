@@ -1,6 +1,6 @@
 import * as Actions from './actionConsts'
 
-export const actionDisp = type => payload => ({ type, payload })
+export const actionDisp = (type: string) => (payload: any) => ({ type, payload })
 
 // delete
 

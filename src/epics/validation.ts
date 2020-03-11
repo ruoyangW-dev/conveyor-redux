@@ -12,20 +12,23 @@ import * as Actions from '../actions'
 import { Epic } from './epic'
 
 export class ValidationEpic extends Epic {
-  [SAVE_CREATE_CHECK](action$, state$) {
+  [SAVE_CREATE_CHECK](action$: any, state$: any) {
     return action$.pipe(
       ofType(SAVE_CREATE_CHECK),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
-        const stack = R.path(['value', 'conveyor', 'create', 'stack'], state$)
-        const fields = R.path([stack.length - 1, 'fields'], stack)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as string
+        const stack = R.path(
+          ['value', 'conveyor', 'create', 'stack'],
+          state$
+        ) as any[]
+        const fields: any = R.path([stack.length - 1, 'fields'], stack)
         const requiredFields = R.filter(
           val => val !== 'id',
           this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
-          fieldName => !(fieldName in fields)
+          (fieldName: any) => !(fieldName in fields)
         )
 
         if (!R.isEmpty(missingFields)) {
@@ -44,14 +47,14 @@ export class ValidationEpic extends Epic {
     )
   }
 
-  [DETAIL_ATTRIBUTE_EDIT_SUBMIT_CHECK](action$, state$) {
+  [DETAIL_ATTRIBUTE_EDIT_SUBMIT_CHECK](action$: any, state$: any) {
     return action$.pipe(
       ofType(DETAIL_ATTRIBUTE_EDIT_SUBMIT_CHECK),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
-        const fieldName = R.prop('fieldName', payload)
-        const id = R.prop('id', payload)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as string
+        const fieldName = R.prop('fieldName', payload) as string
+        const id = R.prop('id', payload) as string
         const currentValue = R.path(
           [
             'value',
@@ -100,13 +103,13 @@ export class ValidationEpic extends Epic {
     )
   }
 
-  [DETAIL_TABLE_EDIT_SUBMIT_CHECK](action$, state$) {
+  [DETAIL_TABLE_EDIT_SUBMIT_CHECK](action$: any, state$: any) {
     return action$.pipe(
       ofType(DETAIL_TABLE_EDIT_SUBMIT_CHECK),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
-        const id = R.prop('id', payload)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as string
+        const id = R.prop('id', payload) as string
 
         const changedFields = tableChangedFields({ modelName, id, state$ })
 
@@ -121,7 +124,7 @@ export class ValidationEpic extends Epic {
           this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
-          fieldName =>
+          (fieldName: any) =>
             R.contains(fieldName, Object.keys(changedFields)) &&
             !R.prop(fieldName, changedFields)
         )
@@ -146,13 +149,13 @@ export class ValidationEpic extends Epic {
     )
   }
 
-  [INDEX_EDIT_SUBMIT_CHECK](action$, state$) {
+  [INDEX_EDIT_SUBMIT_CHECK](action$: any, state$: any) {
     return action$.pipe(
       ofType(INDEX_EDIT_SUBMIT_CHECK),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
-        const id = R.prop('id', payload)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as any
+        const id = R.prop('id', payload) as string
 
         const changedFields = tableChangedFields({ modelName, id, state$ })
 
@@ -167,7 +170,7 @@ export class ValidationEpic extends Epic {
           this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
-          fieldName =>
+          (fieldName: any) =>
             R.contains(fieldName, Object.keys(changedFields)) &&
             !R.prop(fieldName, changedFields)
         )

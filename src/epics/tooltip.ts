@@ -8,13 +8,13 @@ import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
 
 export class TooltipEpic extends Epic {
-  [FETCH_MODEL_TOOLTIP](action$) {
+  [FETCH_MODEL_TOOLTIP](action$: any) {
     return action$.pipe(
       ofType(FETCH_MODEL_TOOLTIP),
       map(R.prop('payload')),
-      map(payload => {
+      map((payload: EpicPayload) => {
         const variables = { id: payload.id }
-        const query = this.doRequest.buildQuery({
+        const query = this.queryBuilder.buildQuery({
           modelName: payload.modelName,
           queryType: 'tooltip'
         })
@@ -25,25 +25,27 @@ export class TooltipEpic extends Epic {
           variables
         }
       }),
-      mergeMap(context => {
-        return this.doRequest
+      mergeMap((context: any) => {
+        return this.queryBuilder
           .sendRequest({ query: context.query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),
-      map(({ context, data, error }) => {
-        if (error) {
-          Logger.epicError('fetchModelTooltipEpic', context, error)
-          return Actions.addDangerAlert({
-            message: `Error loading ${context.modelName} tooltip`
+      map(
+        ({ context, data, error }: { context: any; data: any; error: any }) => {
+          if (error) {
+            Logger.epicError('fetchModelTooltipEpic', context, error)
+            return Actions.addDangerAlert({
+              message: `Error loading ${context.modelName} tooltip`
+            })
+          }
+
+          return Actions.updateModelTooltip({
+            modelName: context.modelName,
+            id: context.id,
+            data
           })
         }
-
-        return Actions.updateModelTooltip({
-          modelName: context.modelName,
-          id: context.id,
-          data
-        })
-      })
+      )
     )
   }
 }

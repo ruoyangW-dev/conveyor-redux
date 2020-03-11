@@ -1,6 +1,7 @@
 const localStorageKey = 'debug'
 
-export const isEnabled = key => localStorage.getItem(key) !== null
+export const isEnabled = (key?: string) =>
+  localStorage.getItem(key as string) !== null
 
 export const enable = () => {
   if (!isEnabled(localStorageKey)) {
@@ -8,13 +9,13 @@ export const enable = () => {
   }
 }
 
-export const log = (...args) => {
+export const log = (...args: any) => {
   if (!isEnabled()) {
     return
   }
   console.log(...args)
 }
-export const epicError = (epicName, context, error) => {
+export const epicError = (epicName: string, context: any, error: any) => {
   if (!isEnabled()) {
     return
   }
@@ -27,7 +28,7 @@ export const epicError = (epicName, context, error) => {
 }
 
 // unhandled error caught by root epic
-export const rootEpicError = (epicName, error) => {
+export const rootEpicError = (epicName: string, error: any) => {
   if (!isEnabled()) {
     return
   }
@@ -36,8 +37,10 @@ export const rootEpicError = (epicName, error) => {
   console.groupEnd()
 }
 
-export const inputValidationParseValidationErrors = (response, e) => {
-  if (!isEnabled()) { return }
+export const inputValidationParseValidationErrors = (response: any, e: any) => {
+  if (!isEnabled()) {
+    return
+  }
   console.group('inputValidation parseValidationErrors error')
   console.log('response')
   console.log(response)

@@ -10,6 +10,7 @@ import { EditEpic } from './edit'
 import { ValidationEpic } from './validation'
 import { CreateEpic } from './create'
 import { ModalEpic } from './modal'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
@@ -28,17 +29,20 @@ const conveyorEpics = [
 ]
 
 export class ConveyorEpic {
-  constructor(schema, doRequest) {
+  schema: SchemaBuilder
+  queryBuilder: QueryBuilder
+
+  constructor(schema: SchemaBuilder, queryBuilder: QueryBuilder) {
     this.schema = schema
-    this.doRequest = doRequest
+    this.queryBuilder = queryBuilder
   }
 
-  makeEpic(store) {
+  makeEpic(store: any) {
     return combineEpicsAndCatchErrors(
       store,
       ...R.flatten(
         R.map(
-          Epic => new Epic(this.schema, this.doRequest).makeEpic(),
+          Epic => new Epic(this.schema, this.queryBuilder).makeEpic(),
           conveyorEpics
         )
       )
@@ -54,12 +58,12 @@ export class ConveyorEpic {
  * @param epics - an object containing all the epics to be combined
  * @return The combined epics
  */
-export const combineEpicsAndCatchErrors = (store, ...epics) => (
-  action$,
-  state$,
-  dep
+export const combineEpicsAndCatchErrors = (store: any, ...epics: any) => (
+  action$: any,
+  state$: any,
+  dep: any
 ) => {
-  epics = epics.map(epic => (action$, state$) =>
+  epics = epics.map((epic: any) => (action$: any, state$: any) =>
     epic(action$, state$, dep).pipe(
       catchError((error, caught) => {
         const epicName = R.prop('name', epic)

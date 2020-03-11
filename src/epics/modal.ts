@@ -7,12 +7,12 @@ import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
 
 export class ModalEpic extends Epic {
-  [FETCH_DELETE_DETAIL](action$) {
+  [FETCH_DELETE_DETAIL](action$: any) {
     return action$.pipe(
       ofType(FETCH_DELETE_DETAIL),
       map(R.prop('payload')),
-      map(payload => {
-        const query = this.doRequest.buildQuery({
+      map((payload: EpicPayload) => {
+        const query = this.queryBuilder.buildQuery({
           modelName: payload.modelName,
           queryType: 'deleteCascades'
         })
@@ -24,24 +24,26 @@ export class ModalEpic extends Epic {
           variables
         }
       }),
-      mergeMap(context =>
-        this.doRequest
+      mergeMap((context: any) =>
+        this.queryBuilder
           .sendRequest({
             query: context.query,
             variables: context.variables
           })
           .then(({ data, error }) => ({ context, data, error }))
       ),
-      map(({ context, data, error }) => {
-        if (error) {
-          Logger.epicError('fetchDeleteDetailEpic', context, error)
-          return Actions.addDangerAlert({
-            message: `Error loading ${context.modelName} delete detail.`
-          })
-        }
+      map(
+        ({ context, data, error }: { context: any; data: any; error: any }) => {
+          if (error) {
+            Logger.epicError('fetchDeleteDetailEpic', context, error)
+            return Actions.addDangerAlert({
+              message: `Error loading ${context.modelName} delete detail.`
+            })
+          }
 
-        return Actions.updateDeleteDetail({ data })
-      })
+          return Actions.updateDeleteDetail({ data })
+        }
+      )
     )
   }
 }

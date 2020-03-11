@@ -9,7 +9,7 @@ import {
 import { Epic } from './epic'
 
 export class IndexTableEpic extends Epic {
-  [INDEX_TABLE_FILTER_SUBMIT](action$) {
+  [INDEX_TABLE_FILTER_SUBMIT](action$: any) {
     return action$.pipe(
       ofType(INDEX_TABLE_FILTER_SUBMIT),
       map(R.path(['payload', 'modelName'])),
@@ -17,7 +17,7 @@ export class IndexTableEpic extends Epic {
     )
   }
 
-  [INDEX_TABLE_SORT_CHANGE](action$) {
+  [INDEX_TABLE_SORT_CHANGE](action$: any) {
     return action$.pipe(
       ofType(INDEX_TABLE_SORT_CHANGE),
       map(R.path(['payload', 'modelName'])),

@@ -12,11 +12,11 @@ import * as R from 'ramda'
 import { Epic } from './epic'
 
 export class OptionsEpic extends Epic {
-  [QUERY_SELECT_MENU_OPEN](action$) {
+  [QUERY_SELECT_MENU_OPEN](action$: any) {
     return action$.pipe(
       ofType(QUERY_SELECT_MENU_OPEN),
       map(R.prop('payload')),
-      map(payload => {
+      map((payload: EpicPayload) => {
         const modelName = R.prop('modelName', payload)
         const fieldName = R.prop('fieldName', payload)
         const variables = {
@@ -26,13 +26,13 @@ export class OptionsEpic extends Epic {
 
         return { variables, modelName, fieldName }
       }),
-      mergeMap(context => {
-        const query = this.doRequest.buildQuery({
+      mergeMap((context: any) => {
+        const query = this.queryBuilder.buildQuery({
           modelName: context.modelName,
           queryType: 'index'
         })
 
-        return this.doRequest
+        return this.queryBuilder
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({
             context,
@@ -40,50 +40,52 @@ export class OptionsEpic extends Epic {
             error
           }))
       }),
-      map(({ context, data, error }) => {
-        if (error) {
-          Logger.epicError('querySelectMenuOpenEpic', context, error)
+      map(
+        ({ context, data, error }: { context: any; data: any; error: any }) => {
+          if (error) {
+            Logger.epicError('querySelectMenuOpenEpic', context, error)
 
-          return Actions.addDangerAlert({
-            message: 'Error loading form option.'
+            return Actions.addDangerAlert({
+              message: 'Error loading form option.'
+            })
+          }
+
+          return Actions.existingValueUpdate({
+            modelName: context.modelName,
+            fieldName: context.fieldName,
+            value: R.prop('result', data)
           })
         }
-
-        return Actions.existingValueUpdate({
-          modelName: context.modelName,
-          fieldName: context.fieldName,
-          value: R.prop('result', data)
-        })
-      })
+      )
     )
   }
 
-  [RELATIONSHIP_SELECT_MENU_OPEN](action$) {
+  [RELATIONSHIP_SELECT_MENU_OPEN](action$: any) {
     return action$.pipe(
       ofType(RELATIONSHIP_SELECT_MENU_OPEN),
       map(R.prop('payload')),
-      map(payload => {
-        const modelName = R.prop('modelName', payload)
-        const fieldName = R.prop('fieldName', payload)
+      map((payload: EpicPayload) => {
+        const modelName = R.prop('modelName', payload) as string
+        const fieldName = R.prop('fieldName', payload) as string
         const field = this.schema.getField(modelName, fieldName)
-        const targetModel = R.path(['type', 'target'], field)
+        const targetModel = R.path(['type', 'target'], field) as string
         const variables = {
           sort: getSort({ schema: this.schema, modelName: targetModel })
         }
 
         return { variables, modelName, fieldName, targetModel }
       }),
-      mergeMap(context => {
-        const query = this.doRequest.buildQuery({
+      mergeMap((context: any) => {
+        const query = this.queryBuilder.buildQuery({
           modelName: context.targetModel,
           queryType: 'select'
         })
 
-        return this.doRequest
+        return this.queryBuilder
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),
-      switchMap(({ context, data, error }) => {
+      switchMap(({ context, data, error }): any => {
         if (error) {
           Logger.epicError('relationshipSelectMenuOpenEpic', context, error)
 

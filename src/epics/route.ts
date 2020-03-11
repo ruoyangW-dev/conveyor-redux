@@ -7,17 +7,17 @@ import { getPath, pathFunctions } from '../utils/helpers'
 import { Epic } from './epic'
 
 export class RouteEpic extends Epic {
-  [LOCATION_CHANGE](action$, state$) {
+  [LOCATION_CHANGE](action$: any) {
     return action$.pipe(
       ofType(LOCATION_CHANGE),
       map(getPath),
       switchMap(path => {
-        const state = state$.value
         const actions = R.pipe(
           R.ap(pathFunctions),
+          // @ts-ignore
           R.reject(R.equals(undefined)),
           R.flatten
-        )([{ path, schema: this.schema, state }])
+        )([{ path, schema: this.schema }])
         return concat(actions)
       })
     )
