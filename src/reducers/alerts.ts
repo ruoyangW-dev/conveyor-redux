@@ -1,0 +1,14 @@
+import { initState, handleError } from '../utils/alerts'
+import { ADD_DANGER_ALERT } from '../actionConsts'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { Reducer } from './reducer'
+
+export class AlertsReducer extends Reducer {
+  constructor(schema: SchemaBuilder) {
+    super(schema, initState)
+  }
+
+  [ADD_DANGER_ALERT](state: any, action: any) {
+    return [...state, handleError({ payload: action.payload, type: 'danger' })]
+  }
+}
