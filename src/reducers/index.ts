@@ -9,6 +9,7 @@ import { OptionsReducer } from './options'
 import { TooltipReducer } from './tooltip'
 import { TableViewReducer } from './tableView'
 import { SearchReducer } from './search'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
 const conveyorReducerMap = {
   alerts: AlertsReducer,
@@ -23,18 +24,20 @@ const conveyorReducerMap = {
 }
 
 export class ConveyorReducer {
-  constructor(schema, overrides) {
+  constructor(schema: SchemaBuilder, overrides: any) {
     const mergedReducerMap = R.filter(
       R.identity,
       R.mergeRight(conveyorReducerMap, overrides)
     )
     R.forEachObjIndexed((Reducer, key) => {
+      // @ts-ignore
       this[key] = new Reducer(schema)
     }, mergedReducerMap)
   }
 
   makeReducer() {
     return combineReducers(
+      // @ts-ignore
       R.map(Reducer => (state, action) => Reducer.reduce(state, action), this)
     )
   }

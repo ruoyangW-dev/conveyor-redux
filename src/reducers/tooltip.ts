@@ -1,14 +1,17 @@
 import * as R from 'ramda'
 import { UPDATE_MODEL_TOOLTIP } from '../actionConsts'
 import { initState } from '../utils/tooltip'
+import { Reducer } from './reducer'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
-export class TooltipReducer {
-  constructor(schema) {
-    this.schema = schema
+export class TooltipReducer extends Reducer {
+  constructor(schema: SchemaBuilder) {
+    super(schema, initState)
   }
 
-  [UPDATE_MODEL_TOOLTIP](state, action) {
+  [UPDATE_MODEL_TOOLTIP](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { id, modelName, data } = { ...payload }
     const result = R.prop('result', data)
     const tooltipData = []
@@ -34,20 +37,14 @@ export class TooltipReducer {
           name,
           value: [
             {
-              text: this.schema.getEnumLabel(
-                modelName,
-                fieldName,
-                value
-              )
+              text: this.schema.getEnumLabel(modelName, fieldName, value)
             }
           ]
         })
-      } else if (
-        this.schema.isManyToMany(modelName, fieldName)
-      ) {
-        const relModelName = R.path(['type', 'target'], field)
+      } else if (this.schema.isManyToMany(modelName, fieldName)) {
+        const relModelName = R.path(['type', 'target'], field) as string
         // todo: add 'customProps' from outside source to all functions
-        const values = value.map(node => {
+        const values = value.map((node: any) => {
           const text = this.schema.getDisplayValue({
             modelName: relModelName,
             node
@@ -62,13 +59,11 @@ export class TooltipReducer {
           name,
           value: values
         })
-      } else if (
-        this.schema.isManyToOne(modelName, fieldName)
-      ) {
+      } else if (this.schema.isManyToOne(modelName, fieldName)) {
         const relModelName = R.path(
           ['type', 'target'],
           this.schema.getField(modelName, fieldName)
-        )
+        ) as string
         const text = this.schema.getDisplayValue({
           modelName: relModelName,
           node: value
@@ -95,11 +90,5 @@ export class TooltipReducer {
     }
 
     return R.assocPath([modelName, id.toString()], tooltipData, state)
-  }
-
-  reduce(state = initState, action) {
-    if (this && R.type(this[action.type]) === 'Function')
-      return this[action.type](state, action)
-    else return state
   }
 }

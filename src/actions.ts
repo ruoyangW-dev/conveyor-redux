@@ -25,8 +25,12 @@ export const onEditInputChange = actionDisp(Actions.EDIT_INPUT_CHANGE)
 export const onInlineFileSubmit = actionDisp(Actions.INLINE_FILE_SUBMIT)
 export const onInlineFileDelete = actionDisp(Actions.INLINE_FILE_DELETE)
 export const onValidationErrorEdit = actionDisp(Actions.VALIDATION_ERROR_EDIT)
-export const onValidationErrorTableRow = actionDisp(Actions.VALIDATION_ERROR_TABLE_ROW)
-export const onDetailTableRemoveSubmit = actionDisp(Actions.DETAIL_TABLE_REMOVE_SUBMIT)
+export const onValidationErrorTableRow = actionDisp(
+  Actions.VALIDATION_ERROR_TABLE_ROW
+)
+export const onDetailTableRemoveSubmit = actionDisp(
+  Actions.DETAIL_TABLE_REMOVE_SUBMIT
+)
 
 // input
 
@@ -41,8 +45,12 @@ export const onSaveCreateSuccessful = actionDisp(Actions.SAVE_CREATE_SUCCESSFUL)
 export const onStackCreate = actionDisp(Actions.STACK_CREATE)
 export const onDetailCreate = actionDisp(Actions.DETAIL_CREATE)
 export const onIndexCreate = actionDisp(Actions.INDEX_CREATE)
-export const onUpdateFormStackIndex = actionDisp(Actions.UPDATE_FORM_STACK_INDEX)
-export const onValidationErrorCreate = actionDisp(Actions.VALIDATION_ERROR_CREATE)
+export const onUpdateFormStackIndex = actionDisp(
+  Actions.UPDATE_FORM_STACK_INDEX
+)
+export const onValidationErrorCreate = actionDisp(
+  Actions.VALIDATION_ERROR_CREATE
+)
 
 // tooltip
 
@@ -75,9 +83,7 @@ export const updateOverviewDisplayed = actionDisp(
 export const updateOverviewSelected = actionDisp(
   Actions.UPDATE_OVERVIEW_SELECTED
 )
-export const changeRelTablePage = actionDisp(
-  Actions.CHANGE_REL_TABLE_PAGE
-)
+export const changeRelTablePage = actionDisp(Actions.CHANGE_REL_TABLE_PAGE)
 
 // model
 
@@ -87,8 +93,12 @@ export const updateModelDetail = actionDisp(Actions.UPDATE_MODEL_DETAIL)
 export const updateModelIndex = actionDisp(Actions.UPDATE_MODEL_INDEX)
 export const requestDeleteModel = actionDisp(Actions.REQUEST_DELETE_MODEL)
 export const updateDeleteModel = actionDisp(Actions.UPDATE_DELETE_MODEL)
-export const requestDeleteRelTableModel = actionDisp(Actions.REQUEST_DELETE_REL_TABLE_MODEL)
-export const requestDeleteModelFromDetailPage = actionDisp(Actions.REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE)
+export const requestDeleteRelTableModel = actionDisp(
+  Actions.REQUEST_DELETE_REL_TABLE_MODEL
+)
+export const requestDeleteModelFromDetailPage = actionDisp(
+  Actions.REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE
+)
 export const removeInstance = actionDisp(Actions.REMOVE_INSTANCE)
 
 // search
@@ -121,6 +131,10 @@ export const addSuccessAlert = actionDisp(Actions.ADD_SUCCESS_ALERT)
 // validation
 
 export const saveCreateCheck = actionDisp(Actions.SAVE_CREATE_CHECK)
-export const detailAttributeEditSubmitCheck = actionDisp(Actions.DETAIL_ATTRIBUTE_EDIT_SUBMIT_CHECK)
-export const detailTableEditSubmitCheck = actionDisp(Actions.DETAIL_TABLE_EDIT_SUBMIT_CHECK)
+export const detailAttributeEditSubmitCheck = actionDisp(
+  Actions.DETAIL_ATTRIBUTE_EDIT_SUBMIT_CHECK
+)
+export const detailTableEditSubmitCheck = actionDisp(
+  Actions.DETAIL_TABLE_EDIT_SUBMIT_CHECK
+)
 export const indexEditSubmitCheck = actionDisp(Actions.INDEX_EDIT_SUBMIT_CHECK)

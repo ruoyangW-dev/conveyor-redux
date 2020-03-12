@@ -2,7 +2,7 @@ import * as R from 'ramda'
 
 export const initState = {}
 
-export const groupModels = (collection, property) => {
+export const groupModels = (collection: any, property: any) => {
   const values = []
   const result = []
   for (let i = 0; i < collection.length; i++) {
@@ -18,6 +18,6 @@ export const groupModels = (collection, property) => {
   return result
 }
 
-export const selectModal = state => R.path(['conveyor', 'modal'], state)
-export const selectModalStore = (state, modal) =>
+export const selectModal = (state: any) => R.path(['conveyor', 'modal'], state)
+export const selectModalStore = (state: any, modal: any) =>
   R.path(['conveyor', 'modal', modal], state)

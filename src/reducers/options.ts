@@ -5,24 +5,27 @@ import {
   EXISTING_VALUE_UPDATE
 } from '../actionConsts'
 import { initState } from '../utils/options'
+import { Reducer } from './reducer'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
-export class OptionsReducer {
-  constructor(schema) {
-    this.schema = schema
+export class OptionsReducer extends Reducer {
+  constructor(schema: SchemaBuilder) {
+    super(schema, initState)
   }
 
-  [MENU_OPEN](state, action) {
+  [MENU_OPEN](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, rawData } = { ...payload }
 
     // get schema data about the field
     const field1 = this.schema.getField(modelName, fieldName)
 
     // get the target model from the field:
-    const targetModel = R.path(['type', 'target'], field1)
+    const targetModel = R.path(['type', 'target'], field1) as string
 
     // get drop-down options
-    const options = rawData.map(node => ({
+    const options = rawData.map((node: any) => ({
       label: this.schema.getDisplayValue({
         modelName: targetModel,
         node
@@ -33,14 +36,15 @@ export class OptionsReducer {
     return R.assocPath([modelName, fieldName], options, state)
   }
 
-  [DATA_OPTIONS_UPDATE](state, action) {
+  [DATA_OPTIONS_UPDATE](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, value } = { ...payload }
     const targetModelName = R.path(
       ['type', 'target'],
       this.schema.getField(modelName, fieldName)
-    )
-    const options = value.map(option => ({
+    ) as any
+    const options = value.map((option: any) => ({
       label: this.schema.getDisplayValue({
         modelName: targetModelName,
         node: option
@@ -51,17 +55,15 @@ export class OptionsReducer {
     return R.assocPath([modelName, fieldName], options, state)
   }
 
-  [EXISTING_VALUE_UPDATE](state, action) {
+  [EXISTING_VALUE_UPDATE](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, value } = { ...payload }
-    const options = value.map(option => ({ label: option, value: option }))
+    const options = value.map((option: any) => ({
+      label: option,
+      value: option
+    }))
 
     return R.assocPath([modelName, fieldName], options, state)
-  }
-
-  reduce(state = initState, action) {
-    if (this && R.type(this[action.type]) === 'Function')
-      return this[action.type](state, action)
-    else return state
   }
 }

@@ -7,6 +7,11 @@ export const filterSelectOptions = ({
   modelName,
   fieldName,
   condition
+}: {
+  state: any
+  modelName: string
+  fieldName: string
+  condition: any
 }) => {
   const relPath = ['conveyor', 'options', modelName, fieldName]
 
@@ -20,6 +25,7 @@ export const filterSelectOptions = ({
   return selectOptions(state)
 }
 
-export const selectOptions = state => R.path(['conveyor', 'options'], state)
-export const getOptions = (state, modelName, fieldName) =>
+export const selectOptions = (state: any) =>
+  R.path(['conveyor', 'options'], state)
+export const getOptions = (state: any, modelName: string, fieldName: string) =>
   R.pathOr([], ['conveyor', 'options', modelName, fieldName], state)

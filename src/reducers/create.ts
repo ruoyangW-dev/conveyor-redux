@@ -20,51 +20,47 @@ import {
   UPDATE_FORM_STACK_INDEX,
   VALIDATION_ERROR_CREATE
 } from '../actionConsts'
+import { Reducer } from './reducer'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
-export class CreateReducer {
-  constructor(schema) {
-    this.schema = schema
+export class CreateReducer extends Reducer {
+  constructor(schema: SchemaBuilder) {
+    super(schema, initState)
   }
 
-  [CREATE_INPUT_CHANGE](state, action) {
+  [CREATE_INPUT_CHANGE](state: any, action: any) {
     return handleCreateInputChange(state, action)
   }
 
-  [CANCEL_CREATE](state) {
+  [CANCEL_CREATE](state: any) {
     return handleStackPop(state)
   }
 
-  [SAVE_CREATE_SUCCESSFUL](state) {
+  [SAVE_CREATE_SUCCESSFUL](state: any) {
     return handleStackPop(state)
   }
 
-  [SAVE_CREATE](state) {
+  [SAVE_CREATE](state: any) {
     return handleClearErrorSave(state)
   }
 
-  [STACK_CREATE](state, action) {
+  [STACK_CREATE](state: any, action: any) {
     return handleStackPush(state, action)
   }
 
-  [DETAIL_CREATE](state, action) {
+  [DETAIL_CREATE](state: any, action: any) {
     return handleDetailCreate(this.schema, state, action)
   }
 
-  [INDEX_CREATE](state, action) {
+  [INDEX_CREATE](state: any, action: any) {
     return handleEnterFormStack(state, action)
   }
 
-  [UPDATE_FORM_STACK_INDEX](state, action) {
+  [UPDATE_FORM_STACK_INDEX](state: any, action: any) {
     return R.assoc('index', R.path(['payload', 'index'], action), state)
   }
 
-  [VALIDATION_ERROR_CREATE](state, action) {
+  [VALIDATION_ERROR_CREATE](state: any, action: any) {
     return handleValidationErrorCreate(state, action)
-  }
-
-  reduce(state = initState, action) {
-    if (this && R.type(this[action.type]) === 'Function')
-      return this[action.type](state, action)
-    else return state
   }
 }

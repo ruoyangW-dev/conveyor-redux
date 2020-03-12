@@ -1,11 +1,12 @@
 import * as R from 'ramda'
-import { selectTableView } from '../utils/tableView'
+import { selectTableView } from './tableView'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
 export const initState = {}
 
 export const DEFAULT_PAGINATION_AMT = 20
 
-export const slicePageData = (data, idx, amount) => {
+export const slicePageData = (data: any, idx: number, amount: number) => {
   const firstIdx = idx * amount // obj of firstIdx included
   const lastIdx = (idx + 1) * amount // obj of lastIdx NOT included => cutoff point
 
@@ -13,10 +14,10 @@ export const slicePageData = (data, idx, amount) => {
   return data.slice(firstIdx, lastIdx)
 }
 
-export const getModelStore = (state, modelName) =>
+export const getModelStore = (state: any, modelName: string) =>
   R.path(['conveyor', 'model', modelName], state)
 
-export const getPaginatedModel = (state, modelName) => {
+export const getPaginatedModel = (state: any, modelName: string) => {
   const idx = R.pathOr(
     0,
     [modelName, 'page', 'currentPage'],
@@ -26,7 +27,7 @@ export const getPaginatedModel = (state, modelName) => {
     DEFAULT_PAGINATION_AMT,
     'amtPerPage',
     selectTableView(state)
-  )
+  ) as number
   return slicePageData(
     getOrderedValues(getModelStore(state, modelName)),
     idx,
@@ -34,14 +35,19 @@ export const getPaginatedModel = (state, modelName) => {
   )
 }
 
-export const getPaginatedNode = (schema, state, modelName, id) => {
+export const getPaginatedNode = (
+  schema: SchemaBuilder,
+  state: any,
+  modelName: string,
+  id: string
+) => {
   const modelStore = getModelStore(state, modelName)
   const node = R.pathOr(null, ['values', id], modelStore)
   const amount = R.propOr(
     DEFAULT_PAGINATION_AMT,
     'amtPerPage',
     selectTableView(state)
-  )
+  ) as number
 
   // do not change the redux store
   const updatedNode = {}
@@ -56,8 +62,10 @@ export const getPaginatedNode = (schema, state, modelName, id) => {
           [modelName, 'fields', fieldName, 'page', 'currentPage'],
           selectTableView(state)
         )
+        // @ts-ignore
         updatedNode[fieldName] = slicePageData(obj, idx, amount)
       } else {
+        // @ts-ignore
         updatedNode[fieldName] = obj
       }
     }
@@ -65,26 +73,32 @@ export const getPaginatedNode = (schema, state, modelName, id) => {
   return updatedNode
 }
 
-export const getAllModelStore = state => R.path(['model'], state)
+export const getAllModelStore = (state: any) => R.path(['model'], state)
 
-export const getTabIdentifier = ({ modelName, tabList }) => {
+export const getTabIdentifier = ({
+  modelName,
+  tabList
+}: {
+  modelName: string
+  tabList: any
+}) => {
   return R.prepend(modelName, tabList).join('.')
 }
 
 export const getDefaultModelStore = () => ({ order: [], values: {} })
 
-export const getOrderedValues = store => {
+export const getOrderedValues = (store: any) => {
   const order = R.prop('order', store)
   const values = R.prop('values', store)
   if (R.isNil(order) || R.isNil(values)) {
     return []
   }
-  return order.map(id => values[id])
+  return order.map((id: string) => values[id])
 }
 
-export const updateIndex = (state, modelName, data) => {
-  const oldStore = R.propOr(getDefaultModelStore(), modelName, state)
-  const newStore = getDefaultModelStore()
+export const updateIndex = (state: any, modelName: string, data: any) => {
+  const oldStore = R.propOr(getDefaultModelStore(), modelName, state) as any
+  const newStore = getDefaultModelStore() as any
 
   newStore.order = data.map(R.prop('id'))
   for (const node of data) {
@@ -95,5 +109,12 @@ export const updateIndex = (state, modelName, data) => {
 }
 
 export const selectModel = R.pathOr(initState, ['conveyor', 'model'])
-export const getDetailUrl = ({ modelName, id }) => `/${modelName}/${id}`
-export const getIndexUrl = ({ modelName }) => `/${modelName}`
+export const getDetailUrl = ({
+  modelName,
+  id
+}: {
+  modelName: string
+  id: string
+}) => `/${modelName}/${id}`
+export const getIndexUrl = ({ modelName }: { modelName: string }) =>
+  `/${modelName}`

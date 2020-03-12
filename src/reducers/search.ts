@@ -7,13 +7,15 @@ import {
   TRIGGER_SEARCH
 } from '../actionConsts'
 import { initState } from '../utils/search'
+import { Reducer } from './reducer'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 
-export class SearchReducer {
-  constructor(schema) {
-    this.schema = schema
+export class SearchReducer extends Reducer {
+  constructor(schema: SchemaBuilder) {
+    super(schema, initState)
   }
 
-  [UPDATE_SEARCH_ENTRIES](state, action) {
+  [UPDATE_SEARCH_ENTRIES](state: any, action: any) {
     const data = R.pathOr({}, ['payload', 'data'], action)
     if (R.pathOr(0, ['search', 'length'], data) <= 0) {
       return { ...state, entries: [] }
@@ -21,9 +23,10 @@ export class SearchReducer {
 
     const entries = R.pipe(
       R.propOr([], 'search'),
-      R.map(entry => ({
+      R.map((entry: any) => ({
         id: entry.id,
         modelName: entry.__typename,
+        // @ts-ignore
         modelLabel: this.schema.getModelLabel({
           modelName: entry.__typename,
           node: entry
@@ -41,7 +44,7 @@ export class SearchReducer {
     return { ...state, entries }
   }
 
-  [SEARCH_QUERY_TEXT_CHANGED](state, action){
+  [SEARCH_QUERY_TEXT_CHANGED](state: any, action: any) {
     const newQueryText = action.payload.queryText
     if (newQueryText) {
       return R.assoc('queryText', newQueryText, state)
@@ -49,21 +52,15 @@ export class SearchReducer {
     return initState
   }
 
-  [SEARCH_QUERY_LINK_CLICKED](){
+  [SEARCH_QUERY_LINK_CLICKED]() {
     return initState
   }
 
-  [SEARCH_BLUR](state){
+  [SEARCH_BLUR](state: any) {
     return R.assoc('dropdown', false, state)
   }
 
-  [TRIGGER_SEARCH](state){
+  [TRIGGER_SEARCH](state: any) {
     return R.assoc('dropdown', true, state)
-  }
-
-  reduce(state = initState, action) {
-    if (this && R.type(this[action.type]) === 'Function')
-      return this[action.type](state, action)
-    else return state
   }
 }

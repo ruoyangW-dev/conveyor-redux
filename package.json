@@ -44,7 +44,8 @@
           "useBuiltIns": "usage",
           "corejs": 3
         }
-      ]
+      ],
+      "@babel/typescript"
     ],
     "plugins": [
       [

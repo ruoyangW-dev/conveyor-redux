@@ -22,20 +22,22 @@ import {
   removeAll,
   setValues
 } from '../utils/tableView'
+import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { Reducer } from './reducer'
 
-export class TableViewReducer {
-  constructor(schema) {
-    this.schema = schema
+export class TableViewReducer extends Reducer {
+  constructor(schema: SchemaBuilder) {
+    super(schema, initState)
   }
 
-  [INDEX_ADD_FILTER](state, action) {
+  [INDEX_ADD_FILTER](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
     const filterOrder = R.pathOr(
       [],
       [modelName, 'filter', 'filterOrder'],
       state
-    )
+    ) as any[]
     const newFilterOrder = filterOrder.slice()
     newFilterOrder.push('')
     return R.assocPath(
@@ -45,8 +47,9 @@ export class TableViewReducer {
     )
   }
 
-  [INDEX_DELETE_FILTER](state, action) {
+  [INDEX_DELETE_FILTER](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, index } = { ...payload }
     const filterOrder = R.pathOr(
       [],
@@ -66,7 +69,7 @@ export class TableViewReducer {
     )
   }
 
-  [INDEX_CLEAR_FILTERS](state, action) {
+  [INDEX_CLEAR_FILTERS](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
     return R.assocPath(
@@ -76,14 +79,15 @@ export class TableViewReducer {
     )
   }
 
-  [INDEX_CHANGE_FILTER_FIELD](state, action) {
+  [INDEX_CHANGE_FILTER_FIELD](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, index } = { ...payload }
     const filterOrder = R.pathOr(
       [],
       [modelName, 'filter', 'filterOrder'],
       state
-    )
+    ) as any[]
     const newFilterOrder = filterOrder.slice()
     newFilterOrder[index] = fieldName
     return R.assocPath(
@@ -93,8 +97,9 @@ export class TableViewReducer {
     )
   }
 
-  [INDEX_TABLE_FILTER_CHANGE](state, action) {
+  [INDEX_TABLE_FILTER_CHANGE](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, value } = { ...payload }
     return R.assocPath(
       [modelName, 'filter', 'filterValue', fieldName, 'value'],
@@ -103,8 +108,9 @@ export class TableViewReducer {
     )
   }
 
-  [INDEX_TABLE_FILTER_DROPDOWN](state, action) {
+  [INDEX_TABLE_FILTER_DROPDOWN](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, operator } = { ...payload }
     return R.assocPath(
       [modelName, 'filter', 'filterValue', fieldName, 'operator'],
@@ -113,7 +119,7 @@ export class TableViewReducer {
     )
   }
 
-  [INDEX_TABLE_FILTER_SUBMIT](state, action) {
+  [INDEX_TABLE_FILTER_SUBMIT](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
     const currentFilters = R.pathOr(
@@ -130,8 +136,9 @@ export class TableViewReducer {
     )(state)
   }
 
-  [INDEX_TABLE_SORT_CHANGE](state, action) {
+  [INDEX_TABLE_SORT_CHANGE](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, sortKey } = { ...payload }
     return R.pipe(
       R.assocPath([modelName, 'sort'], { fieldName, sortKey }),
@@ -139,8 +146,9 @@ export class TableViewReducer {
     )(state)
   }
 
-  [COLLAPSE_TABLE_CHANGE](state, action) {
+  [COLLAPSE_TABLE_CHANGE](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, collapse } = { ...payload }
     return R.assocPath(
       [modelName, 'fields', fieldName, 'collapse'],
@@ -149,8 +157,9 @@ export class TableViewReducer {
     )
   }
 
-  [CHANGE_PAGE](state, action) {
+  [CHANGE_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, updatedPageIndex } = { ...payload }
     return R.assocPath(
       [modelName, 'page', 'currentPage'],
@@ -159,8 +168,9 @@ export class TableViewReducer {
     )
   }
 
-  [CHANGE_REL_TABLE_PAGE](state, action) {
+  [CHANGE_REL_TABLE_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
+    // @ts-ignore
     const { modelName, fieldName, updatedPageIndex } = { ...payload }
     return R.assocPath(
       [modelName, 'fields', fieldName, 'page', 'currentPage'],
@@ -169,7 +179,7 @@ export class TableViewReducer {
     )
   }
 
-  [UPDATE_MODEL_INDEX](state, action) {
+  [UPDATE_MODEL_INDEX](state: any, action: any) {
     const payload = R.prop('payload', action)
     const data = R.pathOr([], ['data', 'result'], payload)
     const modelName = R.prop('modelName', payload)
@@ -187,7 +197,7 @@ export class TableViewReducer {
     )(state)
   }
 
-  [UPDATE_MODEL_DETAIL](state, action) {
+  [UPDATE_MODEL_DETAIL](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
     const newNode = R.pathOr(
@@ -198,7 +208,7 @@ export class TableViewReducer {
     const amtPerPage = R.prop('amtPerPage', state) || DEFAULT_PAGINATION_AMT
 
     if (newNode) {
-      for (const [fieldName, obj] of Object.entries(newNode)) {
+      for (const [fieldName, obj] of Object.entries(newNode) as any) {
         const type = this.schema.getType(modelName, fieldName)
 
         // if multi-rel type
@@ -223,17 +233,11 @@ export class TableViewReducer {
     return state
   }
 
-  [UPDATE_OVERVIEW_DISPLAYED](state, action) {
+  [UPDATE_OVERVIEW_DISPLAYED](state: any, action: any) {
     return setValues(state, R.prop('payload', action), 'selected')
   }
 
-  [UPDATE_OVERVIEW_SELECTED](state, action) {
+  [UPDATE_OVERVIEW_SELECTED](state: any, action: any) {
     return setValues(state, R.prop('payload', action), 'displayed')
-  }
-
-  reduce(state = initState, action) {
-    if (this && R.type(this[action.type]) === 'Function')
-      return this[action.type](state, action)
-    else return state
   }
 }
