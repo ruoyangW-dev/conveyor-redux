@@ -16,13 +16,12 @@ export class SearchReducer extends Reducer {
   }
 
   [UPDATE_SEARCH_ENTRIES](state: any, action: any) {
-    const data = R.pathOr({}, ['payload', 'data'], action)
-    if (R.pathOr(0, ['search', 'length'], data) <= 0) {
+    const data: object[] = R.pathOr([], ['payload', 'data'], action)
+    if (data.length <= 0) {
       return { ...state, entries: [] }
     }
 
     const entries = R.pipe(
-      R.propOr([], 'search'),
       R.map((entry: any) => ({
         id: entry.id,
         modelName: entry.__typename,

@@ -10,7 +10,8 @@ export class ModalReducer extends Reducer {
   }
 
   [UPDATE_DELETE_DETAIL](state: any, action: any) {
-    const deletes = R.path(['payload', 'data', 'checkDelete'], action)
+    const deletes = R.path(['payload', 'data'], action)
+    console.log(deletes)
     const groupedData = groupModels(deletes, '__typename')
     return { ...state, Delete: groupedData }
   }
