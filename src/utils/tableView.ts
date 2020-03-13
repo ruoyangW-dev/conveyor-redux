@@ -17,4 +17,5 @@ export const setValues = (state: any, payload: any, type: string) => {
   return R.assocPath([modelName, type], values, state)
 }
 
-export const selectTableView = (state: any): any => R.path(['conveyor', 'tableView'], state)
+export const selectTableView = (state: any): any =>
+  R.path(['conveyor', 'tableView'], state)
