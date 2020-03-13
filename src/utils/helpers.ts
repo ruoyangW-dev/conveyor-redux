@@ -188,7 +188,7 @@ const getValidationMessage = ({
   context: any
   parsedErrors: any
 }) =>
-  R.mapObjIndexed((fieldErrors: any, key: string) => {
+  R.mapObjIndexed((fieldErrors: any) => {
     let errorsList: string[] = []
     R.forEach((e: any) => {
       const message = errorMap({

@@ -11,11 +11,12 @@ export class Epic {
   }
 
   makeEpic() {
-    let epics: ROEpic[] = []
+    const epics: ROEpic[] = []
     R.forEach(methodName => {
       if (!R.includes(methodName, ['constructor', 'makeEpic'])) {
-        // @ts-ignore
-        const epic: ROEpic = (action$, state$) => this[methodName](action$, state$)
+        const epic: ROEpic = (action$, state$) =>
+          // @ts-ignore
+          this[methodName](action$, state$)
         Object.defineProperty(epic, 'name', { value: this.constructor.name })
         epics.push(epic)
       }
