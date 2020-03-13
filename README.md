@@ -1,4 +1,6 @@
 # conveyor-redux
+![CI](https://github.com/autoinvent/conveyor-redux/workflows/CI/badge.svg)
+
 A JavaScript Redux implementation of the state and actions needed by [conveyor](https://github.com/autoinvent/conveyor)
 
 ## Usage:
