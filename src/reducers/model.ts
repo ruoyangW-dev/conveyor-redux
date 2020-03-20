@@ -16,23 +16,23 @@ export class ModelReducer extends Reducer {
 
   [UPDATE_MODEL_INDEX](state: any, action: any) {
     const modelName = R.path(['payload', 'modelName'], action) as string
-    return updateIndex(
-      state,
-      modelName,
-      R.pathOr([], ['payload', 'data', 'result'], action)
-    )
+    // @ts-ignore
+    const queryAllName = R.prop('queryAllName', this.schema.getModel(modelName))
+    const data = R.path(['payload', 'data', queryAllName, 'result'], action)
+    return updateIndex(state, modelName, data)
   }
 
   [UPDATE_MODEL_DETAIL](state: any, action: any) {
     const modelName = R.path(['payload', 'modelName'], action) as string
+    // @ts-ignore
+    const queryName = R.prop('queryName', this.schema.getModel(modelName))
     const id = R.path(['payload', 'id'], action) as string
     const store = {
       ...(R.propOr(getDefaultModelStore(), modelName, state) as object)
     } as any
     const oldNode = R.prop(id, store.values)
-    const newNode = R.pathOr(
-      R.path(['payload', 'data'], action),
-      ['payload', 'data', 'result'],
+    const newNode = R.path(
+      ['payload', 'data', queryName, 'result'],
       action
     )
 

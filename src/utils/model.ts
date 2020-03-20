@@ -17,62 +17,6 @@ export const slicePageData = (data: any, idx: number, amount: number) => {
 export const getModelStore = (state: any, modelName: string) =>
   R.path(['conveyor', 'model', modelName], state)
 
-export const getPaginatedModel = (state: any, modelName: string) => {
-  const idx = R.pathOr(
-    0,
-    [modelName, 'page', 'currentPage'],
-    selectTableView(state)
-  )
-  const amount = R.propOr(
-    DEFAULT_PAGINATION_AMT,
-    'amtPerPage',
-    selectTableView(state)
-  ) as number
-  return slicePageData(
-    getOrderedValues(getModelStore(state, modelName)),
-    idx,
-    amount
-  )
-}
-
-export const getPaginatedNode = (
-  schema: SchemaBuilder,
-  state: any,
-  modelName: string,
-  id: string
-) => {
-  const modelStore = getModelStore(state, modelName)
-  const node = R.pathOr(null, ['values', id], modelStore)
-  const amount = R.propOr(
-    DEFAULT_PAGINATION_AMT,
-    'amtPerPage',
-    selectTableView(state)
-  ) as number
-
-  // do not change the redux store
-  const updatedNode = {}
-  if (node) {
-    for (const [fieldName, obj] of Object.entries(node)) {
-      const type = schema.getType(modelName, fieldName)
-
-      // if multi-rel type
-      if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
-        const idx = R.pathOr(
-          0,
-          [modelName, 'fields', fieldName, 'page', 'currentPage'],
-          selectTableView(state)
-        )
-        // @ts-ignore
-        updatedNode[fieldName] = slicePageData(obj, idx, amount)
-      } else {
-        // @ts-ignore
-        updatedNode[fieldName] = obj
-      }
-    }
-  }
-  return updatedNode
-}
-
 export const getAllModelStore = (state: any) => R.path(['model'], state)
 
 export const getTabIdentifier = ({

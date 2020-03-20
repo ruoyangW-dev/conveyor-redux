@@ -18,6 +18,7 @@ import { Epic } from './epic'
 export class ModelEpic extends Epic {
   [FETCH_MODEL_INDEX](action$: any, state$: any) {
     return action$.pipe(
+        //todo: add type consts.CHANGE_PAGE
       ofType(FETCH_MODEL_INDEX),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
@@ -31,7 +32,13 @@ export class ModelEpic extends Epic {
             schema: this.schema,
             modelName: payload.modelName as string,
             tableView: selectTableView(state$.value)
-          })
+          }),
+          // todo: add pagination
+          // page: getPage({
+          //   schema,
+          //   modelName: payload.modelName,
+          //   tableView: selectTableView(state$.value)
+          // })
         }
         return { modelName: payload.modelName, variables }
       }),

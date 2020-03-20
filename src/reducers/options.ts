@@ -39,12 +39,15 @@ export class OptionsReducer extends Reducer {
   [DATA_OPTIONS_UPDATE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
-    const { modelName, fieldName, value } = { ...payload }
+    const { modelName, fieldName } = { ...payload }
     const targetModelName = R.path(
       ['type', 'target'],
       this.schema.getField(modelName, fieldName)
     ) as any
-    const options = value.map((option: any) => ({
+    // @ts-ignore
+    const queryAllName = R.prop('queryAllName', this.schema.getModel(targetModelName))
+    const data = R.path(['data', queryAllName, 'result'], payload) as any
+    const options = data.map((option: any) => ({
       label: this.schema.getDisplayValue({
         modelName: targetModelName,
         node: option

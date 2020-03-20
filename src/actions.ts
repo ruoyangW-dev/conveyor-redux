@@ -87,6 +87,8 @@ export const updateOverviewSelected = actionDisp(
   Actions.UPDATE_OVERVIEW_SELECTED
 )
 export const changeRelTablePage = actionDisp(Actions.CHANGE_REL_TABLE_PAGE)
+export const changeGotoPage = actionDisp(Actions.CHANGE_GOTO_PAGE)
+export const changeRelGotoPage = actionDisp(Actions.CHANGE_REL_GOTO_PAGE)
 
 // model
 

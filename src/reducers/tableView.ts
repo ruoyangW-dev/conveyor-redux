@@ -5,6 +5,8 @@ import {
   INDEX_CLEAR_FILTERS,
   INDEX_CHANGE_FILTER_FIELD,
   CHANGE_REL_TABLE_PAGE,
+  CHANGE_GOTO_PAGE,
+  CHANGE_REL_GOTO_PAGE,
   UPDATE_OVERVIEW_DISPLAYED,
   UPDATE_OVERVIEW_SELECTED,
   INDEX_TABLE_SORT_CHANGE,
@@ -157,24 +159,62 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  // todo: make sure works
   [CHANGE_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
-    const { modelName, updatedPageIndex } = { ...payload }
+    const { modelName, updatedPageIndex, isValid = true } = { ...payload }
+    const newState = R.assocPath(
+      [modelName, 'page', 'canGoto'],
+      isValid,
+      state
+    )
+    if (!isValid) { return newState }
     return R.assocPath(
       [modelName, 'page', 'currentPage'],
       updatedPageIndex,
+      newState
+    )
+  }
+
+  // todo: make sure works
+  [CHANGE_REL_TABLE_PAGE](state: any, action: any) {
+    const payload = R.prop('payload', action)
+    // @ts-ignore
+    const { modelName, fieldName, updatedPageIndex, isValid = true } = { ...payload }
+    const newState = R.assocPath(
+      [modelName, 'fields', fieldName, 'page', 'canGoto'],
+      isValid,
+      state
+    )
+    if (!isValid) { return newState }
+    return R.assocPath(
+      [modelName, 'fields', fieldName, 'page', 'currentPage'],
+      updatedPageIndex,
+      newState
+    )
+  }
+
+  // todo: make sure works
+  [CHANGE_GOTO_PAGE](state: any, action: any) {
+    const payload = R.prop('payload', action)
+    // @ts-ignore
+    const { modelName, pageIndex } = { ...payload }
+    return R.assocPath(
+      [modelName, 'page', 'goto'],
+      pageIndex,
       state
     )
   }
 
-  [CHANGE_REL_TABLE_PAGE](state: any, action: any) {
+  // todo: make sure works
+  [CHANGE_REL_GOTO_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
-    const { modelName, fieldName, updatedPageIndex } = { ...payload }
+    const { modelName, fieldName, pageIndex } = { ...payload }
     return R.assocPath(
-      [modelName, 'fields', fieldName, 'page', 'currentPage'],
-      updatedPageIndex,
+      [modelName, 'fields', fieldName, 'page', 'goto'],
+      pageIndex,
       state
     )
   }

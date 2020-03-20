@@ -87,12 +87,9 @@ export class CreateEpic extends Epic {
           })
         ]
 
-        const IdPath: string[] = [
+        const IdPath = [
           'create' + context.modelName,
-          R.path(
-            [context.modelName, 'queryName'],
-            this.schema.schemaJSON
-          ) as string, // camelcase modelName
+          'result',
           'id'
         ]
 

@@ -92,10 +92,11 @@ export const handleValidationErrorCreate = (state: any, action: any) => {
   const stackIndex = R.prop('index', state)
   const errors: any[] = R.propOr([], 'errors', payload)
 
+  // todo: check works
   R.forEach(fieldNameError => {
     state = R.assocPath(
-      R.prop(fieldNameError as any, errors),
       ['stack', stackIndex, 'errors', fieldNameError],
+      R.prop(fieldNameError as any, errors),
       state
     )
   }, Object.keys(errors))
