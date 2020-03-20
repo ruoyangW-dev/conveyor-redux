@@ -45,7 +45,7 @@ export class OptionsReducer extends Reducer {
       this.schema.getField(modelName, fieldName)
     ) as any
     const queryAllName = R.prop(
-        // @ts-ignore
+      // @ts-ignore
       'queryAllName',
       this.schema.getModel(targetModelName)
     )

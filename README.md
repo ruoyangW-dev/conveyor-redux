@@ -46,3 +46,13 @@ This overrides object with this reducer would look like:
   tooltip: CustomTooltipReducer
 }
 ```
+
+### Development
+
+Before committing, in order to test the build files run:
+
+yarn build
+
+to test and fix eslint issues run:
+
+yarn eslint 'src/**/*.ts' --fix
