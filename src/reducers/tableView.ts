@@ -164,12 +164,10 @@ export class TableViewReducer extends Reducer {
     const payload = R.prop('payload', action)
     // @ts-ignore
     const { modelName, updatedPageIndex, isValid = true } = { ...payload }
-    const newState = R.assocPath(
-      [modelName, 'page', 'canGoto'],
-      isValid,
-      state
-    )
-    if (!isValid) { return newState }
+    const newState = R.assocPath([modelName, 'page', 'canGoto'], isValid, state)
+    if (!isValid) {
+      return newState
+    }
     return R.assocPath(
       [modelName, 'page', 'currentPage'],
       updatedPageIndex,
@@ -181,13 +179,17 @@ export class TableViewReducer extends Reducer {
   [CHANGE_REL_TABLE_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
-    const { modelName, fieldName, updatedPageIndex, isValid = true } = { ...payload }
+    const { modelName, fieldName, updatedPageIndex, isValid = true } = {
+      ...payload
+    }
     const newState = R.assocPath(
       [modelName, 'fields', fieldName, 'page', 'canGoto'],
       isValid,
       state
     )
-    if (!isValid) { return newState }
+    if (!isValid) {
+      return newState
+    }
     return R.assocPath(
       [modelName, 'fields', fieldName, 'page', 'currentPage'],
       updatedPageIndex,
@@ -200,11 +202,7 @@ export class TableViewReducer extends Reducer {
     const payload = R.prop('payload', action)
     // @ts-ignore
     const { modelName, pageIndex } = { ...payload }
-    return R.assocPath(
-      [modelName, 'page', 'goto'],
-      pageIndex,
-      state
-    )
+    return R.assocPath([modelName, 'page', 'goto'], pageIndex, state)
   }
 
   // todo: make sure works

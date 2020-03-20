@@ -31,10 +31,7 @@ export class ModelReducer extends Reducer {
       ...(R.propOr(getDefaultModelStore(), modelName, state) as object)
     } as any
     const oldNode = R.prop(id, store.values)
-    const newNode = R.path(
-      ['payload', 'data', queryName, 'result'],
-      action
-    )
+    const newNode = R.path(['payload', 'data', queryName, 'result'], action)
 
     if (!oldNode) {
       store.order.push(id)

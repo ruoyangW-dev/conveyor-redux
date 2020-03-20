@@ -45,7 +45,10 @@ export class OptionsReducer extends Reducer {
       this.schema.getField(modelName, fieldName)
     ) as any
     // @ts-ignore
-    const queryAllName = R.prop('queryAllName', this.schema.getModel(targetModelName))
+    const queryAllName = R.prop(
+      'queryAllName',
+      this.schema.getModel(targetModelName)
+    )
     const data = R.path(['data', queryAllName, 'result'], payload) as any
     const options = data.map((option: any) => ({
       label: this.schema.getDisplayValue({
