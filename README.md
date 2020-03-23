@@ -40,6 +40,11 @@ class CustomTooltipReducer extends TooltipReducer {
 }
 ```
 
+Note: beware that your custom classes cannot be written using ES6 and interact with (transpiled) ES5 classes without creating an error.
+If you are using ES6 for your classes, then you must use redux-thunk to manipulate the redux store in overrides.
+ 
+https://stackoverflow.com/questions/51860043/javascript-es6-typeerror-class-constructor-client-cannot-be-invoked-without-ne/51860850
+
 This overrides object with this reducer would look like:
 ```javascript
 {

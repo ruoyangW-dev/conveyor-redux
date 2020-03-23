@@ -41,6 +41,7 @@ export const getOrderedValues = (store: any) => {
 }
 
 export const updateIndex = (state: any, modelName: string, data: any) => {
+  if (!data) data = []
   const oldStore = R.propOr(getDefaultModelStore(), modelName, state) as any
   const newStore = getDefaultModelStore() as any
 

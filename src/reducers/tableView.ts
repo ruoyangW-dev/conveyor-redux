@@ -217,42 +217,42 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  // todo: test works
   [UPDATE_MODEL_INDEX](state: any, action: any) {
     const payload = R.prop('payload', action)
-    const data = R.pathOr([], ['data', 'result'], payload)
     const modelName = R.prop('modelName', payload)
-    const amtPerPage = R.prop('amtPerPage', state) || DEFAULT_PAGINATION_AMT
+    // @ts-ignore
+    const count = R.path(['payload', 'data', 'count'], action)
 
     let lastIndex = null
-    if (!R.isEmpty(data)) {
-      const totalDataLength = data.length
-      lastIndex = Math.floor((totalDataLength - 1) / amtPerPage)
+    if (count) {
+      // @ts-ignore
+      lastIndex = Math.ceil(count / consts.PAGINATION_AMT)
     }
 
     return R.pipe(
       R.assocPath([modelName, 'page', 'lastIndex'], lastIndex),
-      R.assocPath([modelName, 'page', 'total'], data.length)
+      R.assocPath([modelName, 'page', 'total'], count),
+      R.assocPath([modelName, 'page', 'amtPerPage'], DEFAULT_PAGINATION_AMT)
     )(state)
   }
 
+  // todo: test works
   [UPDATE_MODEL_DETAIL](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
-    const newNode = R.pathOr(
-      R.prop('data', payload),
-      ['data', 'result'],
-      payload
-    )
-    const amtPerPage = R.prop('amtPerPage', state) || DEFAULT_PAGINATION_AMT
+    // @ts-ignore
+    const newNode = R.path(['payload', 'data', 'result'], action)
 
     if (newNode) {
+      // @ts-ignore
       for (const [fieldName, obj] of Object.entries(newNode) as any) {
         const type = this.schema.getType(modelName, fieldName)
 
         // if multi-rel type
         if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
           const totalDataLength = obj.length
-          const lastIndexRel = Math.floor((totalDataLength - 1) / amtPerPage)
+          const lastIndexRel = Math.ceil(totalDataLength / DEFAULT_PAGINATION_AMT)
           if (lastIndexRel > 0) {
             state = R.pipe(
               R.assocPath(
@@ -262,6 +262,10 @@ export class TableViewReducer extends Reducer {
               R.assocPath(
                 [modelName, 'fields', fieldName, 'page', 'total'],
                 totalDataLength
+              ),
+              R.assocPath(
+                [modelName, 'fields', fieldName, 'page', 'amtPerPage'],
+                DEFAULT_PAGINATION_AMT
               )
             )(state)
           }
@@ -271,10 +275,12 @@ export class TableViewReducer extends Reducer {
     return state
   }
 
+  // todo: not necessary in conveyor-redux: delete?
   [UPDATE_OVERVIEW_DISPLAYED](state: any, action: any) {
     return setValues(state, R.prop('payload', action), 'selected')
   }
 
+  // todo: not necessary in conveyor-redux: delete?
   [UPDATE_OVERVIEW_SELECTED](state: any, action: any) {
     return setValues(state, R.prop('payload', action), 'displayed')
   }
