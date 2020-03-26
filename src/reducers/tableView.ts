@@ -159,7 +159,6 @@ export class TableViewReducer extends Reducer {
     )
   }
 
-  // todo: make sure works
   [CHANGE_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -197,7 +196,6 @@ export class TableViewReducer extends Reducer {
     )
   }
 
-  // todo: make sure works
   [CHANGE_GOTO_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -217,7 +215,6 @@ export class TableViewReducer extends Reducer {
     )
   }
 
-  // todo: test works
   [UPDATE_MODEL_INDEX](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
@@ -227,7 +224,7 @@ export class TableViewReducer extends Reducer {
     let lastIndex = null
     if (count) {
       // @ts-ignore
-      lastIndex = Math.ceil(count / consts.PAGINATION_AMT)
+      lastIndex = Math.ceil(count / DEFAULT_PAGINATION_AMT)
     }
 
     return R.pipe(
@@ -237,7 +234,6 @@ export class TableViewReducer extends Reducer {
     )(state)
   }
 
-  // todo: test works
   [UPDATE_MODEL_DETAIL](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
@@ -252,7 +248,9 @@ export class TableViewReducer extends Reducer {
         // if multi-rel type
         if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
           const totalDataLength = obj.length
-          const lastIndexRel = Math.ceil(totalDataLength / DEFAULT_PAGINATION_AMT)
+          const lastIndexRel = Math.ceil(
+            totalDataLength / DEFAULT_PAGINATION_AMT
+          )
           if (lastIndexRel > 0) {
             state = R.pipe(
               R.assocPath(

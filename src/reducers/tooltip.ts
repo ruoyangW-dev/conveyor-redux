@@ -14,7 +14,7 @@ export class TooltipReducer extends Reducer {
     // @ts-ignore
     const { id, modelName, data } = { ...payload }
     // @ts-ignore
-    const result = R.pathOr([],['result'], data)
+    const result = R.pathOr([], ['result'], data)
     const tooltipData = []
 
     for (const fieldName in result) {

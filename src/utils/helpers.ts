@@ -4,6 +4,7 @@ import * as Actions from '../actions'
 import * as consts from '../actionConsts'
 import * as Logger from './Logger'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { DEFAULT_PAGINATION_AMT } from './tableView'
 
 export const storeValueToArrayBuffer = (value: number[]) => {
   const arrayBuffer = new ArrayBuffer(value.length)
@@ -92,6 +93,18 @@ export const getSort = ({
   // otherwise, get default sort from schema
   // sortFields: camel-case fields followed by '_asc' or '_desc'.
   return R.path([modelName, 'sortFields'], schema.schemaJSON)
+}
+
+export const getPage = ({
+  modelName,
+  tableView
+}: {
+  modelName: string
+  tableView: any
+}) => {
+  const currentPage = R.pathOr(1, [modelName, 'page', 'currentPage'], tableView)
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  return { current: currentPage, per_page: DEFAULT_PAGINATION_AMT }
 }
 
 export const editFieldToQueryInput = ({
