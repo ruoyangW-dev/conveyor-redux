@@ -16,25 +16,20 @@ export class ModelReducer extends Reducer {
 
   [UPDATE_MODEL_INDEX](state: any, action: any) {
     const modelName = R.path(['payload', 'modelName'], action) as string
-    return updateIndex(
-      state,
-      modelName,
-      R.pathOr([], ['payload', 'data', 'result'], action)
-    )
+    // @ts-ignore
+    const data = R.path(['payload', 'data', 'result'], action)
+    return updateIndex(state, modelName, data)
   }
 
   [UPDATE_MODEL_DETAIL](state: any, action: any) {
     const modelName = R.path(['payload', 'modelName'], action) as string
+    // @ts-ignore
     const id = R.path(['payload', 'id'], action) as string
     const store = {
       ...(R.propOr(getDefaultModelStore(), modelName, state) as object)
     } as any
     const oldNode = R.prop(id, store.values)
-    const newNode = R.pathOr(
-      R.path(['payload', 'data'], action),
-      ['payload', 'data', 'result'],
-      action
-    )
+    const newNode = R.path(['payload', 'data', 'result'], action)
 
     if (!oldNode) {
       store.order.push(id)

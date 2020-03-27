@@ -4,10 +4,11 @@ import {
   FETCH_MODEL_DETAIL,
   REQUEST_DELETE_MODEL,
   REQUEST_DELETE_REL_TABLE_MODEL,
-  REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE
+  REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE,
+  CHANGE_PAGE
 } from '../actionConsts'
 import * as R from 'ramda'
-import { getFilters, getSort, getDeleteErrors } from '../utils/helpers'
+import { getFilters, getSort, getPage, getDeleteErrors } from '../utils/helpers'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
 import { ofType } from 'redux-observable'
 import { selectTableView } from '../utils/tableView'
@@ -18,7 +19,7 @@ import { Epic } from './epic'
 export class ModelEpic extends Epic {
   [FETCH_MODEL_INDEX](action$: any, state$: any) {
     return action$.pipe(
-      ofType(FETCH_MODEL_INDEX),
+      ofType(FETCH_MODEL_INDEX, CHANGE_PAGE),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
         const variables = {
@@ -29,6 +30,10 @@ export class ModelEpic extends Epic {
           }),
           sort: getSort({
             schema: this.schema,
+            modelName: payload.modelName as string,
+            tableView: selectTableView(state$.value)
+          }),
+          page: getPage({
             modelName: payload.modelName as string,
             tableView: selectTableView(state$.value)
           })

@@ -17,24 +17,6 @@ export const slicePageData = (data: any, idx: number, amount: number) => {
 export const getModelStore = (state: any, modelName: string) =>
   R.path(['conveyor', 'model', modelName], state)
 
-export const getPaginatedModel = (state: any, modelName: string) => {
-  const idx = R.pathOr(
-    0,
-    [modelName, 'page', 'currentPage'],
-    selectTableView(state)
-  )
-  const amount = R.propOr(
-    DEFAULT_PAGINATION_AMT,
-    'amtPerPage',
-    selectTableView(state)
-  ) as number
-  return slicePageData(
-    getOrderedValues(getModelStore(state, modelName)),
-    idx,
-    amount
-  )
-}
-
 export const getPaginatedNode = (
   schema: SchemaBuilder,
   state: any,
@@ -73,8 +55,6 @@ export const getPaginatedNode = (
   return updatedNode
 }
 
-export const getAllModelStore = (state: any) => R.path(['model'], state)
-
 export const getTabIdentifier = ({
   modelName,
   tabList
@@ -97,6 +77,7 @@ export const getOrderedValues = (store: any) => {
 }
 
 export const updateIndex = (state: any, modelName: string, data: any) => {
+  if (!data) data = []
   const oldStore = R.propOr(getDefaultModelStore(), modelName, state) as any
   const newStore = getDefaultModelStore() as any
 
