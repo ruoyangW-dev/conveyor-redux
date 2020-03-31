@@ -6,9 +6,9 @@ export const initState = {}
 
 export const DEFAULT_PAGINATION_AMT = 20
 
-export const slicePageData = (data: any, idx: number, amount: number) => {
-  const firstIdx = idx * amount // obj of firstIdx included
-  const lastIdx = (idx + 1) * amount // obj of lastIdx NOT included => cutoff point
+const slicePageData = (data: any, idx: number) => {
+  const firstIdx = idx * DEFAULT_PAGINATION_AMT // obj of firstIdx included
+  const lastIdx = ((idx + 1) * DEFAULT_PAGINATION_AMT) // obj of lastIdx NOT included => cutoff point
 
   // slice(first_index, cutoff_index)
   return data.slice(firstIdx, lastIdx)
@@ -25,11 +25,6 @@ export const getPaginatedNode = (
 ) => {
   const modelStore = getModelStore(state, modelName)
   const node = R.pathOr(null, ['values', id], modelStore)
-  const amount = R.propOr(
-    DEFAULT_PAGINATION_AMT,
-    'amtPerPage',
-    selectTableView(state)
-  ) as number
 
   // do not change the redux store
   const updatedNode = {}
@@ -40,12 +35,12 @@ export const getPaginatedNode = (
       // if multi-rel type
       if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
         const idx = R.pathOr(
-          0,
+          1,
           [modelName, 'fields', fieldName, 'page', 'currentPage'],
           selectTableView(state)
         )
         // @ts-ignore
-        updatedNode[fieldName] = slicePageData(obj, idx, amount)
+        updatedNode[fieldName] = slicePageData(obj, idx)
       } else {
         // @ts-ignore
         updatedNode[fieldName] = obj
