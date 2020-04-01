@@ -7,8 +7,10 @@ export const initState = {}
 export const DEFAULT_PAGINATION_AMT = 20
 
 const slicePageData = (data: any, idx: number) => {
-  const firstIdx = idx * DEFAULT_PAGINATION_AMT // obj of firstIdx included
-  const lastIdx = ((idx + 1) * DEFAULT_PAGINATION_AMT) // obj of lastIdx NOT included => cutoff point
+  const firstIdx = (idx - 1) * DEFAULT_PAGINATION_AMT
+  const lastIdx = idx * DEFAULT_PAGINATION_AMT
+  //const firstIdx = idx * DEFAULT_PAGINATION_AMT // obj of firstIdx included
+  //const lastIdx = (idx + 1) * DEFAULT_PAGINATION_AMT // obj of lastIdx NOT included => cutoff point
 
   // slice(first_index, cutoff_index)
   return data.slice(firstIdx, lastIdx)

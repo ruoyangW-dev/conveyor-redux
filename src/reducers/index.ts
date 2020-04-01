@@ -24,7 +24,7 @@ const conveyorReducerMap = {
 }
 
 export class ConveyorReducer {
-  constructor(schema: SchemaBuilder, overrides: any) {
+  constructor(schema: SchemaBuilder, overrides?: any) {
     const mergedReducerMap = R.filter(
       R.identity,
       R.mergeRight(conveyorReducerMap, overrides)
@@ -35,7 +35,7 @@ export class ConveyorReducer {
     }, mergedReducerMap)
   }
 
-  makeReducer() {
+  makeReducer(): any {
     return combineReducers(
       // @ts-ignore
       R.map(Reducer => (state, action) => Reducer.reduce(state, action), this)
