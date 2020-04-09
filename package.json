@@ -2,9 +2,11 @@
   "name": "conveyor-redux",
   "version": "0.1.0",
   "description": "Generates reducers and epics for use with conveyor",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": "github:autoinvent/conveyor-redux",
   "author": "Moebius Solutions",
   "license": "BSD-3-Clause",
-  "main": "lib/index.js",
   "scripts": {
     "build": "yarn run build:types && yarn run build:js",
     "build:types": "tsc --emitDeclarationOnly",
