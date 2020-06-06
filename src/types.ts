@@ -70,4 +70,5 @@ interface EpicPayload {
   removedId?: string
   queryString?: string
   queryText?: string
+  expiresOn?: number
 }
