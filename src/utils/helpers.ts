@@ -153,11 +153,13 @@ const errorMap = ({
   schema,
   type,
   fields,
+  message,
   modelName
 }: {
   schema: SchemaBuilder
   type: string
   fields: string[]
+  message: string
   modelName: string
 }) => {
   let fieldNames: string[] = []
@@ -181,14 +183,8 @@ const errorMap = ({
       const last = fieldNames[fieldNames.length - 1]
       return `This ${extra}${last} already exists.`
     }
-    case consts.INCORRECT_DATA_SOURCE_SYSTEM_TYPE:
-      return 'Source and Destination must be on the same System.'
-    case consts.INCORRECT_REQUIREMENT_PARENT_TYPE:
-      return 'Cannot add this Requirement as a Parent (incompatible type).'
-    case consts.INCORRECT_REQUIREMENT_JMET_TYPE:
-      return 'Cannot add JMET to Requirement with type "Business".'
     default:
-      return null
+      return message
   }
 }
 
@@ -207,6 +203,7 @@ const getValidationMessage = ({
       const message = errorMap({
         type: R.prop('type', e),
         fields: R.prop('group', e),
+        message: R.prop('message', e),
         modelName: R.prop('modelName', context),
         schema
       })

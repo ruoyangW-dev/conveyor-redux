@@ -1,5 +1,6 @@
 import { combineEpics } from 'redux-observable'
 import { catchError } from 'rxjs/operators'
+import { AlertEpic } from './alert'
 import { ModelEpic } from './model'
 import { OptionsEpic } from './options'
 import { RouteEpic } from './route'
@@ -16,6 +17,7 @@ import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 
 const conveyorEpics = [
+  AlertEpic,
   CreateEpic,
   EditEpic,
   IndexTableEpic,
