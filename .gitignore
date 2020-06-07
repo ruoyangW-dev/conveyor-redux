@@ -5,3 +5,7 @@
 /.yarn-error.log
 /*.tgz
 /lib/
+/docs/_build/
+/docs/Makefile
+/docs/make.bat
+/docs/conf.py
