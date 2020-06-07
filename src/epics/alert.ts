@@ -11,7 +11,9 @@ export class AlertEpic extends Epic {
     return action$.pipe(
       ofType(ADD_DANGER_ALERT),
       map(R.prop('payload')),
-      filter((payload: EpicPayload) => R.prop('expiresOn', payload) !== undefined),
+      filter(
+          (payload: EpicPayload) => R.prop('expiresOn', payload) !== undefined
+      ),
       mergeMap((payload: EpicPayload) => {
         // @ts-ignore
         const timeOfAlertDismiss = R.prop('expiresOn', payload) - Date.now()
@@ -24,7 +26,9 @@ export class AlertEpic extends Epic {
     return action$.pipe(
       ofType(ADD_SUCCESS_ALERT),
       map(R.prop('payload')),
-      filter((payload: EpicPayload) => R.prop('expiresOn', payload) !== undefined),
+      filter(
+          (payload: EpicPayload) => R.prop('expiresOn', payload) !== undefined
+      ),
       mergeMap((payload: EpicPayload) => {
         // @ts-ignore
         const timeOfAlertDismiss = R.prop('expiresOn', payload) - Date.now()

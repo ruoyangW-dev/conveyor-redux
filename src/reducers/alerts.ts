@@ -1,5 +1,9 @@
 import { initState, handleError } from '../utils/alerts'
-import { ADD_DANGER_ALERT, ADD_SUCCESS_ALERT, DISMISS_ALERT } from '../actionConsts'
+import {
+  ADD_DANGER_ALERT,
+  ADD_SUCCESS_ALERT,
+  DISMISS_ALERT
+} from '../actionConsts'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
 import * as R from 'ramda'
