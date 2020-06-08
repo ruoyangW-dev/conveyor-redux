@@ -21,7 +21,8 @@ export class AlertsReducer extends Reducer {
   }
   [DISMISS_ALERT](state: any, action: any) {
     return state.filter(
-        (obj: any) => R.prop('expiresOn', obj) > R.prop('expiresOn', action.payload)
+      (obj: any) =>
+        R.prop('expiresOn', obj) > R.prop('expiresOn', action.payload)
     )
   }
 }

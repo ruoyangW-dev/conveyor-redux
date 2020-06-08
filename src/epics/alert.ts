@@ -12,7 +12,7 @@ export class AlertEpic extends Epic {
       ofType(ADD_DANGER_ALERT),
       map(R.prop('payload')),
       filter(
-          (payload: EpicPayload) => R.prop('expiresOn', payload) !== undefined
+        (payload: EpicPayload) => R.prop('expiresOn', payload) !== undefined
       ),
       mergeMap((payload: EpicPayload) => {
         // @ts-ignore
@@ -27,7 +27,7 @@ export class AlertEpic extends Epic {
       ofType(ADD_SUCCESS_ALERT),
       map(R.prop('payload')),
       filter(
-          (payload: EpicPayload) => R.prop('expiresOn', payload) !== undefined
+        (payload: EpicPayload) => R.prop('expiresOn', payload) !== undefined
       ),
       mergeMap((payload: EpicPayload) => {
         // @ts-ignore

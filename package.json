@@ -1,6 +1,6 @@
 {
-  "name": "conveyor-redux",
-  "version": "0.1.0",
+  "name": "@autoinvent/conveyor-redux",
+  "version": "0.1.1",
   "description": "Generates reducers and epics for use with conveyor",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

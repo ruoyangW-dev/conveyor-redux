@@ -54,10 +54,16 @@ This overrides object with this reducer would look like:
 
 ### Development
 
+to create '/lib' files with typescript run:
+
+'tsc'
+
 Before committing, in order to test the build files run:
 
-yarn build
+'yarn build'
 
 to test and fix eslint issues run:
 
-yarn eslint 'src/**/*.ts' --fix
+'yarn eslint 'src/**/*.ts' --fix'
+
+Before npm publishing please follow instructions in '/docs/npm_publish/publish.rst'
