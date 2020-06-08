@@ -31,7 +31,7 @@ checks
 -------
 
 version is incremented?
-name is correct? ("@autoinvent/" prefix?)
+name is correct?
 on latest branch?
 
 publish
