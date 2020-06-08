@@ -15,5 +15,4 @@ export const handleError = ({
   return R.assoc('type', type, payload)
 }
 
-
 export const selectAlerts = R.pathOr(initState, ['conveyor', 'alerts'])
