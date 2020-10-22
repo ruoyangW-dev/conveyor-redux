@@ -32,8 +32,9 @@ export {
   getOrderedValues,
   selectModel
 } from './utils/model'
-export { selectOptions, filterSelectOptions } from './utils/options'
+export { selectOptions, filterSelectOptions, getOptions } from './utils/options'
 export {
+  selectSearch,
   selectSearchDropdown,
   selectSearchQueryText,
   selectSearchEntries
