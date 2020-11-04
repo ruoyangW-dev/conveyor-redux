@@ -1,4 +1,4 @@
-import { ofType } from 'redux-observable'
+import { ActionsObservable, ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, mergeMap, switchMap } from 'rxjs/operators'
 import * as R from 'ramda'
@@ -22,16 +22,18 @@ import {
   fileSubmitToBlob
 } from '../utils/helpers'
 import { Epic } from './epic'
+import type { Action } from '../actions'
+import type { EpicPayload } from '../types'
 
 export class EditEpic extends Epic {
-  [DETAIL_ATTRIBUTE_EDIT_SUBMIT](action$: any, state$: any) {
+  [DETAIL_ATTRIBUTE_EDIT_SUBMIT](action$: ActionsObservable<Action<EpicPayload>>, state$: any) {
     return action$.pipe(
       ofType(DETAIL_ATTRIBUTE_EDIT_SUBMIT),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
-        const modelName = R.prop('modelName', payload) as string
-        const fieldName = R.prop('fieldName', payload) as string
-        const id = R.prop('id', payload) as string
+        const modelName = payload.modelName || ''
+        const fieldName = payload.fieldName || ''
+        const id = payload.id || ''
         const value = R.path(
           [
             'value',
@@ -44,6 +46,7 @@ export class EditEpic extends Epic {
           ],
           state$
         )
+
         const inputValue = editFieldToQueryInput({
           schema: this.schema,
           modelName,

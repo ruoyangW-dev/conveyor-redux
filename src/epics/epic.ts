@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import type { QueryBuilder, ROEpic } from '../types'
 
 export class Epic {
   schema: SchemaBuilder

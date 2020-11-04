@@ -15,6 +15,7 @@ import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
+import type { QueryBuilder } from '../types'
 
 const conveyorEpics = [
   AlertEpic,

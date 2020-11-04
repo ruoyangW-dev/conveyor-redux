@@ -1,9 +1,10 @@
-import { ofType } from 'redux-observable'
+import { ActionsObservable, ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
 import * as R from 'ramda'
 import { SAVE_CREATE } from '../actionConsts'
 import * as Actions from '../actions'
+import type { Action } from '../actions'
 import * as Logger from '../utils/Logger'
 import { selectCreate } from '../utils/create'
 import {
@@ -12,9 +13,10 @@ import {
   prepValidationErrors
 } from '../utils/helpers'
 import { Epic } from './epic'
+import type { EpicPayload } from '../types'
 
 export class CreateEpic extends Epic {
-  [SAVE_CREATE](action$: any, state$: any) {
+  [SAVE_CREATE](action$: ActionsObservable<Action<EpicPayload>>, state$: any) {
     return action$.pipe(
       ofType(SAVE_CREATE),
       map(R.prop('payload')),

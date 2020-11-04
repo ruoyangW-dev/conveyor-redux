@@ -1,4 +1,7 @@
-type QueryType =
+import { ActionsObservable } from "redux-observable"
+import { Action } from "./actions"
+
+export type QueryType =
   | 'index'
   | 'detail'
   | 'select'
@@ -12,7 +15,7 @@ type QueryType =
   | 'delete'
   | 'deleteCascades'
 
-interface QueryBuilder {
+export interface QueryBuilder {
   buildQuery({
     modelName,
     queryType
@@ -58,9 +61,9 @@ interface QueryBuilder {
   >
 }
 
-type ROEpic = (action$: any, state$: any) => any
+export type ROEpic = <T extends unknown>(action$: ActionsObservable<Action<T>>, state$: any) => any
 
-interface EpicPayload {
+export interface EpicPayload {
   modelName?: string
   fieldName?: string
   id?: string
