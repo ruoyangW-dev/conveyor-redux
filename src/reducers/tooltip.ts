@@ -16,79 +16,82 @@ export class TooltipReducer extends Reducer {
     // @ts-ignore
     const result = R.pathOr([], ['result'], data)
     const tooltipData = []
+    var fieldOrder = this.schema.schemaJSON[modelName].fieldOrder
 
-    for (const fieldName in result) {
-      // @ts-ignore
-      const value: node = R.prop(fieldName, result)
-      // todo: add 'node' and/or 'data' props into 'schema.getFieldLabel'
-      const name = this.schema.getFieldLabel({ modelName, fieldName })
-      const type = this.schema.getType(modelName, fieldName)
-      const field = this.schema.getField(modelName, fieldName)
+    for (const fieldName of fieldOrder) {
+      if (R.has(fieldName, result)){
+        // @ts-ignore
+        const value: node = R.prop(fieldName, result)
+        // todo: add 'node' and/or 'data' props into 'schema.getFieldLabel'
+        const name = this.schema.getFieldLabel({ modelName, fieldName })
+        const type = this.schema.getType(modelName, fieldName)
+        const field = this.schema.getField(modelName, fieldName)
 
-      if (value === null) {
-        tooltipData.push({
-          name,
-          value: [
-            {
-              text: 'N/A'
+        if (value === null) {
+          tooltipData.push({
+            name,
+            value: [
+              {
+                text: 'N/A'
+              }
+            ]
+          })
+        } else if (type === 'enum') {
+          tooltipData.push({
+            name,
+            value: [
+              {
+                text: this.schema.getEnumLabel(modelName, fieldName, value)
+              }
+            ]
+          })
+        } else if (this.schema.isManyToMany(modelName, fieldName)) {
+          const relModelName = R.path(['type', 'target'], field) as string
+          // todo: add 'customProps' from outside source to all functions
+          const values = value.map((node: any) => {
+            const text = this.schema.getDisplayValue({
+              modelName: relModelName,
+              node
+            })
+
+            return {
+              text,
+              url: `/${relModelName}/${R.prop('id', node)}`
             }
-          ]
-        })
-      } else if (type === 'enum') {
-        tooltipData.push({
-          name,
-          value: [
-            {
-              text: this.schema.getEnumLabel(modelName, fieldName, value)
-            }
-          ]
-        })
-      } else if (this.schema.isManyToMany(modelName, fieldName)) {
-        const relModelName = R.path(['type', 'target'], field) as string
-        // todo: add 'customProps' from outside source to all functions
-        const values = value.map((node: any) => {
+          })
+          tooltipData.push({
+            name,
+            value: values
+          })
+        } else if (this.schema.isManyToOne(modelName, fieldName)) {
+          const relModelName = R.path(
+            ['type', 'target'],
+            this.schema.getField(modelName, fieldName)
+          ) as string
           const text = this.schema.getDisplayValue({
             modelName: relModelName,
-            node
+            node: value
           })
-
-          return {
-            text,
-            url: `/${relModelName}/${R.prop('id', node)}`
-          }
-        })
-        tooltipData.push({
-          name,
-          value: values
-        })
-      } else if (this.schema.isManyToOne(modelName, fieldName)) {
-        const relModelName = R.path(
-          ['type', 'target'],
-          this.schema.getField(modelName, fieldName)
-        ) as string
-        const text = this.schema.getDisplayValue({
-          modelName: relModelName,
-          node: value
-        })
-        const getId: (value: any) => string = R.prop('id')
-        tooltipData.push({
-          name,
-          value: [
-            {
-              text,
-              url: `/${relModelName}/${getId(value)}`
-            }
-          ]
-        })
-      } else {
-        tooltipData.push({
-          name,
-          value: [
-            {
-              text: value
-            }
-          ]
-        })
+          const getId: (value: any) => string = R.prop('id')
+          tooltipData.push({
+            name,
+            value: [
+              {
+                text,
+                url: `/${relModelName}/${getId(value)}`
+              }
+            ]
+          })
+        } else {
+          tooltipData.push({
+            name,
+            value: [
+              {
+                text: value
+              }
+            ]
+          })
+        }
       }
     }
 
