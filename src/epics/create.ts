@@ -46,7 +46,7 @@ export class CreateEpic extends Epic {
           })
           .then(({ data, error }) => ({ context, data, error }))
       ),
-      mergeMap(({ context, data, error }) => {
+      mergeMap(({ context, error }) => {
         if (error) {
           Logger.epicError('saveCreateEpic', context, error)
           const errorActions = []

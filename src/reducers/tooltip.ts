@@ -19,7 +19,7 @@ export class TooltipReducer extends Reducer {
     const fieldOrder = this.schema.schemaJSON[modelName].fieldOrder
 
     for (const fieldName of fieldOrder) {
-      if (R.has(fieldName, result)){
+      if (R.has(fieldName, result)) {
         // @ts-ignore
         const value: node = R.prop(fieldName, result)
         // todo: add 'node' and/or 'data' props into 'schema.getFieldLabel'
