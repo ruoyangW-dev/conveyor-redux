@@ -1,8 +1,12 @@
 #Conveyor-redux Changelog
 
-## Version 0.1.1
+## Unreleased
 
-Unreleased
+## Version 0.2.0
+
+Released 4-15-20
+
+Update for Tooltips to follow the fieldOrder metadata
 
 ## Version 0.1.0
 
