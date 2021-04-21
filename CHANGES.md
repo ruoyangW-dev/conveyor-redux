@@ -1,6 +1,9 @@
 #Conveyor-redux Changelog
+## Version 0.2.1
 
-## Unreleased
+Released 4-21-20
+
+Bugfix for DETAIL_TABLE_REMOVE_SUBMIT Epic
 
 ## Version 0.2.0
 

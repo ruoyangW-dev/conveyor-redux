@@ -244,7 +244,7 @@ export class EditEpic extends Epic {
         )(state$)
 
         const variables = {
-          id: Number(id),
+          id,
           input: { [fieldName as string]: updatedFieldList }
         }
         return { ...payload, query, variables }
