@@ -11,6 +11,10 @@ import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 import { Epic } from './epic'
 
+const generatePrepopulatedQuery = ({ modelName, fieldName}: {fieldName: string, modelName: string}) =>(`{
+  result: existingFieldValues(modelName: "${modelName}", fieldName: "${fieldName}")
+}`)
+
 export class OptionsEpic extends Epic {
   [QUERY_SELECT_MENU_OPEN](action$: any) {
     return action$.pipe(
@@ -27,9 +31,9 @@ export class OptionsEpic extends Epic {
         return { variables, modelName, fieldName }
       }),
       mergeMap((context: any) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = generatePrepopulatedQuery({
           modelName: context.modelName,
-          queryType: 'index'
+          fieldName: context.fieldName
         })
 
         return this.queryBuilder
@@ -53,7 +57,7 @@ export class OptionsEpic extends Epic {
           return Actions.existingValueUpdate({
             modelName: context.modelName,
             fieldName: context.fieldName,
-            value: R.prop('result', data)
+            value: data
           })
         }
       )
@@ -76,6 +80,7 @@ export class OptionsEpic extends Epic {
         return { variables, modelName, fieldName, targetModel }
       }),
       mergeMap((context: any) => {
+        console.log("RLEATION_SELECT_MENU_OPEN")
         const query = this.queryBuilder.buildQuery({
           modelName: context.targetModel,
           queryType: 'select'
