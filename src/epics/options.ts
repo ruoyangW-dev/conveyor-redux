@@ -29,7 +29,8 @@ export class OptionsEpic extends Epic {
       mergeMap((context: any) => {
         const query = this.queryBuilder.buildQuery({
           modelName: context.modelName,
-          queryType: 'index'
+          fieldName: context.fieldName,
+          queryType: 'selectExistingFields'
         })
 
         return this.queryBuilder
@@ -53,7 +54,7 @@ export class OptionsEpic extends Epic {
           return Actions.existingValueUpdate({
             modelName: context.modelName,
             fieldName: context.fieldName,
-            value: R.prop('result', data)
+            value: data
           })
         }
       )

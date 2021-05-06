@@ -11,13 +11,16 @@ type QueryType =
   | 'update'
   | 'delete'
   | 'deleteCascades'
+  | 'selectExistingFields'
 
 interface QueryBuilder {
   buildQuery({
     modelName,
+    fieldName,
     queryType
   }: {
     modelName?: string
+    fieldName?: string
     queryType: QueryType
   }): any
   sendRequest({
