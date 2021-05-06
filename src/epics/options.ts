@@ -77,7 +77,6 @@ export class OptionsEpic extends Epic {
         return { variables, modelName, fieldName, targetModel }
       }),
       mergeMap((context: any) => {
-        console.log('RLEATION_SELECT_MENU_OPEN')
         const query = this.queryBuilder.buildQuery({
           modelName: context.targetModel,
           queryType: 'select'
