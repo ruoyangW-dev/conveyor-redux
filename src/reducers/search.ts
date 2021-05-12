@@ -35,7 +35,7 @@ export class SearchReducer extends Reducer {
           node: entry
         })
       })),
-      R.map(obj => ({
+      R.map((obj) => ({
         ...obj,
         detailURL: `/${obj.modelName}/${obj.id}`
       }))

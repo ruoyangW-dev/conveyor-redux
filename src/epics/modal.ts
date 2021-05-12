@@ -5,6 +5,7 @@ import * as Actions from '../actions'
 import { FETCH_DELETE_DETAIL } from '../actionConsts'
 import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class ModalEpic extends Epic {
   [FETCH_DELETE_DETAIL](action$: any) {
