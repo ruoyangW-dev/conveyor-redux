@@ -1,4 +1,4 @@
-type QueryType =
+export type QueryType =
   | 'index'
   | 'detail'
   | 'select'
@@ -13,7 +13,7 @@ type QueryType =
   | 'deleteCascades'
   | 'selectExistingFields'
 
-interface QueryBuilder {
+export interface QueryBuilder {
   buildQuery({
     modelName,
     fieldName,
@@ -61,9 +61,9 @@ interface QueryBuilder {
   >
 }
 
-type ROEpic = (action$: any, state$: any) => any
+export type ROEpic = (action$: any, state$: any) => any
 
-interface EpicPayload {
+export interface EpicPayload {
   modelName?: string
   fieldName?: string
   id?: string

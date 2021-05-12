@@ -1,11 +1,12 @@
 /.idea/
 /.vscode/
-.vim/
 /node_modules/
 /.yarn-error.log
 /*.tgz
-/lib/
-/docs/_build/
+/lib
 /docs/Makefile
-/docs/make.bat
 /docs/conf.py
+/docs/_build/
+yalc.lock
+/.yalc
+/coverage

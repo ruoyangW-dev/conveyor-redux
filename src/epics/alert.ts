@@ -5,6 +5,7 @@ import { ADD_SUCCESS_ALERT, ADD_DANGER_ALERT, ADD_ALERT } from '../actionConsts'
 import { of } from 'rxjs'
 import * as R from 'ramda'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class AlertEpic extends Epic {
   [ADD_DANGER_ALERT](action$: any) {

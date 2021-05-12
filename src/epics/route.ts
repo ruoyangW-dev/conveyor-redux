@@ -11,7 +11,7 @@ export class RouteEpic extends Epic {
     return action$.pipe(
       ofType(LOCATION_CHANGE),
       map(getPath),
-      switchMap(path => {
+      switchMap((path) => {
         const pipeActions: (obArray: [object]) => [object] = R.pipe(
           R.ap(pathFunctions),
           // @ts-ignore

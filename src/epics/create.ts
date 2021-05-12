@@ -12,6 +12,7 @@ import {
   prepValidationErrors
 } from '../utils/helpers'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class CreateEpic extends Epic {
   [SAVE_CREATE](action$: any, state$: any) {

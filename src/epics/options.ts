@@ -10,6 +10,7 @@ import {
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class OptionsEpic extends Epic {
   [QUERY_SELECT_MENU_OPEN](action$: any) {

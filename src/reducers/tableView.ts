@@ -174,8 +174,15 @@ export class TableViewReducer extends Reducer {
   // todo: make sure works
   [CHANGE_REL_TABLE_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
-    // @ts-ignore
-    const { modelName, fieldName, updatedPageIndex, isValid = true } = {
+    const {
+      // @ts-ignore
+      modelName,
+      // @ts-ignore
+      fieldName,
+      // @ts-ignore
+      updatedPageIndex,
+      isValid = true
+    } = {
       ...payload
     }
     const newState = R.assocPath(

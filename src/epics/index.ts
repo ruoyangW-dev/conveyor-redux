@@ -12,6 +12,7 @@ import { ValidationEpic } from './validation'
 import { CreateEpic } from './create'
 import { ModalEpic } from './modal'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { QueryBuilder } from '../types'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
@@ -44,7 +45,7 @@ export class ConveyorEpic {
       store,
       ...R.flatten(
         R.map(
-          Epic => new Epic(this.schema, this.queryBuilder).makeEpic(),
+          (Epic) => new Epic(this.schema, this.queryBuilder).makeEpic(),
           conveyorEpics
         )
       )
@@ -60,24 +61,23 @@ export class ConveyorEpic {
  * @param epics - an object containing all the epics to be combined
  * @return The combined epics
  */
-export const combineEpicsAndCatchErrors = (store: any, ...epics: any) => (
-  action$: any,
-  state$: any,
-  dep: any
-) => {
-  epics = epics.map((epic: any) => (action$: any, state$: any) =>
-    epic(action$, state$, dep).pipe(
-      catchError((error, caught) => {
-        const epicName = R.prop('name', epic)
-        Logger.rootEpicError(epicName, error)
-        store.dispatch(
-          Actions.addDangerAlert({
-            message: `An error has occurred in the ${epicName}.`
+export const combineEpicsAndCatchErrors =
+  (store: any, ...epics: any) =>
+  (action$: any, state$: any, dep: any) => {
+    epics = epics.map(
+      (epic: any) => (action$: any, state$: any) =>
+        epic(action$, state$, dep).pipe(
+          catchError((error, caught) => {
+            const epicName = R.prop('name', epic)
+            Logger.rootEpicError(epicName, error)
+            store.dispatch(
+              Actions.addDangerAlert({
+                message: `An error has occurred in the ${epicName}.`
+              })
+            )
+            return caught
           })
         )
-        return caught
-      })
     )
-  )
-  return combineEpics(...epics)(action$, state$)
-}
+    return combineEpics(...epics)(action$, state$)
+  }

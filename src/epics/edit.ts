@@ -22,6 +22,7 @@ import {
   fileSubmitToBlob
 } from '../utils/helpers'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class EditEpic extends Epic {
   [DETAIL_ATTRIBUTE_EDIT_SUBMIT](action$: any, state$: any) {
@@ -139,7 +140,7 @@ export class EditEpic extends Epic {
           parentModelName,
           parentId,
           inputWithFile: R.filter(
-            n => !R.isNil(n),
+            (n) => !R.isNil(n),
             R.pick(imageFieldsList, input)
           )
         }

@@ -6,7 +6,6 @@ module.exports = {
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
     'plugin:prettier/recommended'
   ],
   globals: {
@@ -24,6 +23,10 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['off'],
     '@typescript-eslint/explicit-function-return-type': ['off'],
     '@typescript-eslint/no-explicit-any': ['off'], // should be removed when we move away from using any,
-    '@typescript-eslint/ban-ts-ignore': ['off'] // should also be removed eventually
-  }
+    '@typescript-eslint/ban-ts-ignore': ['off'], // should also be removed eventually
+    '@typescript-eslint/explicit-module-boundary-types': ['off'], // remove
+    '@typescript-eslint/ban-ts-comment': ['off'], // remove
+    '@typescript-eslint/ban-types': ['off']
+  },
+  ignorePatterns: ['lib/**/*']
 }

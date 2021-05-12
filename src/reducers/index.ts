@@ -39,7 +39,7 @@ export class ConveyorReducer {
   makeReducer(): any {
     return combineReducers(
       // @ts-ignore
-      R.map(Reducer => (state, action) => Reducer.reduce(state, action), this)
+      R.map((Reducer) => (state, action) => Reducer.reduce(state, action), this)
     )
   }
 }

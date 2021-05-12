@@ -5,6 +5,7 @@ import { TRIGGER_SEARCH, FETCH_SEARCH_ENTRIES } from '../actionConsts'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class SearchEpic extends Epic {
   [TRIGGER_SEARCH](action$: any) {
