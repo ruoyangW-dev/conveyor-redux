@@ -2,7 +2,6 @@ import * as R from 'ramda'
 import { combineReducers } from 'redux'
 import { AlertsReducer } from './alerts'
 import { CreateReducer } from './create'
-import { DarkModeReducer } from './darkMode'
 import { EditReducer } from './edit'
 import { ModalReducer } from './modal'
 import { ModelReducer } from './model'
@@ -11,18 +10,19 @@ import { TooltipReducer } from './tooltip'
 import { TableViewReducer } from './tableView'
 import { SearchReducer } from './search'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { UserPreferencesReducer } from './userPreferences'
 
 const conveyorReducerMap = {
   alerts: AlertsReducer,
   create: CreateReducer,
-  darkMode: DarkModeReducer,
   edit: EditReducer,
   modal: ModalReducer,
   model: ModelReducer,
   options: OptionsReducer,
   tooltip: TooltipReducer,
   tableView: TableViewReducer,
-  search: SearchReducer
+  search: SearchReducer,
+  userPreferences: UserPreferencesReducer
 }
 
 export class ConveyorReducer {
