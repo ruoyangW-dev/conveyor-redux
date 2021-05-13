@@ -140,3 +140,7 @@ export const detailTableEditSubmitCheck = actionDisp(
   Actions.DETAIL_TABLE_EDIT_SUBMIT_CHECK
 )
 export const indexEditSubmitCheck = actionDisp(Actions.INDEX_EDIT_SUBMIT_CHECK)
+
+// dark mode
+
+export const toggleDarkMode = actionDisp(Actions.TOGGLE_DARK_MODE)

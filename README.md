@@ -24,7 +24,7 @@ The option overrides parameter is provided to ConveyorReducer constructor, and s
   REDUCER_KEY: REDUCER_CLASS or falsy value
 }
 ```
-The list of possible reducers that can be modified are: `alerts`, `create`, `edit`, `index`, `modal`, `model`, `options`, `search`, `tableView`, and `tooltip`. (REDUCER_KEY)
+The list of possible reducers that can be modified are: `alerts`, `create`, `darkMode`, `edit`, `index`, `modal`, `model`, `options`, `search`, `tableView`, and `tooltip`. (REDUCER_KEY)
 
 The REDUCER_CLASS can be a new reducer class or reducer class which extends a reducer provided by conveyor-redux. If it is a falsy value, the reducer will be disabled.
 

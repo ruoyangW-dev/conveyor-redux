@@ -2,6 +2,7 @@ import * as R from 'ramda'
 import { combineReducers } from 'redux'
 import { AlertsReducer } from './alerts'
 import { CreateReducer } from './create'
+import { DarkModeReducer } from './darkMode'
 import { EditReducer } from './edit'
 import { ModalReducer } from './modal'
 import { ModelReducer } from './model'
@@ -14,6 +15,7 @@ import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 const conveyorReducerMap = {
   alerts: AlertsReducer,
   create: CreateReducer,
+  darkMode: DarkModeReducer,
   edit: EditReducer,
   modal: ModalReducer,
   model: ModelReducer,
