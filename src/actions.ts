@@ -145,3 +145,6 @@ export interface Action<T extends unknown> {
   type: string
   payload: T
 }
+// dark mode
+
+export const toggleDarkMode = actionDisp(Actions.TOGGLE_DARK_MODE)

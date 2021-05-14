@@ -10,6 +10,7 @@ import { TooltipReducer } from './tooltip'
 import { TableViewReducer } from './tableView'
 import { SearchReducer } from './search'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { UserPreferencesReducer } from './userPreferences'
 
 const conveyorReducerMap = {
   alerts: AlertsReducer,
@@ -20,7 +21,8 @@ const conveyorReducerMap = {
   options: OptionsReducer,
   tooltip: TooltipReducer,
   tableView: TableViewReducer,
-  search: SearchReducer
+  search: SearchReducer,
+  userPreferences: UserPreferencesReducer
 }
 
 export class ConveyorReducer {

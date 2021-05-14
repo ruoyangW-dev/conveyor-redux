@@ -6,13 +6,9 @@ import { ADD_SUCCESS_ALERT, ADD_DANGER_ALERT, ADD_ALERT } from '../actionConsts'
 import { of } from 'rxjs'
 import * as R from 'ramda'
 import { Epic } from './epic'
-<<<<<<< HEAD
 import type { EpicPayload } from '../types'
 
 export type ExpiresOnPayload = EpicPayload & { expiresOn: number }
-=======
-import { EpicPayload } from '../types'
->>>>>>> master
 
 export class AlertEpic extends Epic {
   [ADD_DANGER_ALERT](action$: ActionsObservable<Action<EpicPayload>>) {
