@@ -23,10 +23,13 @@ import {
 } from '../utils/helpers'
 import { Epic } from './epic'
 import type { Action } from '../actions'
-import type { EpicPayload } from '../types'
+import { EpicPayload, isRequestError } from '../types'
 
 export class EditEpic extends Epic {
-  [DETAIL_ATTRIBUTE_EDIT_SUBMIT](action$: ActionsObservable<Action<EpicPayload>>, state$: any) {
+  [DETAIL_ATTRIBUTE_EDIT_SUBMIT](
+    action$: ActionsObservable<Action<EpicPayload>>,
+    state$: any
+  ) {
     return action$.pipe(
       ofType(DETAIL_ATTRIBUTE_EDIT_SUBMIT),
       map(R.prop('payload')),
@@ -54,7 +57,7 @@ export class EditEpic extends Epic {
           value
         })
         const variables = { id, input: { [fieldName]: inputValue } }
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName,
           queryType: 'update'
         })
@@ -62,7 +65,7 @@ export class EditEpic extends Epic {
         return { id, modelName, variables, query, fieldName }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -73,7 +76,7 @@ export class EditEpic extends Epic {
         if (error) {
           Logger.epicError('detailAttributeEditSubmitEpic', context, error)
           const actions = []
-          if (isValidationError(error.response)) {
+          if (isRequestError(error) && isValidationError(error.response)) {
             const errors = prepValidationErrors({
               schema: this.schema,
               context,
@@ -130,7 +133,7 @@ export class EditEpic extends Epic {
         })
         const normalInput = R.omit(imageFieldsList, input)
         const variables = { id, input: { ...normalInput } }
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName,
           queryType: 'update'
         })
@@ -142,13 +145,13 @@ export class EditEpic extends Epic {
           parentModelName,
           parentId,
           inputWithFile: R.filter(
-            n => !R.isNil(n),
+            (n) => !R.isNil(n),
             R.pick(imageFieldsList, input)
           )
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -185,7 +188,7 @@ export class EditEpic extends Epic {
 
         // images exist
         if (!R.isEmpty(R.prop('inputWithFile', context))) {
-          const path: string[] = ['update' + context.modelName, 'result', 'id']
+          const path: string[] = ['result', 'id']
 
           actions = R.append(
             Actions.onInlineFileSubmit({
@@ -224,7 +227,7 @@ export class EditEpic extends Epic {
       map((payload: EpicPayload) => {
         const { modelName, fieldName, id, removedId } = { ...payload }
 
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName,
           queryType: 'update'
         })
@@ -247,13 +250,13 @@ export class EditEpic extends Epic {
         )(state$)
 
         const variables = {
-          id: Number(id),
+          id,
           input: { [fieldName as string]: updatedFieldList }
         }
         return { ...payload, query, variables }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -318,7 +321,7 @@ export class EditEpic extends Epic {
           node
         })
         const variables = { id, input: { ...input } }
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName,
           queryType: 'update'
         })
@@ -326,7 +329,7 @@ export class EditEpic extends Epic {
         return { id, modelName, variables, query }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -374,7 +377,7 @@ export class EditEpic extends Epic {
         const modelName = R.prop('modelName', payload) as string
         const id = R.prop('id', payload) as string
         return {
-          query: this.queryBuilder.buildQuery({
+          query: this.queryTool.buildQuery({
             modelName,
             queryType: 'update'
           }),
@@ -389,7 +392,7 @@ export class EditEpic extends Epic {
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -425,7 +428,7 @@ export class EditEpic extends Epic {
         return {
           formData: fileSubmitToBlob({
             payload,
-            query: this.queryBuilder.buildQuery({
+            query: this.queryTool.buildQuery({
               modelName,
               queryType: 'update'
             }),
@@ -449,7 +452,7 @@ export class EditEpic extends Epic {
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             formData: context.formData
           })

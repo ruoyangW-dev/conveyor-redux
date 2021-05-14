@@ -13,7 +13,7 @@ import {
   prepValidationErrors
 } from '../utils/helpers'
 import { Epic } from './epic'
-import type { EpicPayload } from '../types'
+import { EpicPayload, isRequestError } from '../types'
 
 export class CreateEpic extends Epic {
   [SAVE_CREATE](action$: ActionsObservable<Action<EpicPayload>>, state$: any) {
@@ -22,7 +22,7 @@ export class CreateEpic extends Epic {
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
         const formStack = selectCreate(state$.value)
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: payload.modelName,
           queryType: 'create'
         })
@@ -31,45 +31,28 @@ export class CreateEpic extends Epic {
           formStack,
           modelName: payload.modelName as string
         })
-
-        const imageFields = R.filter(
-          (obj: any) =>
-            this.schema.isFile(
-              payload.modelName as string,
-              R.prop('fieldName', obj)
-            ),
-          this.schema.getFields(payload.modelName as string)
-        )
-        const imageFieldsList = Object.keys(imageFields)
-        const omitList = R.append('id', imageFieldsList)
-
         const variables = {
-          input: R.omit(omitList, createValues)
+          input: R.omit(['id'], createValues)
         }
-
         return {
           modelName: payload.modelName,
           variables,
-          query,
-          inputWithFile: R.filter(
-            n => !R.isNil(n),
-            R.pick(imageFieldsList, createValues)
-          )
+          query
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
           })
           .then(({ data, error }) => ({ context, data, error }))
       ),
-      mergeMap(({ context, data, error }) => {
+      mergeMap(({ context, error }) => {
         if (error) {
           Logger.epicError('saveCreateEpic', context, error)
           const errorActions = []
-          if (isValidationError(error.response)) {
+          if (isRequestError(error) && isValidationError(error.response)) {
             const errors = prepValidationErrors({
               schema: this.schema,
               context,
@@ -82,32 +65,12 @@ export class CreateEpic extends Epic {
           )
           return concat(errorActions)
         }
-
-        let actions = [
+        return concat([
+          Actions.onSaveCreateSuccessful({}),
           Actions.addSuccessAlert({
             message: `${context.modelName} successfully created.`
           })
-        ]
-
-        const IdPath = ['create' + context.modelName, 'result', 'id']
-
-        // images exist
-        if (!R.isEmpty(R.prop('inputWithFile', context))) {
-          actions = R.append(
-            Actions.onInlineFileSubmit({
-              modelName: context.modelName,
-              id: R.path(IdPath, data),
-              fileData: context.inputWithFile,
-              fromCreate: true
-            }),
-            actions
-          )
-        } else {
-          // createSuccessful called in inlineFileSubmit; otherwise prepend it here
-          actions = R.prepend(Actions.onSaveCreateSuccessful({}), actions)
-        }
-
-        return concat(actions)
+        ])
       })
     )
   }

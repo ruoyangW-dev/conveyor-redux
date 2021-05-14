@@ -1,14 +1,14 @@
 import * as R from 'ramda'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
-import type { QueryBuilder, ROEpic } from '../types'
+import type { QueryTool, ROEpic } from '../types'
 
 export class Epic {
   schema: SchemaBuilder
-  queryBuilder: QueryBuilder
+  queryTool: QueryTool
 
-  constructor(schema: SchemaBuilder, queryBuilder: QueryBuilder) {
+  constructor(schema: SchemaBuilder, queryTool: QueryTool) {
     this.schema = schema
-    this.queryBuilder = queryBuilder
+    this.queryTool = queryTool
   }
 
   makeEpic() {
@@ -17,10 +17,10 @@ export class Epic {
     let obj: Record<string, any> = this //eslint-disable-line
     do {
       obj = Object.getPrototypeOf(obj)
-      Object.getOwnPropertyNames(obj).forEach(name => methods.add(name))
+      Object.getOwnPropertyNames(obj).forEach((name) => methods.add(name))
     } while (Object.getPrototypeOf(obj).constructor.name != 'Epic')
     R.forEach(
-      methodName => {
+      (methodName) => {
         if (
           !R.includes(methodName, [
             'constructor',

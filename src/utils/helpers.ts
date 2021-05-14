@@ -103,7 +103,6 @@ export const getPage = ({
   tableView: any
 }) => {
   const currentPage = R.pathOr(1, [modelName, 'page', 'currentPage'], tableView)
-  // eslint-disable-next-line @typescript-eslint/camelcase
   return { current: currentPage, per_page: DEFAULT_PAGINATION_AMT }
 }
 
@@ -135,11 +134,6 @@ export const editFieldToQueryInput = ({
     return R.propOr(null, 'value', value)
   } else if (type === 'enum') {
     return R.propOr(null, 'value', value)
-  } else if (type === 'file') {
-    if (R.isNil(value)) {
-      return value
-    }
-    return storeValueToArrayBuffer(value)
   } else if (type === 'boolean') {
     return typeof value === typeof false ? value : false
   }
@@ -163,7 +157,7 @@ const errorMap = ({
   modelName: string
 }) => {
   let fieldNames: string[] = []
-  R.forEach(fieldName => {
+  R.forEach((fieldName) => {
     fieldNames = R.append(
       // todo: pass 'node' and 'data' props
       schema.getFieldLabel({ modelName, fieldName }),
@@ -283,7 +277,7 @@ export const getCreateSubmitValues = ({
   modelName: string
 }) => {
   const createFields = R.filter(
-    field => R.propOr(true, 'showCreate', field),
+    (field) => R.propOr(true, 'showCreate', field),
     schema.getFields(modelName)
   )
   const formStackIndex = R.prop('index', formStack)
@@ -427,7 +421,7 @@ export const pathFunctions = [modelIndexPath, modelDetailPath, modelCreatePath]
 export const getPath = (locationChangeAction: string) =>
   R.pipe(
     R.pathOr('', ['payload', 'location', 'pathname']),
-    pathname => pathname.split('/'),
+    (pathname) => pathname.split('/'),
     R.dropLastWhile(R.equals(''))
   )(locationChangeAction)
 

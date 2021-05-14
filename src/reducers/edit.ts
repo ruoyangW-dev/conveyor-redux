@@ -99,7 +99,7 @@ export class EditReducer extends Reducer {
     const payload = action.payload
     // @ts-ignore
     const { modelName, id, fieldName, errors } = { ...payload }
-    R.forEach(fieldNameError => {
+    R.forEach((fieldNameError) => {
       if (fieldNameError === fieldName) {
         state = R.assocPath(
           [modelName, id.toString(), fieldNameError, 'errors'],
@@ -116,7 +116,7 @@ export class EditReducer extends Reducer {
     // @ts-ignore
     const { modelName, id } = { ...payload }
     const fields = Object.keys(R.path([modelName, id], state) as any)
-    R.forEach(f => {
+    R.forEach((f) => {
       state = R.dissocPath(R.concat([modelName, id], [f, 'errors']), state)
     }, fields)
     return state
@@ -145,7 +145,7 @@ export class EditReducer extends Reducer {
     const payload = action.payload
     // @ts-ignore
     const { modelName, id, errors } = { ...payload }
-    R.forEach(fieldNameError => {
+    R.forEach((fieldNameError) => {
       state = R.assocPath(
         [modelName, id.toString(), fieldNameError, 'errors'],
         R.prop(fieldNameError, errors),
