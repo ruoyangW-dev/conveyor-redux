@@ -16,6 +16,7 @@ import type { QueryTool } from '../types'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
+import { Config } from '../types'
 
 const conveyorEpics = [
   AlertEpic,
@@ -34,10 +35,11 @@ const conveyorEpics = [
 export class ConveyorEpic {
   schema: SchemaBuilder
   queryTool: QueryTool
+  config: Config | undefined
 
-  constructor(schema: SchemaBuilder, queryTool: QueryTool) {
+  constructor(schema: SchemaBuilder, queryTool: QueryTool, config?: Config) {
     this.schema = schema
-    this.queryTool = queryTool
+    ;(this.queryTool = queryTool), (this.config = config)
   }
 
   makeEpic(store: any) {
@@ -45,7 +47,8 @@ export class ConveyorEpic {
       store,
       ...R.flatten(
         R.map(
-          (Epic) => new Epic(this.schema, this.queryTool).makeEpic(),
+          (Epic) =>
+            new Epic(this.schema, this.queryTool, this.config).makeEpic(),
           conveyorEpics
         )
       )

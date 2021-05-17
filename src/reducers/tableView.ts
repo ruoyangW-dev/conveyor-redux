@@ -23,10 +23,18 @@ import {
 } from '../utils/tableView'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
+import { Config } from '../types'
 
 export class TableViewReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  defaultPerPage: number
+
+  constructor(schema: SchemaBuilder, config?: Config) {
+    super(schema, initState, config)
+    this.defaultPerPage = R.pathOr(
+      DEFAULT_PAGINATION_AMT,
+      ['tableView', 'defaultPerPage'],
+      this.config
+    )
   }
 
   [INDEX_ADD_FILTER](state: any, action: any) {
@@ -228,13 +236,13 @@ export class TableViewReducer extends Reducer {
     let lastIndex = null
     if (count) {
       // @ts-ignore
-      lastIndex = Math.ceil(count / DEFAULT_PAGINATION_AMT)
+      lastIndex = Math.ceil(count / this.defaultPerPage)
     }
 
     return R.pipe(
       R.assocPath([modelName, 'page', 'lastIndex'], lastIndex),
       R.assocPath([modelName, 'page', 'total'], count),
-      R.assocPath([modelName, 'page', 'amtPerPage'], DEFAULT_PAGINATION_AMT)
+      R.assocPath([modelName, 'page', 'amtPerPage'], this.defaultPerPage)
     )(state)
   }
 
@@ -252,9 +260,7 @@ export class TableViewReducer extends Reducer {
         // if multi-rel type
         if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
           const totalDataLength = obj.length
-          const lastIndexRel = Math.ceil(
-            totalDataLength / DEFAULT_PAGINATION_AMT
-          )
+          const lastIndexRel = Math.ceil(totalDataLength / this.defaultPerPage)
           if (lastIndexRel > 0) {
             state = R.pipe(
               R.assocPath(
@@ -267,7 +273,7 @@ export class TableViewReducer extends Reducer {
               ),
               R.assocPath(
                 [modelName, 'fields', fieldName, 'page', 'amtPerPage'],
-                DEFAULT_PAGINATION_AMT
+                this.defaultPerPage
               )
             )(state)
           }

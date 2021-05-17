@@ -1,14 +1,16 @@
 import * as R from 'ramda'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
-import type { QueryTool, ROEpic } from '../types'
+import type { QueryTool, ROEpic, Config } from '../types'
 
 export class Epic {
   schema: SchemaBuilder
   queryTool: QueryTool
+  config: Config
 
-  constructor(schema: SchemaBuilder, queryTool: QueryTool) {
+  constructor(schema: SchemaBuilder, queryTool: QueryTool, config?: Config) {
     this.schema = schema
     this.queryTool = queryTool
+    this.config = R.isNil(config) ? {} : config
   }
 
   makeEpic() {

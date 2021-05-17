@@ -98,3 +98,7 @@ export const isRequestError = (
 export interface ErrorItem {
   message: string
 }
+
+export interface Config {
+  [key: string]: any
+}

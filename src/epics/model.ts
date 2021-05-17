@@ -16,9 +16,15 @@ import { concat } from 'rxjs'
 import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
+import { DEFAULT_PAGINATION_AMT } from '../utils/tableView'
 
 export class ModelEpic extends Epic {
   [FETCH_MODEL_INDEX](action$: any, state$: any) {
+    const defaultPerPage = R.pathOr(
+      DEFAULT_PAGINATION_AMT,
+      ['tableView', 'defaultPerPage'],
+      this.config
+    )
     return action$.pipe(
       ofType(FETCH_MODEL_INDEX, CHANGE_PAGE),
       map(R.prop('payload')),
@@ -36,7 +42,8 @@ export class ModelEpic extends Epic {
           }),
           page: getPage({
             modelName: payload.modelName as string,
-            tableView: selectTableView(state$.value)
+            tableView: selectTableView(state$.value),
+            defaultPerPage: defaultPerPage
           })
         }
         const model = this.schema.getModel(payload.modelName as string)

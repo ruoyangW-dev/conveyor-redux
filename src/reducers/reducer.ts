@@ -1,13 +1,16 @@
 import * as R from 'ramda'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { Config } from '../types'
 
 export class Reducer {
   schema: SchemaBuilder
   initState: any
+  config: Config
 
-  constructor(schema: SchemaBuilder, initState: any) {
+  constructor(schema: SchemaBuilder, initState: any, config?: Config) {
     this.schema = schema
     this.initState = initState
+    this.config = R.isNil(config) ? {} : config
   }
 
   reduce(state: any, action: any) {
