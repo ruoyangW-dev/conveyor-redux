@@ -4,6 +4,7 @@
 -- UNRELEASED --
 
 Update to work with conveyor-schema typescript changes
+Add typedoc
 
 ## Version 0.2.1
 
