@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@autoinvent/conveyor-schema": "^0.3.0",
+    "@reduxjs/toolkit": "^1.5.1",
     "connected-react-router": "^6.9.1",
     "core-js": "^3.12.1",
     "ramda": "^0.27.1",

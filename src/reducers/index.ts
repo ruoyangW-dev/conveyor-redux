@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { combineReducers } from 'redux'
-import { AlertsReducer } from './alerts'
+import { AlertsReducer, AlertsOverrides, makeAlertsReducer } from './alerts'
 import { CreateReducer } from './create'
 import { EditReducer } from './edit'
 import { ModalReducer } from './modal'
@@ -45,3 +45,14 @@ export class ConveyorReducer {
     )
   }
 }
+interface ConveyorReducerOverrides {
+  alerts?: AlertsOverrides
+}
+
+export const makeConveyorReducer = (
+  schema: SchemaBuilder,
+  overrides?: ConveyorReducerOverrides
+) =>
+  combineReducers({
+    alerts: makeAlertsReducer(schema, overrides?.alerts)
+  })

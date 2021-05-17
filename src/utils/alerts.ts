@@ -1,14 +1,23 @@
 import * as R from 'ramda'
 
-export const initState: any[] = []
+export interface Alert {
+  message: string
+  type: string
+  expiresOn?: number
+  noExpire?: boolean
+}
+
+export type AlertsState = Alert[]
+
+export const initState: AlertsState = []
 
 export const handleError = ({
   payload,
   type
 }: {
-  payload: any
+  payload: Omit<Alert, 'type'>
   type: string
-}) => {
+}): Alert => {
   if (!payload.expiresOn && !payload.noExpire) {
     payload.expiresOn = Date.now() + 5 * 1000
   }

@@ -1,4 +1,6 @@
 import * as Actions from './actionConsts'
+import { createAction } from '@reduxjs/toolkit'
+import { Alert } from './utils/alerts'
 
 export const actionDisp = (type: string) => (payload: any) => ({
   type,
@@ -125,10 +127,13 @@ export const relationshipSelectMenuOpen = actionDisp(
 
 // alerts
 
-export const addDangerAlert = actionDisp(Actions.ADD_DANGER_ALERT)
-export const addSuccessAlert = actionDisp(Actions.ADD_SUCCESS_ALERT)
-export const addAlert = actionDisp(Actions.ADD_ALERT)
-export const dismissAlert = actionDisp(Actions.DISMISS_ALERT)
+export const addDangerAlert =
+  createAction<Omit<Alert, 'type'>>('ADD_DANGER_ALERT')
+export const addSuccessAlert =
+  createAction<Omit<Alert, 'type'>>('ADD_SUCCESS_ALERT')
+export const addAlert = createAction<Alert>('ADD_ALERT')
+export const dismissAlert =
+  createAction<Alert | Omit<Alert, 'type'>>('DISMISS_ALERT')
 
 // validation
 
