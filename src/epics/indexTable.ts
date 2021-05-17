@@ -13,7 +13,7 @@ export class IndexTableEpic extends Epic {
     return action$.pipe(
       ofType(INDEX_TABLE_FILTER_SUBMIT),
       map(R.path(['payload', 'modelName'])),
-      map(modelName => Actions.fetchModelIndex({ modelName }))
+      map((modelName) => Actions.fetchModelIndex({ modelName }))
     )
   }
 
@@ -21,7 +21,7 @@ export class IndexTableEpic extends Epic {
     return action$.pipe(
       ofType(INDEX_TABLE_SORT_CHANGE),
       map(R.path(['payload', 'modelName'])),
-      map(modelName => Actions.fetchModelIndex({ modelName }))
+      map((modelName) => Actions.fetchModelIndex({ modelName }))
     )
   }
 }

@@ -10,6 +10,7 @@ import {
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class OptionsEpic extends Epic {
   [QUERY_SELECT_MENU_OPEN](action$: any) {
@@ -27,12 +28,13 @@ export class OptionsEpic extends Epic {
         return { variables, modelName, fieldName }
       }),
       mergeMap((context: any) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: context.modelName,
-          queryType: 'index'
+          fieldName: context.fieldName,
+          queryType: 'selectExistingFields'
         })
 
-        return this.queryBuilder
+        return this.queryTool
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({
             context,
@@ -53,7 +55,7 @@ export class OptionsEpic extends Epic {
           return Actions.existingValueUpdate({
             modelName: context.modelName,
             fieldName: context.fieldName,
-            value: R.prop('result', data)
+            value: data
           })
         }
       )
@@ -76,12 +78,12 @@ export class OptionsEpic extends Epic {
         return { variables, modelName, fieldName, targetModel }
       }),
       mergeMap((context: any) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: context.targetModel,
           queryType: 'select'
         })
 
-        return this.queryBuilder
+        return this.queryTool
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),

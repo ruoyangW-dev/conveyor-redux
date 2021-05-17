@@ -10,6 +10,7 @@ import {
 import { getMissingFieldsMessage, tableChangedFields } from '../utils/helpers'
 import * as Actions from '../actions'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class ValidationEpic extends Epic {
   [SAVE_CREATE_CHECK](action$: any, state$: any) {
@@ -24,7 +25,7 @@ export class ValidationEpic extends Epic {
         ) as any[]
         const fields: any = R.path([stack.length - 1, 'fields'], stack)
         const requiredFields = R.filter(
-          val => val !== 'id',
+          (val) => val !== 'id',
           this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
@@ -87,10 +88,14 @@ export class ValidationEpic extends Epic {
 
         // check for required field
         const requiredFields = R.filter(
-          val => val !== 'id',
+          (val) => val !== 'id',
           this.schema.getRequiredFields(modelName)
         )
-        if (!currentValue && R.contains(fieldName, requiredFields)) {
+        if (
+          !currentValue &&
+          currentValue !== false &&
+          R.contains(fieldName, requiredFields)
+        ) {
           return Actions.addDangerAlert({
             message: `Missing required field: ${fieldName}.`
           })
@@ -120,13 +125,14 @@ export class ValidationEpic extends Epic {
 
         // check for required field(s)
         const requiredFields = R.filter(
-          val => val !== 'id',
+          (val) => val !== 'id',
           this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
           (fieldName: any) =>
             R.contains(fieldName, Object.keys(changedFields)) &&
-            !R.prop(fieldName, changedFields)
+            !R.prop(fieldName, changedFields) &&
+            R.prop(fieldName, changedFields) !== false
         )
         if (!R.isEmpty(missingFields)) {
           const message = getMissingFieldsMessage({
@@ -166,13 +172,14 @@ export class ValidationEpic extends Epic {
 
         // check for required field(s)
         const requiredFields = R.filter(
-          val => val !== 'id',
+          (val) => val !== 'id',
           this.schema.getRequiredFields(modelName)
         )
         const missingFields = requiredFields.filter(
           (fieldName: any) =>
             R.contains(fieldName, Object.keys(changedFields)) &&
-            !R.prop(fieldName, changedFields)
+            !R.prop(fieldName, changedFields) &&
+            R.prop(fieldName, changedFields) !== false
         )
         if (!R.isEmpty(missingFields)) {
           const message = getMissingFieldsMessage({

@@ -16,7 +16,7 @@ export class TooltipReducer extends Reducer {
     // @ts-ignore
     const result = R.pathOr([], ['result'], data)
     const tooltipData = []
-    const fieldOrder = this.schema.schemaJSON[modelName].fieldOrder
+    const fieldOrder = this.schema.schemaJSON[modelName].fieldOrder ?? []
 
     for (const fieldName of fieldOrder) {
       if (R.has(fieldName, result)) {

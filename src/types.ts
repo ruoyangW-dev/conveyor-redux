@@ -1,25 +1,29 @@
-type QueryType =
+import { ActionsObservable } from 'redux-observable'
+import { Action } from './actions'
+
+export type QueryType =
   | 'index'
   | 'detail'
   | 'select'
   | 'tooltip'
-  | 'indexRelationship'
-  | 'detailRelationship'
-  | 'selectRelationship'
   | 'search'
+  | 'deleteCascades'
+  | 'selectExistingFields'
   | 'create'
   | 'update'
   | 'delete'
-  | 'deleteCascades'
 
-interface QueryBuilder {
+export interface QueryTool {
   buildQuery({
     modelName,
+    fieldName,
     queryType
   }: {
     modelName?: string
+    fieldName?: string
     queryType: QueryType
-  }): any
+  }): string
+
   sendRequest({
     query,
     variables,
@@ -30,37 +34,43 @@ interface QueryBuilder {
     formData?: any
   }): Promise<
     | {
-        data: any
+        data: unknown
         error: boolean
       }
     | {
         data: null
-        error: any
+        error: unknown
       }
   >
+
   buildAndSendRequest({
     modelName,
+    fieldName,
     variables,
     queryType
   }: {
-    modelName: string
+    modelName?: string
+    fieldName?: string
     variables: object
     queryType: QueryType
   }): Promise<
     | {
-        data: any
+        data: unknown
         error: boolean
       }
     | {
         data: null
-        error: any
+        error: unknown
       }
   >
 }
 
-type ROEpic = (action$: any, state$: any) => any
+export type ROEpic = <T extends unknown>(
+  action$: ActionsObservable<Action<T>>,
+  state$: any
+) => any
 
-interface EpicPayload {
+export interface EpicPayload {
   modelName?: string
   fieldName?: string
   id?: string
@@ -71,4 +81,20 @@ interface EpicPayload {
   queryString?: string
   queryText?: string
   expiresOn?: number
+}
+
+export interface RequestError {
+  response: {
+    errors: [ErrorItem]
+  }
+}
+
+export const isRequestError = (
+  error: unknown | undefined
+): error is RequestError => {
+  return (error as RequestError)?.response !== undefined
+}
+
+export interface ErrorItem {
+  message: string
 }
