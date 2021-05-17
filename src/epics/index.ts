@@ -12,7 +12,7 @@ import { ValidationEpic } from './validation'
 import { CreateEpic } from './create'
 import { ModalEpic } from './modal'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
-import { QueryBuilder } from '../types'
+import type { QueryTool } from '../types'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
@@ -33,11 +33,11 @@ const conveyorEpics = [
 
 export class ConveyorEpic {
   schema: SchemaBuilder
-  queryBuilder: QueryBuilder
+  queryTool: QueryTool
 
-  constructor(schema: SchemaBuilder, queryBuilder: QueryBuilder) {
+  constructor(schema: SchemaBuilder, queryTool: QueryTool) {
     this.schema = schema
-    this.queryBuilder = queryBuilder
+    this.queryTool = queryTool
   }
 
   makeEpic(store: any) {
@@ -45,7 +45,7 @@ export class ConveyorEpic {
       store,
       ...R.flatten(
         R.map(
-          (Epic) => new Epic(this.schema, this.queryBuilder).makeEpic(),
+          (Epic) => new Epic(this.schema, this.queryTool).makeEpic(),
           conveyorEpics
         )
       )

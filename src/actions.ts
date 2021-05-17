@@ -141,6 +141,10 @@ export const detailTableEditSubmitCheck = actionDisp(
 )
 export const indexEditSubmitCheck = actionDisp(Actions.INDEX_EDIT_SUBMIT_CHECK)
 
+export interface Action<T extends unknown> {
+  type: string
+  payload: T
+}
 // dark mode
 
 export const toggleDarkMode = actionDisp(Actions.TOGGLE_DARK_MODE)

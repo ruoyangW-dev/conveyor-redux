@@ -49,11 +49,11 @@ export class ModelEpic extends Epic {
         return { modelName: payload.modelName, variables }
       }),
       mergeMap((context: any) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: context.modelName,
           queryType: 'index'
         })
-        return this.queryBuilder
+        return this.queryTool
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),
@@ -82,11 +82,11 @@ export class ModelEpic extends Epic {
         return { modelName: payload.modelName, id: payload.id, variables }
       }),
       mergeMap((context: any) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: context.modelName,
           queryType: 'detail'
         })
-        return this.queryBuilder
+        return this.queryTool
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),
@@ -117,7 +117,7 @@ export class ModelEpic extends Epic {
       ofType(REQUEST_DELETE_MODEL),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: payload.modelName,
           queryType: 'delete'
         })
@@ -130,7 +130,7 @@ export class ModelEpic extends Epic {
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -184,7 +184,7 @@ export class ModelEpic extends Epic {
       ofType(REQUEST_DELETE_REL_TABLE_MODEL),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: payload.modelName,
           queryType: 'delete'
         })
@@ -192,7 +192,7 @@ export class ModelEpic extends Epic {
         return { ...payload, query, variables }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -245,7 +245,7 @@ export class ModelEpic extends Epic {
       ofType(REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: payload.modelName,
           queryType: 'delete'
         })
@@ -258,7 +258,7 @@ export class ModelEpic extends Epic {
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables

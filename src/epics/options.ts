@@ -28,13 +28,13 @@ export class OptionsEpic extends Epic {
         return { variables, modelName, fieldName }
       }),
       mergeMap((context: any) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: context.modelName,
           fieldName: context.fieldName,
           queryType: 'selectExistingFields'
         })
 
-        return this.queryBuilder
+        return this.queryTool
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({
             context,
@@ -78,12 +78,12 @@ export class OptionsEpic extends Epic {
         return { variables, modelName, fieldName, targetModel }
       }),
       mergeMap((context: any) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: context.targetModel,
           queryType: 'select'
         })
 
-        return this.queryBuilder
+        return this.queryTool
           .sendRequest({ query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),

@@ -14,7 +14,7 @@ export class TooltipEpic extends Epic {
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
         const variables = { id: payload.id }
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: payload.modelName,
           queryType: 'tooltip'
         })
@@ -26,7 +26,7 @@ export class TooltipEpic extends Epic {
         }
       }),
       mergeMap((context: any) => {
-        return this.queryBuilder
+        return this.queryTool
           .sendRequest({ query: context.query, variables: context.variables })
           .then(({ data, error }) => ({ context, data, error }))
       }),

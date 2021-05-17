@@ -13,7 +13,7 @@ export class ModalEpic extends Epic {
       ofType(FETCH_DELETE_DETAIL),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: payload.modelName,
           queryType: 'deleteCascades'
         })
@@ -26,7 +26,7 @@ export class ModalEpic extends Epic {
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
