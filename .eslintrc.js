@@ -27,5 +27,5 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': ['off'], // remove
     '@typescript-eslint/ban-types': ['off']
   },
-  ignorePatterns: ['lib/**/*']
+  ignorePatterns: ['lib/**/*', 'docs/**/*']
 }
