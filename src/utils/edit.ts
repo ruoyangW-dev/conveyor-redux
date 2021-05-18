@@ -1,5 +1,6 @@
 import * as R from 'ramda'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { isFieldTypeObject } from '@autoinvent/conveyor-schema/lib/schemaJson'
 
 export const initState = {}
 
@@ -15,10 +16,10 @@ export const getEditValue = ({
   value: any
 }) => {
   const field = schema.getField(modelName, fieldName)
-  const fieldType = R.prop('type', field)
-  if (R.type(fieldType) === 'Object') {
-    const type = R.prop('type', fieldType)
-    const relModelName = R.prop('target', fieldType)
+  const fieldType = field?.type
+  if (isFieldTypeObject(fieldType)) {
+    const type = fieldType.type
+    const relModelName = fieldType.target ?? ''
     if (type.includes('ToMany')) {
       return value.map((node: any) => {
         const displayName = schema.getDisplayValue({

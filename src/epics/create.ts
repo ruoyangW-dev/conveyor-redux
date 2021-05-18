@@ -1,9 +1,10 @@
-import { ofType } from 'redux-observable'
+import { ActionsObservable, ofType } from 'redux-observable'
 import { concat } from 'rxjs'
 import { map, mergeMap } from 'rxjs/operators'
 import * as R from 'ramda'
 import { SAVE_CREATE } from '../actionConsts'
 import * as Actions from '../actions'
+import type { Action } from '../actions'
 import * as Logger from '../utils/Logger'
 import { selectCreate } from '../utils/create'
 import {
@@ -12,15 +13,16 @@ import {
   prepValidationErrors
 } from '../utils/helpers'
 import { Epic } from './epic'
+import { EpicPayload, isRequestError } from '../types'
 
 export class CreateEpic extends Epic {
-  [SAVE_CREATE](action$: any, state$: any) {
+  [SAVE_CREATE](action$: ActionsObservable<Action<EpicPayload>>, state$: any) {
     return action$.pipe(
       ofType(SAVE_CREATE),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
         const formStack = selectCreate(state$.value)
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: payload.modelName,
           queryType: 'create'
         })
@@ -39,7 +41,7 @@ export class CreateEpic extends Epic {
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables
@@ -50,7 +52,7 @@ export class CreateEpic extends Epic {
         if (error) {
           Logger.epicError('saveCreateEpic', context, error)
           const errorActions = []
-          if (isValidationError(error.response)) {
+          if (isRequestError(error) && isValidationError(error.response)) {
             const errors = prepValidationErrors({
               schema: this.schema,
               context,

@@ -5,6 +5,7 @@ import * as Actions from '../actions'
 import { FETCH_DELETE_DETAIL } from '../actionConsts'
 import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
+import { EpicPayload } from '../types'
 
 export class ModalEpic extends Epic {
   [FETCH_DELETE_DETAIL](action$: any) {
@@ -12,7 +13,7 @@ export class ModalEpic extends Epic {
       ofType(FETCH_DELETE_DETAIL),
       map(R.prop('payload')),
       map((payload: EpicPayload) => {
-        const query = this.queryBuilder.buildQuery({
+        const query = this.queryTool.buildQuery({
           modelName: payload.modelName,
           queryType: 'deleteCascades'
         })
@@ -25,7 +26,7 @@ export class ModalEpic extends Epic {
         }
       }),
       mergeMap((context: any) =>
-        this.queryBuilder
+        this.queryTool
           .sendRequest({
             query: context.query,
             variables: context.variables

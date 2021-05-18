@@ -67,7 +67,7 @@ export const handleDetailCreate = (
     value: parentId,
     disabled: true
   }
-  const prepopulatedField = type.includes('ToMany') ? [fieldData] : fieldData
+  const prepopulatedField = type?.includes('ToMany') ? [fieldData] : fieldData
   state = R.assocPath(
     ['stack', 0, 'fields', targetInverseFieldName],
     prepopulatedField,
@@ -94,7 +94,7 @@ export const handleValidationErrorCreate = (state: any, action: any) => {
   const errors: any[] = R.propOr([], 'errors', payload)
 
   // todo: check works
-  R.forEach(fieldNameError => {
+  R.forEach((fieldNameError) => {
     state = R.assocPath(
       ['stack', stackIndex, 'errors', fieldNameError],
       R.prop(fieldNameError as any, errors),
