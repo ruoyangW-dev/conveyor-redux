@@ -14,10 +14,11 @@ import {
 import { LOCATION_CHANGE } from 'connected-react-router'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
+import { Config } from '../types'
 
 export class EditReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   [LOCATION_CHANGE]() {

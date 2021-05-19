@@ -9,10 +9,11 @@ import {
 import { initState, updateIndex, getDefaultModelStore } from '../utils/model'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
+import { Config } from '../types'
 
 export class ModelReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   [MODEL_NOT_FOUND](state: any, action: any) {

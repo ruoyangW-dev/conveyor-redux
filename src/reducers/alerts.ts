@@ -8,10 +8,11 @@ import {
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
 import * as R from 'ramda'
+import { Config } from '../types'
 
 export class AlertsReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   [ADD_DANGER_ALERT](state: any, action: any) {

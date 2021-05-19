@@ -4,7 +4,6 @@ import * as Actions from '../actions'
 import * as consts from '../actionConsts'
 import * as Logger from './Logger'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
-import { DEFAULT_PAGINATION_AMT } from './tableView'
 
 export const storeValueToArrayBuffer = (value: number[]) => {
   const arrayBuffer = new ArrayBuffer(value.length)
@@ -97,13 +96,15 @@ export const getSort = ({
 
 export const getPage = ({
   modelName,
-  tableView
+  tableView,
+  defaultPerPage
 }: {
   modelName: string
   tableView: any
+  defaultPerPage: number
 }) => {
   const currentPage = R.pathOr(1, [modelName, 'page', 'currentPage'], tableView)
-  return { current: currentPage, per_page: DEFAULT_PAGINATION_AMT }
+  return { current: currentPage, per_page: defaultPerPage }
 }
 
 export const editFieldToQueryInput = ({

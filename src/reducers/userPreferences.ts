@@ -3,10 +3,11 @@ import { TOGGLE_DARK_MODE } from '../actionConsts'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
 import * as R from 'ramda'
+import { Config } from '../types'
 
 export class UserPreferencesReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
   [TOGGLE_DARK_MODE](state: any) {
     // @ts-ignore
