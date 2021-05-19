@@ -91,6 +91,7 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="searchreducer.html#config" class="tsd-kind-icon">config</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="searchreducer.html#initstate" class="tsd-kind-icon">init<wbr>State</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="searchreducer.html#schema" class="tsd-kind-icon">schema</a></li>
 							</ul>
@@ -115,20 +116,23 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Search<wbr>Reducer<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="searchreducer.html" class="tsd-signature-type" data-tsd-kind="Class">SearchReducer</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Search<wbr>Reducer<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="searchreducer.html" class="tsd-signature-type" data-tsd-kind="Class">SearchReducer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Reducer.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/search.ts#L13">src/reducers/search.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/search.ts#L14">src/reducers/search.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>schema: <span class="tsd-signature-type">SchemaBuilder</span></h5>
+								</li>
+								<li>
+									<h5>config: <span class="tsd-signature-type">Config</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="searchreducer.html" class="tsd-signature-type" data-tsd-kind="Class">SearchReducer</a></h4>
@@ -139,13 +143,24 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Config</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Reducer.config</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/reducer.ts#L8">src/reducers/reducer.ts:8</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="initstate" class="tsd-anchor"></a>
 					<h3>init<wbr>State</h3>
 					<div class="tsd-signature tsd-kind-icon">init<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.initState</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/reducer.ts#L6">src/reducers/reducer.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/reducer.ts#L7">src/reducers/reducer.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -156,7 +171,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/reducer.ts#L5">src/reducers/reducer.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/reducer.ts#L6">src/reducers/reducer.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,7 +188,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/search.ts#L58">src/reducers/search.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/search.ts#L59">src/reducers/search.ts:59</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -196,7 +211,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/search.ts#L54">src/reducers/search.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/search.ts#L55">src/reducers/search.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>dropdown<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>entries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>queryText<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h4>
@@ -224,7 +239,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/search.ts#L46">src/reducers/search.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/search.ts#L47">src/reducers/search.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -250,7 +265,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/search.ts#L62">src/reducers/search.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/search.ts#L63">src/reducers/search.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -273,7 +288,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/search.ts#L18">src/reducers/search.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/search.ts#L19">src/reducers/search.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -300,7 +315,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Reducer.reduce</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9bc790c/src/reducers/reducer.ts#L13">src/reducers/reducer.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3cfed51/src/reducers/reducer.ts#L16">src/reducers/reducer.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -335,6 +350,9 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="searchreducer.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="searchreducer.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="searchreducer.html#initstate" class="tsd-kind-icon">init<wbr>State</a>
