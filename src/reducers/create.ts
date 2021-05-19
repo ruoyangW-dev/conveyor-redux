@@ -22,10 +22,11 @@ import {
 } from '../actionConsts'
 import { Reducer } from './reducer'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { Config } from '../types'
 
 export class CreateReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   [CREATE_INPUT_CHANGE](state: any, action: any) {

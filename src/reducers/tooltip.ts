@@ -3,10 +3,11 @@ import { UPDATE_MODEL_TOOLTIP } from '../actionConsts'
 import { initState } from '../utils/tooltip'
 import { Reducer } from './reducer'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { Config } from '../types'
 
 export class TooltipReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   [UPDATE_MODEL_TOOLTIP](state: any, action: any) {

@@ -28,7 +28,7 @@ import { Config } from '../types'
 export class TableViewReducer extends Reducer {
   defaultPerPage: number
 
-  constructor(schema: SchemaBuilder, config?: Config) {
+  constructor(schema: SchemaBuilder, config: Config) {
     super(schema, initState, config)
     this.defaultPerPage = R.pathOr(
       DEFAULT_PAGINATION_AMT,

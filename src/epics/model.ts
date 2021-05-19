@@ -20,11 +20,8 @@ import { DEFAULT_PAGINATION_AMT } from '../utils/tableView'
 
 export class ModelEpic extends Epic {
   [FETCH_MODEL_INDEX](action$: any, state$: any) {
-    const defaultPerPage = R.pathOr(
-      DEFAULT_PAGINATION_AMT,
-      ['tableView', 'defaultPerPage'],
-      this.config
-    )
+    const defaultPerPage =
+      this.config.tableView?.defaultPerPage ?? DEFAULT_PAGINATION_AMT
     return action$.pipe(
       ofType(FETCH_MODEL_INDEX, CHANGE_PAGE),
       map(R.prop('payload')),

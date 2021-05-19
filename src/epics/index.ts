@@ -35,11 +35,16 @@ const conveyorEpics = [
 export class ConveyorEpic {
   schema: SchemaBuilder
   queryTool: QueryTool
-  config: Config | undefined
+  config: Config
 
-  constructor(schema: SchemaBuilder, queryTool: QueryTool, config?: Config) {
-    this.schema = schema
-    ;(this.queryTool = queryTool), (this.config = config)
+  constructor(
+    schema: SchemaBuilder,
+    queryTool: QueryTool,
+    config: Config = {}
+  ) {
+    ;(this.schema = schema),
+      (this.queryTool = queryTool),
+      (this.config = config)
   }
 
   makeEpic(store: any) {

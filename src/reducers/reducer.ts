@@ -7,10 +7,10 @@ export class Reducer {
   initState: any
   config: Config
 
-  constructor(schema: SchemaBuilder, initState: any, config?: Config) {
+  constructor(schema: SchemaBuilder, initState: any, config: Config) {
     this.schema = schema
     this.initState = initState
-    this.config = R.isNil(config) ? {} : config
+    this.config = config
   }
 
   reduce(state: any, action: any) {

@@ -100,5 +100,7 @@ export interface ErrorItem {
 }
 
 export interface Config {
-  [key: string]: any
+  tableView?: {
+    defaultPerPage?: number
+  }
 }

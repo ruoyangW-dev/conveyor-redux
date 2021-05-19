@@ -7,10 +7,11 @@ import {
 import { initState } from '../utils/options'
 import { Reducer } from './reducer'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { Config } from '../types'
 
 export class OptionsReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   [MENU_OPEN](state: any, action: any) {

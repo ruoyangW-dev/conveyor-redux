@@ -9,10 +9,11 @@ import {
 import { initState } from '../utils/search'
 import { Reducer } from './reducer'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { Config } from '../types'
 
 export class SearchReducer extends Reducer {
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   [UPDATE_SEARCH_ENTRIES](state: any, action: any) {

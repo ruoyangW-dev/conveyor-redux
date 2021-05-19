@@ -7,10 +7,10 @@ export class Epic {
   queryTool: QueryTool
   config: Config
 
-  constructor(schema: SchemaBuilder, queryTool: QueryTool, config?: Config) {
+  constructor(schema: SchemaBuilder, queryTool: QueryTool, config: Config) {
     this.schema = schema
     this.queryTool = queryTool
-    this.config = R.isNil(config) ? {} : config
+    this.config = config
   }
 
   makeEpic() {
