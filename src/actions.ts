@@ -140,6 +140,8 @@ export const detailTableEditSubmitCheck = actionDisp(
   Actions.DETAIL_TABLE_EDIT_SUBMIT_CHECK
 )
 export const indexEditSubmitCheck = actionDisp(Actions.INDEX_EDIT_SUBMIT_CHECK)
+export const updateValidationResults = actionDisp(Actions.UPDATE_VALIDATION_RESULTS)
+export const clearValidationResults = actionDisp(Actions.CLEAR_VALIDATION_RESULTS)
 
 export interface Action<T extends unknown> {
   type: string

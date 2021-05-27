@@ -38,8 +38,13 @@ export class ValidationEpic extends Epic {
             missingFields,
             modelName
           })
-          return Actions.addDangerAlert({
+          //return
+          /*Actions.addDangerAlert({
             message: `Missing required field(s): ${message}`
+          })*/
+          return Actions.updateValidationResults({
+            missingFields,
+            modelName
           })
         } else {
           return Actions.onSaveCreate({ ...payload })
@@ -96,8 +101,12 @@ export class ValidationEpic extends Epic {
           currentValue !== false &&
           R.contains(fieldName, requiredFields)
         ) {
-          return Actions.addDangerAlert({
+          /*return Actions.addDangerAlert({
             message: `Missing required field: ${fieldName}.`
+          })*/
+          return Actions.updateValidationResults({
+            missingFields: [fieldName],
+            modelName
           })
         }
 
@@ -140,8 +149,12 @@ export class ValidationEpic extends Epic {
             missingFields,
             modelName
           })
-          return Actions.addDangerAlert({
+          /*return Actions.addDangerAlert({
             message: `Missing required field(s): ${message}.`
+          })*/
+          return Actions.updateValidationResults({
+            missingFields,
+            modelName
           })
         }
 
@@ -187,8 +200,12 @@ export class ValidationEpic extends Epic {
             missingFields,
             modelName
           })
-          return Actions.addDangerAlert({
+          /*return Actions.addDangerAlert({
             message: `Missing required field(s): ${message}.`
+          })*/
+          return Actions.updateValidationResults({
+            missingFields,
+            modelName
           })
         }
 
