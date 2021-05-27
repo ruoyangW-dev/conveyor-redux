@@ -1,7 +1,7 @@
 # conveyor-redux
 
 [![npm version](https://badge.fury.io/js/%40autoinvent%2Fconveyor-redux.svg)](https://badge.fury.io/js/%40autoinvent%2Fconveyor-redux)
-![CI](https://github.com/autoinvent/conveyor-redux/workflows/CI/badge.svg)
+![CI](https://github.com/autoinvent/conveyor-redux/workflows/CI/badge.svg?branch=main)
 ![license](https://img.shields.io/github/license/autoinvent/conveyor-redux)
 
 A JavaScript Redux implementation of the state and actions needed by [conveyor](https://github.com/autoinvent/conveyor)
