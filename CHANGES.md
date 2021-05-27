@@ -3,6 +3,8 @@
 
 -- UNRELEASED --
 
+store validation info and access on demand.
+
 Update to work with conveyor-schema typescript changes
 Add typedoc
 
