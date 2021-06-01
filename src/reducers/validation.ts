@@ -15,7 +15,7 @@ import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
 import { Config } from '../types'
 
-function clear_results() {
+const clear_results = () => {
   return initState
 }
 

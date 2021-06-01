@@ -4,7 +4,7 @@ export const initState: any = {}
 
 export const selectValidation = R.pathOr(initState, ['conveyor', 'validation'])
 
-export function failedValidation(state: any) {
+export const failedValidation = (state: any) => {
   const validation = selectValidation(state)
   return function (modelName: string, fieldName: string) {
     if (
