@@ -15,4 +15,5 @@ export const handleError = ({
   return R.assoc('type', type, payload)
 }
 
+/** Curried function that returns conveyor.alerts from the argument passed in, or an empty list if no alerts */
 export const selectAlerts = R.pathOr(initState, ['conveyor', 'alerts'])

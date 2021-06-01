@@ -147,4 +147,5 @@ export interface Action<T extends unknown> {
 }
 // dark mode
 
+/** Adds type 'TOGGLE_DARK_MODE' to Action types */
 export const toggleDarkMode = actionDisp(Actions.TOGGLE_DARK_MODE)

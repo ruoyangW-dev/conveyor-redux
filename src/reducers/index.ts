@@ -12,6 +12,9 @@ import { SearchReducer } from './search'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { UserPreferencesReducer } from './userPreferences'
 
+/**
+ * All conveyor reducer categories
+ */
 const conveyorReducerMap = {
   alerts: AlertsReducer,
   create: CreateReducer,
@@ -25,7 +28,15 @@ const conveyorReducerMap = {
   userPreferences: UserPreferencesReducer
 }
 
+/**
+ * The main Reducer that works with [Conveyor](https://github.com/autoinvent/conveyor) and in your main project
+ */
 export class ConveyorReducer {
+  /**
+   * Creates a reducer object for each reducer in *conveyorReducerMap*
+   * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param overrides Reducer overrides
+   */
   constructor(schema: SchemaBuilder, overrides?: any) {
     const identity: (value: any) => any = R.identity
     const mergedReducerMap = R.filter(
@@ -38,6 +49,10 @@ export class ConveyorReducer {
     }, mergedReducerMap)
   }
 
+  /**
+   * Combines all reducers into one reducer
+   * @returns Reducer object
+   */
   makeReducer(): any {
     return combineReducers(
       // @ts-ignore

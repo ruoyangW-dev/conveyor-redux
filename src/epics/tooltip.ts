@@ -7,7 +7,15 @@ import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
 
+/**
+ * A class containing epics handling tooltips
+ */
 export class TooltipEpic extends Epic {
+  /**
+   * Dispatched whenever displaying a tooltip. 
+   * @param action$ object {type: string, payload: {modelName: string, id: string}}
+   * @returns - Actions.[updateModelTooltip](./tooltipreducer.html#update_model_tooltip)({modelName: string, id: string, data: object})
+   */
   [FETCH_MODEL_TOOLTIP](action$: any) {
     return action$.pipe(
       ofType(FETCH_MODEL_TOOLTIP),

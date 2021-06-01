@@ -8,7 +8,15 @@ import {
 } from '../actionConsts'
 import { Epic } from './epic'
 
+/**
+ * A class containing epics handling index table actions
+ */
 export class IndexTableEpic extends Epic {
+  /**
+   * Dispatched after applying filter rules.
+   * @param action$ object {type: string, payload: {modelName: string}}
+   * @returns - Action [fetchModelIndex](./modelepic.html#fetch_model_index)({modelName})
+   */
   [INDEX_TABLE_FILTER_SUBMIT](action$: any) {
     return action$.pipe(
       ofType(INDEX_TABLE_FILTER_SUBMIT),
@@ -17,6 +25,11 @@ export class IndexTableEpic extends Epic {
     )
   }
 
+  /**
+   * Called changing the sorting of a table.
+   * @param action$ object {type: string, payload: {modelName: string, fieldName: string}}
+   * @returns [fetchModelIndex](./modelepic.html#fetch_model_index)
+   */
   [INDEX_TABLE_SORT_CHANGE](action$: any) {
     return action$.pipe(
       ofType(INDEX_TABLE_SORT_CHANGE),

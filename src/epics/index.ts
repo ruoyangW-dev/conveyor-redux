@@ -17,6 +17,9 @@ import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
 
+/**
+ * Conveyor epic categories
+ */
 const conveyorEpics = [
   AlertEpic,
   CreateEpic,
@@ -31,15 +34,32 @@ const conveyorEpics = [
   ValidationEpic
 ]
 
+/**
+ * The main Epic that works with [Conveyor](https://github.com/autoinvent/conveyor) and in your main project
+ */
 export class ConveyorEpic {
+  /** [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema) */
   schema: SchemaBuilder
+  /** Tool for building and sending queries */
   queryTool: QueryTool
 
+  /**
+   * Creates Epic object
+   * @param schema 
+   * @param queryTool 
+   */
   constructor(schema: SchemaBuilder, queryTool: QueryTool) {
+    /** [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema) */
     this.schema = schema
+    /** Tool for building and sending queries */
     this.queryTool = queryTool
   }
 
+  /**
+   * Combines all epics into one epic
+   * @param store Redux store
+   * @returns Combined epics
+   */
   makeEpic(store: any) {
     return combineEpicsAndCatchErrors(
       store,

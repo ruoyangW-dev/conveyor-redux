@@ -7,7 +7,15 @@ import * as R from 'ramda'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
 
+/**
+ * A class containing epics handling search actions
+ */
 export class SearchEpic extends Epic {
+  /**
+   * Called after doing an action in the search bar after [onSearchBlur](./searchreducer.html#search_blur) was dispatched
+   * @param action$ object {type: string}
+   * @returns - Actions.[fetchSearchEntries](./searchepic.html#fetch_search_entries)({queryString: string})
+   */
   [TRIGGER_SEARCH](action$: any) {
     return action$.pipe(
       ofType(TRIGGER_SEARCH),
@@ -18,6 +26,11 @@ export class SearchEpic extends Epic {
     )
   }
 
+  /**
+   * Dispatched by [onTriggerSearch](./searchepic.html#trigger_search)
+   * @param action$ object {type: string, payload: {queryString: string}}
+   * @returns - Actions.[updateSearchEntries](./searchreducer.html#update_search_entries)
+   */
   [FETCH_SEARCH_ENTRIES](action$: any) {
     return action$.pipe(
       ofType(FETCH_SEARCH_ENTRIES),

@@ -37,6 +37,14 @@ export const handleEnterFormStack = (state: any, action: any) => {
   return R.assoc('originPath', originPath, state)
 }
 
+/**
+ * Handles creating an instance from the Detail page. Called from [onDetailCreate](./classes/createreducer.html#detail_create)
+ * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+ * @param state Redux state
+ * @param action object {type: string, payload: {modelName: string, path: string, 
+ * targetInverseFieldName: string, node: object}}
+ * @returns Updates values of {index, stack, originPath, originModelName, originFieldName, originNode} in state.create
+ */
 export const handleDetailCreate = (
   schema: SchemaBuilder,
   state: any,
@@ -108,5 +116,10 @@ export const handleClearErrorSave = (state: any) => {
   return R.dissocPath(['stack', R.prop('index', state), 'errors'], state)
 }
 
+/**
+ * Called by [saveCreateCheck](./classes/createepic.html#save_create)
+ * @param state Redux state
+ * @returns state.conveyor.create or initState if null
+ */
 export const selectCreate = (state: any) =>
   R.pathOr(initState, ['conveyor', 'create'], state)

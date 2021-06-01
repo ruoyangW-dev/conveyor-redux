@@ -12,7 +12,15 @@ import * as R from 'ramda'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
 
+/**
+ * A class containing Epics which handle options (Selectable string menus, relation dropdown menus, etc.)
+ */
 export class OptionsEpic extends Epic {
+  /**
+   * Dispatched when opening a 'creatable_string_select' field's menu.
+   * @param action$ object {type: string, payload: {modelName: string, fieldName: string}}
+   * @returns - Actions.[existingValueUpdate](./optionsreducer.html#existing_value_update)({modelName: string, fieldName: string, data: object})
+   */
   [QUERY_SELECT_MENU_OPEN](action$: any) {
     return action$.pipe(
       ofType(QUERY_SELECT_MENU_OPEN),
@@ -62,6 +70,14 @@ export class OptionsEpic extends Epic {
     )
   }
 
+/**
+ * Dispatched when opening a relation field's dropdown menu.
+ * @param action$ object {type: string, payload: {modelName: string, fieldName: string}}
+ * @returns - \[ \
+ *  Actions.[dataOptionsUpdate](./optionsreducer.html#data_options_update)({modelName: string, fieldName: string, data: object}), \
+ *  Actions.[updateModelIndex](./modelreducer.html#update_model_index)({modelName: string, data: object}) \ 
+ * ]
+ */
   [RELATIONSHIP_SELECT_MENU_OPEN](action$: any) {
     return action$.pipe(
       ofType(RELATIONSHIP_SELECT_MENU_OPEN),

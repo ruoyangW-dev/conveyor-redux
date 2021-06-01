@@ -17,7 +17,18 @@ import * as Logger from '../utils/Logger'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
 
+/**
+ * A class containing epics handling model actions
+ */
 export class ModelEpic extends Epic {
+  /**
+   * Dispatched by [indexEditSubmitCheck](./validationepic.html#index_edit_submit_check), 
+   * [indexTableFilterSubmit](./indextableepic.html#index_table_filter_submit), and 
+   * [indexTableSortChange](./indextableepic.html#index_table_sort_change)
+   * @param action$ object {type: string, payload: {modelName: string}}
+   * @param state$ Redux state
+   * @returns - Actions.[updateModelIndex](./modelreducer.html#update_model_index)({modelName: string, data: object})
+   */
   [FETCH_MODEL_INDEX](action$: any, state$: any) {
     return action$.pipe(
       ofType(FETCH_MODEL_INDEX, CHANGE_PAGE),
@@ -73,6 +84,11 @@ export class ModelEpic extends Epic {
     )
   }
 
+  /**
+   * Called when loading the Detail page of a model instance.
+   * @param action$ object {type: string, payload: {modelName: string, id: string}}
+   * @returns - Actions.[updateModelDetail](./modelreducer.html#update_model_detail)({modelName: string, id: string, data: object})
+   */
   [FETCH_MODEL_DETAIL](action$: any) {
     return action$.pipe(
       ofType(FETCH_MODEL_DETAIL),
@@ -112,6 +128,14 @@ export class ModelEpic extends Epic {
     )
   }
 
+  /**
+   * Dispatched when deleting a model instance on Index page.
+   * @param action$ object {type: string, payload: {modelName: string, id: string}}
+   * @returns - \[ \
+   *  Actions.[updateDeleteModel](./modelreducer.html#update_delete_model)({modelName: string, id: string}), \
+   *  Actions.[addSuccessAlert](./alertepic.html#add_success_alert)({message: string}) \
+   * ]
+   */
   [REQUEST_DELETE_MODEL](action$: any) {
     return action$.pipe(
       ofType(REQUEST_DELETE_MODEL),
@@ -179,6 +203,14 @@ export class ModelEpic extends Epic {
     )
   }
 
+  /**
+   * Dispatched when deleting a relation field in the Detail page.
+   * @param action$ object {type: string, payload: {id: string, parentModel: string, parentId: string, modelName: string}}
+   * @returns - \[ \
+   *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}), \
+   *  Actions.[addSuccessAlert](./alertepic.html#add_success_alert)({message: string}) \
+   * ]
+   */
   [REQUEST_DELETE_REL_TABLE_MODEL](action$: any) {
     return action$.pipe(
       ofType(REQUEST_DELETE_REL_TABLE_MODEL),
@@ -240,6 +272,14 @@ export class ModelEpic extends Epic {
     )
   }
 
+  /**
+   * Dispatched when deleting a model instance from Detail page.
+   * @param action$ object {type: string, payload: {id: string, modelName: string}}
+   * @returns - \[ \
+   *  Actions.[removeInstance](./modelreducer.html#remove_instance)({modelName: string, id: string}), \
+   *  Actions.[addSuccessAlert](./alertepic.html#add_alert)({message: string}) \
+   * ]
+   */
   [REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE](action$: any) {
     return action$.pipe(
       ofType(REQUEST_DELETE_MODEL_FROM_DETAIL_PAGE),

@@ -24,11 +24,24 @@ import {
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
 
+/**
+ * A class containing reducers handling table view actions
+ */
 export class TableViewReducer extends Reducer {
+  /**
+   * Creates a reducer object that can reduce all reducers into one
+   * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   */
   constructor(schema: SchemaBuilder) {
     super(schema, initState)
   }
 
+  /**
+   * Dispatched when adding a new filter rule on the Index page.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string}}
+   * @returns Updates conveyor.tableView.modelName.filter.filterOrder in state
+   */
   [INDEX_ADD_FILTER](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
@@ -46,6 +59,12 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Dispatched when removing a filter rule on the index page
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, index: number}}
+   * @returns Sets value of object {filterOrder, filterValue} in conveyor.tableView.modelName.filter to null
+   */
   [INDEX_DELETE_FILTER](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -68,6 +87,12 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Dispatched when resetting all filters on the Index page.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string}}
+   * @returns Sets value of objects {filterOrder, filterValue} in conveyor.tableView.modelName.filter to null
+   */
   [INDEX_CLEAR_FILTERS](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
@@ -78,6 +103,12 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Dispatched when changing a filter rule's field on the Index page.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string, index: number}}
+   * @returns Updates value of filter in conveyor.tableView.modelName.filter.filterOrder
+   */
   [INDEX_CHANGE_FILTER_FIELD](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -96,6 +127,12 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Called each time a filter's input field is changed on the Index page.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string, value: any}}
+   * @returns Updates conveyor.tableView.modelName.filter.filterValue.fieldName.value
+   */
   [INDEX_TABLE_FILTER_CHANGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -107,6 +144,13 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Dispatched after making a selection from the filter dropdown menu on the Index page.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string, operator: object}}
+   * @returns Updates value of objects {label, value} in 
+   * conveyor.tableView.modelName.filter.filterValue.fieldName.operator
+   */
   [INDEX_TABLE_FILTER_DROPDOWN](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -118,6 +162,13 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Dispatched after applying all filter rules on the Index page.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string}}
+   * @returns Sets value of conveyor.tableView.modelName.page.currentpage to 0 and 
+   * value of conveyor.tableView.modelName.filter.filtersAreActive to true
+   */
   [INDEX_TABLE_FILTER_SUBMIT](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
@@ -135,6 +186,12 @@ export class TableViewReducer extends Reducer {
     )(state)
   }
 
+  /**
+   * Dispatched changing the sorting of a table.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string}}
+   * @returns Updates conveyor.tableView.modelName.page.sort in state
+   */
   [INDEX_TABLE_SORT_CHANGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -145,6 +202,12 @@ export class TableViewReducer extends Reducer {
     )(state)
   }
 
+  /**
+   * Called when collapsing or expanding a table.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string, id: string}}
+   * @returns Toggles conveyor.tableView.modelName.fields.fieldName.collapse to True or False
+   */
   [COLLAPSE_TABLE_CHANGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -156,6 +219,12 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Dispatched when user changes page.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string, updatedPageIndex: number}}
+   * @returns Updates conveyor.tableView.modelName.page.currentPage
+   */
   [CHANGE_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -172,6 +241,12 @@ export class TableViewReducer extends Reducer {
   }
 
   // todo: make sure works
+  /**
+   * Dispatched when changing pages on a relation table.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string, updatedPageIndex: number}}
+   * @returns Updates values of 'canGoto' and 'currentPage' in conveyor.tableView.modelName.fields.fieldName.page
+   */
   [CHANGE_REL_TABLE_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     const {
@@ -200,6 +275,12 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Dispatched every time the goto page input value on an index table changes
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string, pageIndex: number}}
+   * @returns Changes conveyor.tableView.modelName.page.goto to the user input
+   */
   [CHANGE_GOTO_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -208,6 +289,12 @@ export class TableViewReducer extends Reducer {
   }
 
   // todo: make sure works
+  /**
+   * Called every time the goto page input value on a relation field table changes.
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, fieldName: string, pageIndex: number}}
+   * @returns Updates conveyor.tableView.modelName.fields.fieldName.page.goto
+   */
   [CHANGE_REL_GOTO_PAGE](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore
@@ -219,6 +306,13 @@ export class TableViewReducer extends Reducer {
     )
   }
 
+  /**
+   * Called by [fetchModelIndex](./modelepic.html#fetch_model_index) and 
+   * [relationshipSelectMenuOpen](./optionsepic.html#relationship_select_menu_open)
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, data: object}}
+   * @returns Updates values of objects {page: {lastIndex, total, amtPerPage}} in conveyor.tableView.modelName
+   */
   [UPDATE_MODEL_INDEX](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
@@ -238,6 +332,13 @@ export class TableViewReducer extends Reducer {
     )(state)
   }
 
+  /**
+   * Called by [fetchModelDetail](./modelepic.html#fetch_model_detail)
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, id: string, data: object}}
+   * @returns Update's conveyor.tableView.modelName's in state with 
+   * values from objects {page: {lastIndex, total, amtPerPage}}
+   */
   [UPDATE_MODEL_DETAIL](state: any, action: any) {
     const payload = R.prop('payload', action)
     const modelName = R.prop('modelName', payload)
