@@ -3,6 +3,7 @@ import { UPDATE_DELETE_DETAIL, CANCEL_DELETE_DETAIL } from '../actionConsts'
 import { initState, groupModels } from '../utils/modal'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
+import { Config } from '../types'
 
 /**
  * Class containing reducers handling modals
@@ -11,9 +12,10 @@ export class ModalReducer extends Reducer {
   /**
    * Creates a reducer object that can reduce all reducers into one
    * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   /**

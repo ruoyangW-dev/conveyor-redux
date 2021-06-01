@@ -8,6 +8,7 @@ import {
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
 import * as R from 'ramda'
+import { Config } from '../types'
 
 /**
  * A class made of up reducers handling alerts states
@@ -16,9 +17,10 @@ export class AlertsReducer extends Reducer {
   /**
    * Creates a reducer object which can reduce all reducers into one reducer
    * @param schema [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   /**

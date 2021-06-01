@@ -16,6 +16,7 @@ import type { QueryTool } from '../types'
 import * as Actions from '../actions'
 import * as Logger from '../utils/Logger'
 import * as R from 'ramda'
+import { Config } from '../types'
 
 /**
  * Conveyor epic categories
@@ -42,17 +43,22 @@ export class ConveyorEpic {
   schema: SchemaBuilder
   /** Tool for building and sending queries */
   queryTool: QueryTool
+  config: Config
 
   /**
    * Creates Epic object
-   * @param schema 
-   * @param queryTool 
+   * @param schema [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param queryTool Tool for building and sending queries
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder, queryTool: QueryTool) {
-    /** [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema) */
-    this.schema = schema
-    /** Tool for building and sending queries */
-    this.queryTool = queryTool
+  constructor(
+    schema: SchemaBuilder,
+    queryTool: QueryTool,
+    config: Config = {}
+  ) {
+    (this.schema = schema),
+    (this.queryTool = queryTool),
+    (this.config = config)
   }
 
   /**
@@ -65,7 +71,8 @@ export class ConveyorEpic {
       store,
       ...R.flatten(
         R.map(
-          (Epic) => new Epic(this.schema, this.queryTool).makeEpic(),
+          (Epic) =>
+            new Epic(this.schema, this.queryTool, this.config).makeEpic(),
           conveyorEpics
         )
       )

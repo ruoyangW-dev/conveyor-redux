@@ -23,17 +23,27 @@ import {
 } from '../utils/tableView'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
+import { Config } from '../types'
 
 /**
  * A class containing reducers handling table view actions
  */
 export class TableViewReducer extends Reducer {
+  /** Default amount of data per a page */
+  defaultPerPage: number
+
   /**
    * Creates a reducer object that can reduce all reducers into one
    * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
+    this.defaultPerPage = R.pathOr(
+      DEFAULT_PAGINATION_AMT,
+      ['tableView', 'defaultPerPage'],
+      this.config
+    )
   }
 
   /**
@@ -322,13 +332,13 @@ export class TableViewReducer extends Reducer {
     let lastIndex = null
     if (count) {
       // @ts-ignore
-      lastIndex = Math.ceil(count / DEFAULT_PAGINATION_AMT)
+      lastIndex = Math.ceil(count / this.defaultPerPage)
     }
 
     return R.pipe(
       R.assocPath([modelName, 'page', 'lastIndex'], lastIndex),
       R.assocPath([modelName, 'page', 'total'], count),
-      R.assocPath([modelName, 'page', 'amtPerPage'], DEFAULT_PAGINATION_AMT)
+      R.assocPath([modelName, 'page', 'amtPerPage'], this.defaultPerPage)
     )(state)
   }
 
@@ -353,9 +363,7 @@ export class TableViewReducer extends Reducer {
         // if multi-rel type
         if (type && type.includes('ToMany') && !R.isEmpty(obj)) {
           const totalDataLength = obj.length
-          const lastIndexRel = Math.ceil(
-            totalDataLength / DEFAULT_PAGINATION_AMT
-          )
+          const lastIndexRel = Math.ceil(totalDataLength / this.defaultPerPage)
           if (lastIndexRel > 0) {
             state = R.pipe(
               R.assocPath(
@@ -368,7 +376,7 @@ export class TableViewReducer extends Reducer {
               ),
               R.assocPath(
                 [modelName, 'fields', fieldName, 'page', 'amtPerPage'],
-                DEFAULT_PAGINATION_AMT
+                this.defaultPerPage
               )
             )(state)
           }

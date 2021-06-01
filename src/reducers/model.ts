@@ -9,6 +9,7 @@ import {
 import { initState, updateIndex, getDefaultModelStore } from '../utils/model'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
+import { Config } from '../types'
 
 /**
  * A class containing reducers handling model actions
@@ -17,9 +18,10 @@ export class ModelReducer extends Reducer {
   /**
    * Creates a reducer object that can reduce all reducers into one
    * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   /**

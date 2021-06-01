@@ -1,6 +1,6 @@
 import * as R from 'ramda'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
-import type { QueryTool, ROEpic } from '../types'
+import type { QueryTool, ROEpic, Config } from '../types'
 
 /**
  * The epic class that each Conveyor Epic types will extend from. 
@@ -10,15 +10,19 @@ export class Epic {
   schema: SchemaBuilder
   /** Tool for building and sending queries */
   queryTool: QueryTool
+  /** Custom user inputted configurations */
+  config: Config
 
   /**
    * Creates an Epic object
    * @param schema [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
    * @param queryTool Tool for building and sending queries
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder, queryTool: QueryTool) {
+  constructor(schema: SchemaBuilder, queryTool: QueryTool, config: Config) {
     this.schema = schema
     this.queryTool = queryTool
+    this.config = config
   }
 
   /**

@@ -20,7 +20,6 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
-    '@typescript-eslint/no-use-before-define': ['off'],
     '@typescript-eslint/explicit-function-return-type': ['off'],
     '@typescript-eslint/no-explicit-any': ['off'], // should be removed when we move away from using any,
     '@typescript-eslint/ban-ts-ignore': ['off'], // should also be removed eventually
@@ -28,5 +27,5 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': ['off'], // remove
     '@typescript-eslint/ban-types': ['off']
   },
-  ignorePatterns: ['lib/**/*']
+  ignorePatterns: ['lib/**/*', 'docs/**/*']
 }

@@ -22,6 +22,7 @@ import {
 } from '../actionConsts'
 import { Reducer } from './reducer'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
+import { Config } from '../types'
 
 /**
  * A class containing reducers handling actions from the Create page
@@ -30,9 +31,10 @@ export class CreateReducer extends Reducer {
   /**
    * Creates a reducer object which can reduce all reducers into one
    * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   /**

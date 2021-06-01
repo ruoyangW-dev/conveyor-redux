@@ -14,6 +14,7 @@ import {
 import { LOCATION_CHANGE } from 'connected-react-router'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Reducer } from './reducer'
+import { Config } from '../types'
 
 /**
  * A class containing reducers for Edit actions
@@ -22,9 +23,10 @@ export class EditReducer extends Reducer {
   /**
    * Creates a reducer object that can reduce all reducers into one
    * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder) {
-    super(schema, initState)
+  constructor(schema: SchemaBuilder, config: Config) {
+    super(schema, initState, config)
   }
 
   /**

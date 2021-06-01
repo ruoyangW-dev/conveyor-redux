@@ -11,6 +11,7 @@ import { TableViewReducer } from './tableView'
 import { SearchReducer } from './search'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { UserPreferencesReducer } from './userPreferences'
+import { Config } from '../types'
 
 /**
  * All conveyor reducer categories
@@ -36,8 +37,9 @@ export class ConveyorReducer {
    * Creates a reducer object for each reducer in *conveyorReducerMap*
    * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
    * @param overrides Reducer overrides
+   * @param config Custom user inputted configurations
    */
-  constructor(schema: SchemaBuilder, overrides?: any) {
+  constructor(schema: SchemaBuilder, overrides?: any, config: Config = {}) {
     const identity: (value: any) => any = R.identity
     const mergedReducerMap = R.filter(
       identity,
@@ -45,7 +47,7 @@ export class ConveyorReducer {
     )
     R.forEachObjIndexed((Reducer, key) => {
       // @ts-ignore
-      this[key] = new Reducer(schema)
+      this[key] = new Reducer(schema, config)
     }, mergedReducerMap)
   }
 
