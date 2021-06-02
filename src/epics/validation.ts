@@ -7,7 +7,7 @@ import {
   DETAIL_TABLE_EDIT_SUBMIT_CHECK,
   INDEX_EDIT_SUBMIT_CHECK
 } from '../actionConsts'
-import { getMissingFieldsMessage, tableChangedFields } from '../utils/helpers'
+import { tableChangedFields } from '../utils/helpers'
 import * as Actions from '../actions'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
@@ -33,13 +33,9 @@ export class ValidationEpic extends Epic {
         )
 
         if (!R.isEmpty(missingFields)) {
-          const message = getMissingFieldsMessage({
-            schema: this.schema,
+          return Actions.updateValidationResults({
             missingFields,
             modelName
-          })
-          return Actions.addDangerAlert({
-            message: `Missing required field(s): ${message}`
           })
         } else {
           return Actions.onSaveCreate({ ...payload })
@@ -96,8 +92,9 @@ export class ValidationEpic extends Epic {
           currentValue !== false &&
           R.contains(fieldName, requiredFields)
         ) {
-          return Actions.addDangerAlert({
-            message: `Missing required field: ${fieldName}.`
+          return Actions.updateValidationResults({
+            missingFields: [fieldName],
+            modelName
           })
         }
 
@@ -135,13 +132,9 @@ export class ValidationEpic extends Epic {
             R.prop(fieldName, changedFields) !== false
         )
         if (!R.isEmpty(missingFields)) {
-          const message = getMissingFieldsMessage({
-            schema: this.schema,
+          return Actions.updateValidationResults({
             missingFields,
             modelName
-          })
-          return Actions.addDangerAlert({
-            message: `Missing required field(s): ${message}.`
           })
         }
 
@@ -182,13 +175,9 @@ export class ValidationEpic extends Epic {
             R.prop(fieldName, changedFields) !== false
         )
         if (!R.isEmpty(missingFields)) {
-          const message = getMissingFieldsMessage({
-            schema: this.schema,
+          return Actions.updateValidationResults({
             missingFields,
             modelName
-          })
-          return Actions.addDangerAlert({
-            message: `Missing required field(s): ${message}.`
           })
         }
 
