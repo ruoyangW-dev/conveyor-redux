@@ -93,6 +93,7 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#combineepicsandcatcherrors" class="tsd-kind-icon">combine<wbr>Epics<wbr>And<wbr>Catch<wbr>Errors</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#failedvalidation" class="tsd-kind-icon">failed<wbr>Validation</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#filterselectoptions" class="tsd-kind-icon">filter<wbr>Select<wbr>Options</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#getmodelstore" class="tsd-kind-icon">get<wbr>Model<wbr>Store</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#getoptions" class="tsd-kind-icon">get<wbr>Options</a></li>
@@ -116,6 +117,7 @@
 								<li class="tsd-kind-function"><a href="modules.html#selecttableview" class="tsd-kind-icon">select<wbr>Table<wbr>View</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#selecttooltip" class="tsd-kind-icon">select<wbr>Tooltip</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#selectuserpreferences" class="tsd-kind-icon">select<wbr>User<wbr>Preferences</a></li>
+								<li class="tsd-kind-function"><a href="modules.html#selectvalidation" class="tsd-kind-icon">select<wbr>Validation</a></li>
 								<li class="tsd-kind-function"><a href="modules.html#toggledarkmode" class="tsd-kind-icon">toggle<wbr>Dark<wbr>Mode</a></li>
 							</ul>
 						</section>
@@ -134,7 +136,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/epics/index.ts#L72">src/epics/index.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/index.ts#L72">src/epics/index.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -189,6 +191,50 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="failedvalidation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> failed<wbr>Validation</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">failed<wbr>Validation<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>modelName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fieldName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/validation.ts#L7">src/utils/validation.ts:7</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>state: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span>modelName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fieldName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">boolean</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-signature">
+									<ul class="tsd-signatures tsd-kind-type-literal">
+										<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>modelName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fieldName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+									</ul>
+									<ul class="tsd-descriptions">
+										<li class="tsd-description">
+											<h4 class="tsd-parameters-title">Parameters</h4>
+											<ul class="tsd-parameters">
+												<li>
+													<h5>modelName: <span class="tsd-signature-type">string</span></h5>
+												</li>
+												<li>
+													<h5>fieldName: <span class="tsd-signature-type">string</span></h5>
+												</li>
+											</ul>
+											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="filterselectoptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> filter<wbr>Select<wbr>Options</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -198,7 +244,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/options.ts#L5">src/utils/options.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/options.ts#L5">src/utils/options.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -235,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/model.ts#L19">src/utils/model.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/model.ts#L19">src/utils/model.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -261,7 +307,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/options.ts#L30">src/utils/options.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/options.ts#L30">src/utils/options.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -290,7 +336,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/model.ts#L69">src/utils/model.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/model.ts#L69">src/utils/model.ts:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -313,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/model.ts#L22">src/utils/model.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/model.ts#L22">src/utils/model.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -345,7 +391,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/model.ts#L57">src/utils/model.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/model.ts#L57">src/utils/model.ts:57</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -376,7 +422,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/create.ts#L40">src/utils/create.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/create.ts#L40">src/utils/create.ts:40</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -405,7 +451,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/mergeActions.ts#L4">src/utils/mergeActions.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/mergeActions.ts#L4">src/utils/mergeActions.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -431,7 +477,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/alerts.ts#L18">src/utils/alerts.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/alerts.ts#L18">src/utils/alerts.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -454,7 +500,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/create.ts#L111">src/utils/create.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/create.ts#L111">src/utils/create.ts:111</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -485,7 +531,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/userPreferences.ts#L13">src/utils/userPreferences.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/userPreferences.ts#L13">src/utils/userPreferences.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -513,7 +559,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/edit.ts#L55">src/utils/edit.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/edit.ts#L55">src/utils/edit.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -536,7 +582,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/modal.ts#L21">src/utils/modal.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/modal.ts#L21">src/utils/modal.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -559,7 +605,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/modal.ts#L22">src/utils/modal.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/modal.ts#L22">src/utils/modal.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -585,7 +631,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/model.ts#L91">src/utils/model.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/model.ts#L91">src/utils/model.ts:91</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -610,7 +656,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/options.ts#L28">src/utils/options.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/options.ts#L28">src/utils/options.ts:28</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -633,7 +679,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/search.ts#L9">src/utils/search.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/search.ts#L9">src/utils/search.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -667,7 +713,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/search.ts#L11">src/utils/search.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/search.ts#L11">src/utils/search.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -690,7 +736,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/search.ts#L14">src/utils/search.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/search.ts#L14">src/utils/search.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -713,7 +759,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/search.ts#L17">src/utils/search.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/search.ts#L17">src/utils/search.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -736,7 +782,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/tableView.ts#L20">src/utils/tableView.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/tableView.ts#L20">src/utils/tableView.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -759,7 +805,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/tooltip.ts#L5">src/utils/tooltip.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/tooltip.ts#L5">src/utils/tooltip.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -782,7 +828,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/utils/userPreferences.ts#L9">src/utils/userPreferences.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/userPreferences.ts#L9">src/utils/userPreferences.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -801,6 +847,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="selectvalidation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> select<wbr>Validation</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">select<wbr>Validation<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/utils/validation.ts#L5">src/utils/validation.ts:5</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>obj: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="toggledarkmode" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> toggle<wbr>Dark<wbr>Mode</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -810,7 +879,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/82f692a/src/actions.ts#L150">src/actions.ts:150</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/actions.ts#L156">src/actions.ts:156</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -916,6 +985,9 @@
 						<a href="modules.html#combineepicsandcatcherrors" class="tsd-kind-icon">combine<wbr>Epics<wbr>And<wbr>Catch<wbr>Errors</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="modules.html#failedvalidation" class="tsd-kind-icon">failed<wbr>Validation</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="modules.html#filterselectoptions" class="tsd-kind-icon">filter<wbr>Select<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -983,6 +1055,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#selectuserpreferences" class="tsd-kind-icon">select<wbr>User<wbr>Preferences</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#selectvalidation" class="tsd-kind-icon">select<wbr>Validation</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#toggledarkmode" class="tsd-kind-icon">toggle<wbr>Dark<wbr>Mode</a>
