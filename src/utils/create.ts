@@ -43,7 +43,8 @@ export const handleEnterFormStack = (state: any, action: any) => {
  * @param state Redux state
  * @param action object {type: string, payload: {modelName: string, path: string, 
  * targetInverseFieldName: string, node: object}}
- * @returns Updates values of {index, stack, originPath, originModelName, originFieldName, originNode} in state.create
+ * @returns Updates values of {index, stack, originPath, originModelName, originFieldName, originNode} 
+ * in conveyor.create in state
  */
 export const handleDetailCreate = (
   schema: SchemaBuilder,
@@ -119,7 +120,7 @@ export const handleClearErrorSave = (state: any) => {
 /**
  * Called by [saveCreateCheck](./classes/createepic.html#save_create)
  * @param state Redux state
- * @returns state.conveyor.create or initState if null
+ * @returns conveyor.create in state, or initState if null
  */
 export const selectCreate = (state: any) =>
   R.pathOr(initState, ['conveyor', 'create'], state)

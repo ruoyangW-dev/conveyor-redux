@@ -40,7 +40,7 @@ export class AlertsReducer extends Reducer {
 
   /**
    * Adds a 'success'-type alert to Redux 'state.alert' \
-   * Dispatched from [saveCreate](./validationepic.html#save_create), [onDetailRemoveSubmit](./editepic.html#detail_table_remove_submit), 
+   * Dispatched from [saveCreate](./createepic.html#save_create), [onDetailRemoveSubmit](./editepic.html#detail_table_remove_submit), 
    * [onInlineFileDelete](./editepic.html#inline_file_delete), [requestDeleteModel](./modelepic.html#request_delete_model), 
    * [requestDeleteRelTableModel](./modelepic.html#request_delete_rel_table_model), and 
    * [requestDeleteModelFromDetailPage](./modelepic.html#request_delete_model_from_detail_page).
@@ -71,9 +71,9 @@ export class AlertsReducer extends Reducer {
   }
 
   /**
-   * Dispathced from [addDangerAlert](./alertsreducer.html#add_danger_alert),
+   * Dispatched from reducers of [addDangerAlert](./alertsreducer.html#add_danger_alert),
    * [addSuccessAlert](./alertsreducer.html#add_success_alert),
-   * [addAlert](./alertsreducer.html#add_alert) reducers and [epic](./alertepic.html#add_alert)
+   * [addAlert](./alertsreducer.html#add_alert) and their [epic](./alertepic.html#add_alert)
    * @returns Removes the alert from conveyor.alerts in state
    */
   [DISMISS_ALERT](state: any, action: any) {

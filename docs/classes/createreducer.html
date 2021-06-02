@@ -98,6 +98,7 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="createreducer.html#config" class="tsd-kind-icon">config</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="createreducer.html#initstate" class="tsd-kind-icon">init<wbr>State</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="createreducer.html#schema" class="tsd-kind-icon">schema</a></li>
 							</ul>
@@ -126,14 +127,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Create<wbr>Reducer<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="createreducer.html" class="tsd-signature-type" data-tsd-kind="Class">CreateReducer</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Create<wbr>Reducer<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="createreducer.html" class="tsd-signature-type" data-tsd-kind="Class">CreateReducer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Reducer.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L29">src/reducers/create.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L30">src/reducers/create.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -149,6 +150,12 @@
 										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
 									</div>
 								</li>
+								<li>
+									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="createreducer.html" class="tsd-signature-type" data-tsd-kind="Class">CreateReducer</a></h4>
 						</li>
@@ -158,13 +165,29 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Config</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Reducer.config</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L14">src/reducers/reducer.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User-inputted custom configurations</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="initstate" class="tsd-anchor"></a>
 					<h3>init<wbr>State</h3>
 					<div class="tsd-signature tsd-kind-icon">init<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.initState</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L11">src/reducers/reducer.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L12">src/reducers/reducer.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -180,7 +203,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L9">src/reducers/reducer.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L10">src/reducers/reducer.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -202,7 +225,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L54">src/reducers/create.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L56">src/reducers/create.ts:56</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -237,7 +260,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L44">src/reducers/create.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L46">src/reducers/create.ts:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -295,7 +318,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L97">src/reducers/create.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L99">src/reducers/create.ts:99</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -336,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L107">src/reducers/create.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L109">src/reducers/create.ts:109</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -376,7 +399,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L73">src/reducers/create.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L75">src/reducers/create.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -410,13 +433,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L64">src/reducers/create.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L66">src/reducers/create.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Dispatched from <a href="./createepic.html#save_create">onSaveCreate</a> and
-									<a href="./createepic.html#inline_file_submit">onInlineFileSubmit</a></p>
+									<a href="./editepic.html#inline_file_submit">onInlineFileSubmit</a></p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -445,7 +468,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L84">src/reducers/create.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L86">src/reducers/create.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,7 +509,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L117">src/reducers/create.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L119">src/reducers/create.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -524,7 +547,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/create.ts#L127">src/reducers/create.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/create.ts#L129">src/reducers/create.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -565,7 +588,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Reducer.reduce</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L29">src/reducers/reducer.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L34">src/reducers/reducer.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -612,6 +635,9 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="createreducer.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="createreducer.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="createreducer.html#initstate" class="tsd-kind-icon">init<wbr>State</a>

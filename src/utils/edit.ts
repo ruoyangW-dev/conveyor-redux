@@ -55,6 +55,6 @@ export const getEditValue = ({
 /**
  * Returns value of conveyor.edit from state
  * @param state Redux state
- * @returns Value of state.conveyor.edit
+ * @returns Value of conveyor.edit in state
  */
 export const selectEdit = (state: any) => R.path(['conveyor', 'edit'], state)

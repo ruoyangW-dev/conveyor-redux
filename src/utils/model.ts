@@ -69,10 +69,10 @@ export const getPaginatedNode = (
 }
 
 /**
- * TODO DOCS
+ * Gets tab identifiers
  * @param modelName Model name
- * @param tabList 
- * @returns 
+ * @param tabList Tab list
+ * @returns String with the model prepended onto the given tab list
  */
 export const getTabIdentifier = ({
   modelName,

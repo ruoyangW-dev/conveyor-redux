@@ -98,6 +98,7 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="modelepic.html#config" class="tsd-kind-icon">config</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="modelepic.html#querytool" class="tsd-kind-icon">query<wbr>Tool</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="modelepic.html#schema" class="tsd-kind-icon">schema</a></li>
 							</ul>
@@ -122,14 +123,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Model<wbr>Epic<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span>, queryTool<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">QueryTool</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modelepic.html" class="tsd-signature-type" data-tsd-kind="Class">ModelEpic</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Model<wbr>Epic<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span>, queryTool<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">QueryTool</span>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modelepic.html" class="tsd-signature-type" data-tsd-kind="Class">ModelEpic</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from Epic.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/epic.ts#L12">src/epics/epic.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/epic.ts#L14">src/epics/epic.ts:14</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -142,13 +143,19 @@
 								<li>
 									<h5>schema: <span class="tsd-signature-type">SchemaBuilder</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>(<a href="https://github.com/autoinvent/conveyor-schema">https://github.com/autoinvent/conveyor-schema</a>)</p>
+										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
 									</div>
 								</li>
 								<li>
 									<h5>queryTool: <span class="tsd-signature-type">QueryTool</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Tool for building and sending queries</p>
+									</div>
+								</li>
+								<li>
+									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
 									</div>
 								</li>
 							</ul>
@@ -160,13 +167,29 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Config</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Epic.config</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/epic.ts#L14">src/epics/epic.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Custom user inputted configurations</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="querytool" class="tsd-anchor"></a>
 					<h3>query<wbr>Tool</h3>
 					<div class="tsd-signature tsd-kind-icon">query<wbr>Tool<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryTool</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from Epic.queryTool</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/epic.ts#L12">src/epics/epic.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/epic.ts#L12">src/epics/epic.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -182,7 +205,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Epic.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/epic.ts#L10">src/epics/epic.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/epic.ts#L10">src/epics/epic.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -204,7 +227,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/model.ts#L92">src/epics/model.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/model.ts#L96">src/epics/model.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -238,7 +261,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/model.ts#L32">src/epics/model.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/model.ts#L33">src/epics/model.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -280,7 +303,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/model.ts#L139">src/epics/model.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/model.ts#L143">src/epics/model.ts:143</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -314,7 +337,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/model.ts#L283">src/epics/model.ts:283</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/model.ts#L288">src/epics/model.ts:288</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -348,7 +371,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/model.ts#L214">src/epics/model.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/model.ts#L219">src/epics/model.ts:219</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -367,7 +390,8 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 							<ul>
-								<li>[ <br>Actions.<a href="./modelepic.html#fetch_model_detail">fetchModelDetail</a>({modelName: string, id: string}), <br>Actions.<a href="./alertepic.html#add_success_alert">addSuccessAlert</a>({message: string}) <br>]</li>
+								<li>[ <br>Actions.<a href="./modelepic.html#fetch_model_detail">fetchModelDetail</a>({modelName: string, id: string}), <br>Actions.addSuccessAlert({message: string})
+								<a href="./alertepic.html#add_alert">epic</a>/<a href="./alertsreducer.html#add_success_alert">reducer</a> <br>]</li>
 							</ul>
 						</li>
 					</ul>
@@ -383,7 +407,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Epic.makeEpic</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/epic.ts#L28">src/epics/epic.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/epic.ts#L32">src/epics/epic.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -415,6 +439,9 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
 								<a href="modelepic.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="modelepic.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="modelepic.html#querytool" class="tsd-kind-icon">query<wbr>Tool</a>

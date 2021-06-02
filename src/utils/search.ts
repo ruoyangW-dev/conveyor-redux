@@ -15,7 +15,7 @@ export const selectSearch = R.pathOr(initState, ['conveyor', 'search'])
 /**
  * Returns the value of 'dropdown' from the result of [selectSearch](./modules.html#selectsearch)
  * @param state Redux state
- * @returns value of state.conveyor.search.dropdown
+ * @returns value of conveyor.search.dropdown in state
  */
 export const selectSearchDropdown = (state: any) =>
   R.prop('dropdown', selectSearch(state))
@@ -23,7 +23,7 @@ export const selectSearchDropdown = (state: any) =>
 /**
  * Returns value of 'entries' from the result of [selectSearch](./modules.html#selectsearch)
  * @param state Redux state
- * @returns Value of state.conveyor.search.entries
+ * @returns Value of conveyor.search.entries in state
  */
 export const selectSearchEntries = (state: any) =>
   R.prop('entries', selectSearch(state))
@@ -31,7 +31,7 @@ export const selectSearchEntries = (state: any) =>
 /**
  * Returns value of 'queryText' from the result of [selectSearch](./modules.html#selectsearch)
  * @param state Redux state
- * @returns Value of state.conveyor.search.queryText
+ * @returns Value of conveyor.search.queryText in state
  */
 export const selectSearchQueryText = (state: any) =>
   R.prop('queryText', selectSearch(state))

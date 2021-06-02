@@ -59,7 +59,7 @@ export class CreateReducer extends Reducer {
 
   /**
    * Dispatched from [onSaveCreate](./createepic.html#save_create) and 
-   * [onInlineFileSubmit](./createepic.html#inline_file_submit)
+   * [onInlineFileSubmit](./editepic.html#inline_file_submit)
    * @param state Redux state
    * @returns - Decrements value conveyor.create.index in state
    */

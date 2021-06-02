@@ -43,11 +43,12 @@ export class ConveyorEpic {
   schema: SchemaBuilder
   /** Tool for building and sending queries */
   queryTool: QueryTool
+  /** Custom user inputted configurations */
   config: Config
 
   /**
    * Creates Epic object
-   * @param schema [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
    * @param queryTool Tool for building and sending queries
    * @param config Custom user inputted configurations
    */

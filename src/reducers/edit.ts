@@ -90,7 +90,7 @@ export class EditReducer extends Reducer {
   /**
    * Dispatched by [onDetailTableEditSubmit](./editepic.html#detail_table_edit_submit), 
    * [detailTableEditSubmitCheck](./validationepic.html#detail_table_edit_submit_check), 
-   * [onIndexEditSubmit](./editepic.html#index_edit_submit#index_edit_submit), and
+   * [onIndexEditSubmit](./editepic.html#index_edit_submit), and
    * [indexEditSubmitCheck](./validationepic.html#index_edit_submit_check)
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string, id: string}}

@@ -19,7 +19,7 @@ export class ModalReducer extends Reducer {
   }
 
   /**
-   * Dispatched by [fetchDeleteDetail](./deleteepic.html#fetch_delete_detail)
+   * Dispatched by [fetchDeleteDetail](./modalepic.html#fetch_delete_detail)
    * @param state Redux state
    * @param action object {type: string, payload: {data: [{__typename: string, id: string, fieldName: string}, ]}}
    * @returns Updates conveyor.modal.Delete with payload.data in state

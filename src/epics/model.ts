@@ -212,7 +212,8 @@ export class ModelEpic extends Epic {
    * @param action$ object {type: string, payload: {id: string, parentModel: string, parentId: string, modelName: string}}
    * @returns - \[ \
    *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}), \
-   *  Actions.[addSuccessAlert](./alertepic.html#add_success_alert)({message: string}) \
+   *  Actions.addSuccessAlert({message: string}) 
+   * [epic](./alertepic.html#add_alert)/[reducer](./alertsreducer.html#add_success_alert) \
    * ]
    */
   [REQUEST_DELETE_REL_TABLE_MODEL](action$: any) {

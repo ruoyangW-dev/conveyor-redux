@@ -98,6 +98,7 @@
 						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="modalreducer.html#config" class="tsd-kind-icon">config</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="modalreducer.html#initstate" class="tsd-kind-icon">init<wbr>State</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="modalreducer.html#schema" class="tsd-kind-icon">schema</a></li>
 							</ul>
@@ -119,14 +120,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Modal<wbr>Reducer<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modalreducer.html" class="tsd-signature-type" data-tsd-kind="Class">ModalReducer</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Modal<wbr>Reducer<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="modalreducer.html" class="tsd-signature-type" data-tsd-kind="Class">ModalReducer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Reducer.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/modal.ts#L10">src/reducers/modal.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/modal.ts#L11">src/reducers/modal.ts:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -142,6 +143,12 @@
 										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
 									</div>
 								</li>
+								<li>
+									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="modalreducer.html" class="tsd-signature-type" data-tsd-kind="Class">ModalReducer</a></h4>
 						</li>
@@ -151,13 +158,29 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Config</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Reducer.config</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L14">src/reducers/reducer.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User-inputted custom configurations</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="initstate" class="tsd-anchor"></a>
 					<h3>init<wbr>State</h3>
 					<div class="tsd-signature tsd-kind-icon">init<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.initState</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L11">src/reducers/reducer.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L12">src/reducers/reducer.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -173,7 +196,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L9">src/reducers/reducer.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L10">src/reducers/reducer.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -195,7 +218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/modal.ts#L36">src/reducers/modal.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/modal.ts#L38">src/reducers/modal.ts:38</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -227,12 +250,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/modal.ts#L25">src/reducers/modal.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/modal.ts#L27">src/reducers/modal.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Dispatched by <a href="./deleteepic.html#fetch_delete_detail">fetchDeleteDetail</a></p>
+									<p>Dispatched by <a href="./modalepic.html#fetch_delete_detail">fetchDeleteDetail</a></p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -266,7 +289,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Reducer.reduce</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L29">src/reducers/reducer.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L34">src/reducers/reducer.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -313,6 +336,9 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="modalreducer.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="modalreducer.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="modalreducer.html#initstate" class="tsd-kind-icon">init<wbr>State</a>

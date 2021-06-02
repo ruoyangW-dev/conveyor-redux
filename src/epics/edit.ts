@@ -247,8 +247,7 @@ export class EditEpic extends Epic {
    * @param state$ Redux state
    * @returns - \[ \
    *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}), \
-   *  [addSuccessAlert](./alertepic.html#add_success_alert)({message: string}) epic, \
-   *  [addSuccessAlert](./alertreducer.html#add_success_alert)({message: string}) reducer, \
+   *  Actions.addSuccessAlert({message: string}) [epic](./alertepic.html#add_alert)/[reducer](./alertsreducer.html#add_success_alert) \
    * ]
    */
   [DETAIL_TABLE_REMOVE_SUBMIT](action$: any, state$: any) {
@@ -412,8 +411,8 @@ export class EditEpic extends Epic {
    * @param action$ object {type: string, payload: {modelName: string, fieldName: string, id: string}}
    * @returns - \[ \
    *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}), \
-   *  Actions.addSuccessAlert({message: string}) [epic](./alertepic.html#add_alert), \
-   *  Actions.addSuccessAlert({message: string}) [reducer]((./alertsreducer.html#add_success_alert)) \ 
+   *  Actions.addSuccessAlert({message: string}) 
+   * [epic](./alertepic.html#add_alert)/[reducer](./alertsreducer.html#add_success_alert) \
    * ]
    */
   [INLINE_FILE_DELETE](action$: any) {
@@ -473,7 +472,7 @@ export class EditEpic extends Epic {
    *  Actions.[onAttributeEditCancel](./editreducer.html#attribute_edit_cancel), \
    *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, fieldName: string, id: string}), \
    *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string = parentModelName, fieldName: string, id: string}) (if from Detail table, fetch parent model's), \
-   *  Actions.[onSaveCreateSuccessful](./createepic.html#save_create_successful)({}) (if from Create page) \
+   *  Actions.[onSaveCreateSuccessful](./createreducer.html#save_create_successful)({}) (if from Create page) \
    * ]
    */
   [INLINE_FILE_SUBMIT](action$: any, state$: any) {

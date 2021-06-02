@@ -95,9 +95,11 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="tableviewreducer.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="tableviewreducer.html#config" class="tsd-kind-icon">config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="tableviewreducer.html#defaultperpage" class="tsd-kind-icon">default<wbr>Per<wbr>Page</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="tableviewreducer.html#initstate" class="tsd-kind-icon">init<wbr>State</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="tableviewreducer.html#schema" class="tsd-kind-icon">schema</a></li>
 							</ul>
@@ -132,14 +134,14 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Table<wbr>View<wbr>Reducer<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="tableviewreducer.html" class="tsd-signature-type" data-tsd-kind="Class">TableViewReducer</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Table<wbr>View<wbr>Reducer<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="tableviewreducer.html" class="tsd-signature-type" data-tsd-kind="Class">TableViewReducer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides Reducer.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L30">src/reducers/tableView.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L33">src/reducers/tableView.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -155,14 +157,51 @@
 										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
 									</div>
 								</li>
+								<li>
+									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="tableviewreducer.html" class="tsd-signature-type" data-tsd-kind="Class">TableViewReducer</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Config</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Reducer.config</p>
+						<ul>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L14">src/reducers/reducer.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User-inputted custom configurations</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="defaultperpage" class="tsd-anchor"></a>
+					<h3>default<wbr>Per<wbr>Page</h3>
+					<div class="tsd-signature tsd-kind-icon">default<wbr>Per<wbr>Page<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L33">src/reducers/tableView.ts:33</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Default amount of data per a page</p>
+						</div>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="initstate" class="tsd-anchor"></a>
 					<h3>init<wbr>State</h3>
@@ -170,7 +209,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.initState</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L11">src/reducers/reducer.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L12">src/reducers/reducer.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,7 +225,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L9">src/reducers/reducer.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L10">src/reducers/reducer.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -208,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L284">src/reducers/tableView.ts:284</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L294">src/reducers/tableView.ts:294</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -264,7 +303,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L228">src/reducers/tableView.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L238">src/reducers/tableView.ts:238</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -320,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L298">src/reducers/tableView.ts:298</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L308">src/reducers/tableView.ts:308</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -376,7 +415,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L250">src/reducers/tableView.ts:250</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L260">src/reducers/tableView.ts:260</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -432,7 +471,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L211">src/reducers/tableView.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L221">src/reducers/tableView.ts:221</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -470,7 +509,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L45">src/reducers/tableView.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L55">src/reducers/tableView.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -508,7 +547,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L112">src/reducers/tableView.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L122">src/reducers/tableView.ts:122</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -546,7 +585,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L96">src/reducers/tableView.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L106">src/reducers/tableView.ts:106</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -584,7 +623,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L68">src/reducers/tableView.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L78">src/reducers/tableView.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -622,7 +661,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L136">src/reducers/tableView.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L146">src/reducers/tableView.ts:146</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -678,7 +717,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L154">src/reducers/tableView.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L164">src/reducers/tableView.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -735,7 +774,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L172">src/reducers/tableView.ts:172</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L182">src/reducers/tableView.ts:182</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -774,7 +813,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L195">src/reducers/tableView.ts:195</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L205">src/reducers/tableView.ts:205</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -812,7 +851,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L342">src/reducers/tableView.ts:342</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L352">src/reducers/tableView.ts:352</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -851,7 +890,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/tableView.ts#L316">src/reducers/tableView.ts:316</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/tableView.ts#L326">src/reducers/tableView.ts:326</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -891,7 +930,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Reducer.reduce</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/reducers/reducer.ts#L29">src/reducers/reducer.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/reducers/reducer.ts#L34">src/reducers/reducer.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -938,6 +977,12 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
 								<a href="tableviewreducer.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="tableviewreducer.html#config" class="tsd-kind-icon">config</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="tableviewreducer.html#defaultperpage" class="tsd-kind-icon">default<wbr>Per<wbr>Page</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="tableviewreducer.html#initstate" class="tsd-kind-icon">init<wbr>State</a>

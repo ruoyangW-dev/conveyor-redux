@@ -30,7 +30,8 @@ const conveyorReducerMap = {
 }
 
 /**
- * The main Reducer that works with [Conveyor](https://github.com/autoinvent/conveyor) and in your main project
+ * The main Reducer that can combine and hold all your reducers and 
+ * the one that is instantiated in the main project.
  */
 export class ConveyorReducer {
   /**

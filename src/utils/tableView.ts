@@ -20,7 +20,7 @@ export const setValues = (state: any, payload: any, type: string) => {
 /**
  * Returns value of conveyor.tableView from state
  * @param state Redux state
- * @returns Value of state.conveyor.tableView
+ * @returns Value of conveyor.tableView in state
  */
 export const selectTableView = (state: any): any =>
   R.path(['conveyor', 'tableView'], state)

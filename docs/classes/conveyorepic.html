@@ -93,6 +93,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="conveyorepic.html#config" class="tsd-kind-icon">config</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="conveyorepic.html#querytool" class="tsd-kind-icon">query<wbr>Tool</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="conveyorepic.html#schema" class="tsd-kind-icon">schema</a></li>
 							</ul>
@@ -112,13 +113,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Conveyor<wbr>Epic<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span>, queryTool<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">QueryTool</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="conveyorepic.html" class="tsd-signature-type" data-tsd-kind="Class">ConveyorEpic</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Conveyor<wbr>Epic<span class="tsd-signature-symbol">(</span>schema<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SchemaBuilder</span>, queryTool<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">QueryTool</span>, config<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="conveyorepic.html" class="tsd-signature-type" data-tsd-kind="Class">ConveyorEpic</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/index.ts#L44">src/epics/index.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/index.ts#L47">src/epics/index.ts:47</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -130,10 +131,20 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>schema: <span class="tsd-signature-type">SchemaBuilder</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>queryTool: <span class="tsd-signature-type">QueryTool</span></h5>
 									<div class="tsd-comment tsd-typography">
+										<p>Tool for building and sending queries</p>
+									</div>
+								</li>
+								<li>
+									<h5>config: <span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
 									</div>
 								</li>
 							</ul>
@@ -145,12 +156,27 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="config" class="tsd-anchor"></a>
+					<h3>config</h3>
+					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Config</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/index.ts#L47">src/epics/index.ts:47</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Custom user inputted configurations</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="querytool" class="tsd-anchor"></a>
 					<h3>query<wbr>Tool</h3>
 					<div class="tsd-signature tsd-kind-icon">query<wbr>Tool<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">QueryTool</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/index.ts#L44">src/epics/index.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/index.ts#L45">src/epics/index.ts:45</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -165,7 +191,7 @@
 					<div class="tsd-signature tsd-kind-icon">schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SchemaBuilder</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/index.ts#L42">src/epics/index.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/index.ts#L43">src/epics/index.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -187,7 +213,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/3d3a2e1/src/epics/index.ts#L63">src/epics/index.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/2619c59/src/epics/index.ts#L70">src/epics/index.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -252,6 +278,9 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="conveyorepic.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="conveyorepic.html#config" class="tsd-kind-icon">config</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="conveyorepic.html#querytool" class="tsd-kind-icon">query<wbr>Tool</a>

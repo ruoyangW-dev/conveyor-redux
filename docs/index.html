@@ -61,46 +61,62 @@
 				<a href="#conveyor-redux" id="conveyor-redux" style="color: inherit; text-decoration: none;">
 					<h1>conveyor-redux</h1>
 				</a>
-				<p><img src="https://github.com/autoinvent/conveyor-redux/workflows/CI/badge.svg" alt="CI"></p>
+				<p><a href="https://badge.fury.io/js/%40autoinvent%2Fconveyor-redux"><img src="https://badge.fury.io/js/%40autoinvent%2Fconveyor-redux.svg" alt="npm version"></a>
+					<img src="https://github.com/autoinvent/conveyor-redux/workflows/CI/badge.svg?branch=main" alt="CI">
+				<img src="https://img.shields.io/github/license/autoinvent/conveyor-redux" alt="license"></p>
 				<p>A JavaScript Redux implementation of the state and actions needed by <a href="https://github.com/autoinvent/conveyor">conveyor</a></p>
+				<a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
+					<h2>Docs</h2>
+				</a>
+				<p><a href="https://autoinvent.github.io/conveyor-redux/">View the docs here</a></p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>With yarn:</p>
+				<pre><code class="language-bash"><span style="color: #000000">yarn add @autoinvent/conveyor-redux</span>
+</code></pre>
+				<p>With npm:</p>
+				<pre><code class="language-bash"><span style="color: #000000">npm install --save @autoinvent/conveyor-redux</span>
+</code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage:</h2>
 				</a>
-				<ol>
-					<li>Install conveyor-redux (through <code>npm</code> or <code>yarn</code>)</li>
-					<li>To generate the reducer to be used by conveyor:</li>
-				</ol>
+				<p>To generate the reducer to be used by conveyor:</p>
 				<ul>
-					<li><strong>Note: The key MUST be <code>conveyor</code>.</strong>
-						```javascript
-					import { ConveyorReducer } from &#39;conveyor-redux&#39;</li>
+					<li><strong>Note: The key MUST be <code>conveyor</code>.</strong></li>
 				</ul>
-				<p>const rootReducer = combineReducers({
-					conveyor: new ConveyorReducer(schema, overrides).makeReducer(), ...otherReducers
-				})</p>
-				<pre><code><span style="color: #001080">Where</span><span style="color: #000000"> </span><span style="color: #A31515">`schema`</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #001080">same</span><span style="color: #000000"> </span><span style="color: #001080">schema</span><span style="color: #000000"> </span><span style="color: #001080">used</span><span style="color: #000000"> </span><span style="color: #001080">for</span><span style="color: #000000"> </span><span style="color: #795E26">conveyor</span><span style="color: #000000"> (</span><span style="color: #001080">a</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;SchemaBuilder&#039;</span><span style="color: #000000"> </span><span style="color: #001080">type</span><span style="color: #000000"> </span><span style="color: #001080">object</span><span style="color: #000000"> </span><span style="color: #001080">created</span><span style="color: #000000"> </span><span style="color: #001080">with</span><span style="color: #000000"> </span><span style="color: #001080">conveyor</span><span style="color: #000000">-</span><span style="color: #001080">schema</span><span style="color: #000000">), </span><span style="color: #001080">and</span><span style="color: #000000"> [</span><span style="color: #A31515">`overrides`</span><span style="color: #000000">](#</span><span style="color: #001080">reducer</span><span style="color: #000000">-</span><span style="color: #001080">overrides</span><span style="color: #000000">) </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #001080">an</span><span style="color: #000000"> </span><span style="color: #001080">map</span><span style="color: #000000"> </span><span style="color: #001080">object</span><span style="color: #000000"> </span><span style="color: #001080">which</span><span style="color: #000000"> </span><span style="color: #001080">maps</span><span style="color: #000000"> </span><span style="color: #001080">a</span><span style="color: #000000"> </span><span style="color: #795E26">reducer</span><span style="color: #000000"> (</span><span style="color: #001080">key</span><span style="color: #000000">) </span><span style="color: #001080">to</span><span style="color: #000000"> </span><span style="color: #001080">a</span><span style="color: #000000"> </span><span style="color: #0000FF">class</span><span style="color: #000000"> (</span><span style="color: #267F99">value</span><span style="color: #000000">).</span>
+				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">ConveyorReducer</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;conveyor-redux&#039;</span>
 
-
-<span style="color: #000000">### </span><span style="color: #267F99">Reducer</span><span style="color: #000000"> </span><span style="color: #267F99">Overrides</span>
-<span style="color: #267F99">The</span><span style="color: #000000"> </span><span style="color: #267F99">option</span><span style="color: #000000"> </span><span style="color: #267F99">overrides</span><span style="color: #000000"> </span><span style="color: #267F99">parameter</span><span style="color: #000000"> </span><span style="color: #267F99">is</span><span style="color: #000000"> </span><span style="color: #267F99">provided</span><span style="color: #000000"> </span><span style="color: #267F99">to</span><span style="color: #000000"> </span><span style="color: #267F99">ConveyorReducer</span><span style="color: #000000"> </span><span style="color: #267F99">constructor</span><span style="color: #000000">, </span><span style="color: #267F99">and</span><span style="color: #000000"> </span><span style="color: #267F99">should</span><span style="color: #000000"> </span><span style="color: #267F99">have</span><span style="color: #000000"> </span><span style="color: #267F99">the</span><span style="color: #000000"> </span><span style="color: #267F99">following</span><span style="color: #000000"> </span><span style="color: #267F99">format</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">rootReducer</span><span style="color: #000000"> = </span><span style="color: #795E26">combineReducers</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">conveyor:</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">ConveyorReducer</span><span style="color: #000000">(</span><span style="color: #001080">schema</span><span style="color: #000000">, </span><span style="color: #001080">overrides</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000">).</span><span style="color: #795E26">makeReducer</span><span style="color: #000000">(),</span>
+<span style="color: #000000">  ...</span><span style="color: #001080">otherReducers</span>
+<span style="color: #000000">})</span>
 </code></pre>
-				<p>{
-					REDUCER_KEY: REDUCER_CLASS or falsy value
-				}</p>
-				<pre><code><span style="color: #001080">The</span><span style="color: #000000"> </span><span style="color: #001080">list</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">possible</span><span style="color: #000000"> </span><span style="color: #001080">reducers</span><span style="color: #000000"> </span><span style="color: #001080">that</span><span style="color: #000000"> </span><span style="color: #001080">can</span><span style="color: #000000"> </span><span style="color: #001080">be</span><span style="color: #000000"> </span><span style="color: #001080">modified</span><span style="color: #000000"> are: </span><span style="color: #A31515">`alerts`</span><span style="color: #000000">, </span><span style="color: #A31515">`create`</span><span style="color: #000000">, </span><span style="color: #A31515">`edit`</span><span style="color: #000000">, </span><span style="color: #A31515">`index`</span><span style="color: #000000">, </span><span style="color: #A31515">`modal`</span><span style="color: #000000">, </span><span style="color: #A31515">`model`</span><span style="color: #000000">, </span><span style="color: #A31515">`options`</span><span style="color: #000000">, </span><span style="color: #A31515">`search`</span><span style="color: #000000">, </span><span style="color: #A31515">`userPreferences`</span><span style="color: #000000">, </span><span style="color: #A31515">`tableView`</span><span style="color: #000000">, </span><span style="color: #001080">and</span><span style="color: #000000"> </span><span style="color: #A31515">`tooltip`</span><span style="color: #000000">. (</span><span style="color: #0070C1">REDUCER_KEY</span><span style="color: #000000">)</span>
+				<p>Where <code>schema</code> is the same schema used for conveyor (a &#39;SchemaBuilder&#39; type object created with conveyor-schema), <a href="#reducer-overrides"><code>overrides</code></a> is an map object which maps a reducer (key) to a class (value), and <code>config</code> is a user-defined object for customization.</p>
+				<p>To generate the epic to be used by conveyor:</p>
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">conveyorEpic</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">ConveyorEpic</span><span style="color: #000000">(</span><span style="color: #001080">schema</span><span style="color: #000000">, </span><span style="color: #001080">queryTool</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000">).</span><span style="color: #795E26">makeEpic</span><span style="color: #000000">(</span><span style="color: #001080">store</span><span style="color: #000000">)</span>
+</code></pre>
+				<p>Where <code>schema</code> is the same schema used for conveyor (a &#39;SchemaBuilder&#39; type object created with conveyor-schema), <code>queryTool</code> is a &#39;QueryTool&#39; type object created with <a href="https://github.com/autoinvent/magql-query">magql-query</a>, and <code>config</code> is a user-defined object for customization.</p>
+				<p><strong>Note</strong>: Schema functions that normally receive <code>customProps</code> (getDisplayValue, etc.), which are used by the <a href="https://github.com/autoinvent/conveyor-schema">library</a>, are NOT going to be received by the Reducers.</p>
+				<a href="#reducer-overrides" id="reducer-overrides" style="color: inherit; text-decoration: none;">
+					<h3>Reducer Overrides</h3>
+				</a>
+				<p>The option overrides parameter is provided to ConveyorReducer constructor, and should have the following format</p>
+				<pre><code><span style="color: #000000">{</span>
+<span style="color: #000000">  REDUCER_KEY: </span><span style="color: #0070C1">REDUCER_CLASS</span><span style="color: #000000"> </span><span style="color: #001080">or</span><span style="color: #000000"> </span><span style="color: #001080">falsy</span><span style="color: #000000"> </span><span style="color: #001080">value</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>The list of possible reducers that can be modified are: <code>alerts</code>, <code>create</code>, <code>edit</code>, <code>index</code>, <code>modal</code>, <code>model</code>, <code>options</code>, <code>search</code>, <code>userPreferences</code>, <code>tableView</code>, and <code>tooltip</code>. (REDUCER_KEY)</p>
+				<p>The REDUCER_CLASS can be a new reducer class or reducer class which extends a reducer provided by conveyor-redux. If it is a falsy value, the reducer will be disabled.</p>
+				<p>For example the following custom reducer adds a console log to the UPDATE_MODEL_TOOLTIP action response:</p>
+				<pre><code class="language-javascript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">UPDATE_MODEL_TOOLTIP</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;conveyor-redux/lib/actionConsts&#039;</span>
 
-<span style="color: #001080">The</span><span style="color: #000000"> </span><span style="color: #0070C1">REDUCER_CLASS</span><span style="color: #000000"> </span><span style="color: #001080">can</span><span style="color: #000000"> </span><span style="color: #001080">be</span><span style="color: #000000"> </span><span style="color: #001080">a</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">reducer</span><span style="color: #000000"> </span><span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">or</span><span style="color: #000000"> </span><span style="color: #267F99">reducer</span><span style="color: #000000"> </span><span style="color: #267F99">class</span><span style="color: #000000"> </span><span style="color: #267F99">which</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">a</span><span style="color: #000000"> </span><span style="color: #267F99">reducer</span><span style="color: #000000"> </span><span style="color: #267F99">provided</span><span style="color: #000000"> </span><span style="color: #267F99">by</span><span style="color: #000000"> </span><span style="color: #267F99">conveyor</span><span style="color: #000000">-</span><span style="color: #267F99">redux</span><span style="color: #000000">. </span><span style="color: #267F99">If</span><span style="color: #000000"> </span><span style="color: #267F99">it</span><span style="color: #000000"> </span><span style="color: #267F99">is</span><span style="color: #000000"> </span><span style="color: #267F99">a</span><span style="color: #000000"> </span><span style="color: #267F99">falsy</span><span style="color: #000000"> </span><span style="color: #267F99">value</span><span style="color: #000000">, </span><span style="color: #267F99">the</span><span style="color: #000000"> </span><span style="color: #267F99">reducer</span><span style="color: #000000"> </span><span style="color: #267F99">will</span><span style="color: #000000"> </span><span style="color: #267F99">be</span><span style="color: #000000"> </span><span style="color: #267F99">disabled</span><span style="color: #000000">.</span>
-
-<span style="color: #267F99">For</span><span style="color: #000000"> </span><span style="color: #267F99">example</span><span style="color: #000000"> </span><span style="color: #267F99">the</span><span style="color: #000000"> </span><span style="color: #267F99">following</span><span style="color: #000000"> </span><span style="color: #267F99">custom</span><span style="color: #000000"> </span><span style="color: #267F99">reducer</span><span style="color: #000000"> </span><span style="color: #267F99">adds</span><span style="color: #000000"> </span><span style="color: #267F99">a</span><span style="color: #000000"> </span><span style="color: #267F99">console</span><span style="color: #000000"> </span><span style="color: #267F99">log</span><span style="color: #000000"> </span><span style="color: #267F99">to</span><span style="color: #000000"> </span><span style="color: #267F99">the</span><span style="color: #000000"> </span><span style="color: #267F99">UPDATE_MODEL_TOOLTIP</span><span style="color: #000000"> </span><span style="color: #267F99">action</span><span style="color: #000000"> </span><span style="color: #267F99">response</span><span style="color: #000000">:</span>
-<span style="color: #A31515">```javascript</span>
-<span style="color: #A31515">import { UPDATE_MODEL_TOOLTIP } from &#039;conveyor-redux/lib/actionConsts&#039;</span>
-
-<span style="color: #A31515">class CustomTooltipReducer extends TooltipReducer {</span>
-<span style="color: #A31515">  [UPDATE_MODEL_TOOLTIP](state, action) {</span>
-<span style="color: #A31515">    console.log(&#039;Updating Tooltip&#039;)</span>
-<span style="color: #A31515">    return super[UPDATE_MODEL_TOOLTIP](state, action)</span>
-<span style="color: #A31515">  }</span>
-<span style="color: #A31515">}</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">CustomTooltipReducer</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">TooltipReducer</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  [</span><span style="color: #0070C1">UPDATE_MODEL_TOOLTIP</span><span style="color: #000000">](</span><span style="color: #001080">state</span><span style="color: #000000">, </span><span style="color: #001080">action</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Updating Tooltip&#039;</span><span style="color: #000000">)</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">super</span><span style="color: #000000">[</span><span style="color: #0070C1">UPDATE_MODEL_TOOLTIP</span><span style="color: #000000">](</span><span style="color: #001080">state</span><span style="color: #000000">, </span><span style="color: #001080">action</span><span style="color: #000000">)</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
 </code></pre>
 				<p>Note: beware that your custom classes cannot be written using ES6 and interact with (transpiled) ES5 classes without creating an error.
 				If you are using ES6 for your classes, then you must use redux-thunk to manipulate the redux store in overrides.</p>
@@ -110,16 +126,105 @@
 <span style="color: #000000">  tooltip: </span><span style="color: #001080">CustomTooltipReducer</span>
 <span style="color: #000000">}</span>
 </code></pre>
-				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
-					<h3>Development</h3>
+				<a href="#special-features" id="special-features" style="color: inherit; text-decoration: none;">
+					<h3>Special Features</h3>
 				</a>
-				<p>to create &#39;/lib&#39; files with typescript run:</p>
-				<p>&#39;tsc&#39;</p>
-				<p>Before committing, in order to test the build files run:</p>
-				<p>&#39;yarn build&#39;</p>
-				<p>to test and fix eslint issues run:</p>
-				<p>&#39;yarn eslint &#39;src/**/*.ts&#39; --fix&#39;</p>
-				<p>Before npm publishing please follow instructions in &#39;/docs/npm_publish/publish.rst&#39;</p>
+				<p>Conveyor-Redux handles the special features below:</p>
+				<a href="#pagination" id="pagination" style="color: inherit; text-decoration: none;">
+					<h4>Pagination</h4>
+				</a>
+				<p>The amount of table content that is displayed can be divided through pagination if <code>paginate</code> is set to true in <a href="https://github.com/autoinvent/conveyor-schema">Schema</a> (<code>paginate</code> is true by default). The default amount of data displayed per a page is 20, but can be modified by passing in a <a href="#config"><code>config</code></a> when instantiating the Conveyor Reducer and Epic.</p>
+				<a href="#sorting" id="sorting" style="color: inherit; text-decoration: none;">
+					<h4>Sorting</h4>
+				</a>
+				<p>Table data can be sorted by a field&#39;s increasing or decreasing order if <code>sortable</code> is set to true in <a href="https://github.com/autoinvent/conveyor-schema">Schema</a> (<code>sortable</code> is true by default). Sorting is toggleable by clicking the Table Header of a column Field. Sort order switches between &#39;No Order ↕ -&gt; Ascending Order ⬆ -&gt; Descending Order ⬇&#39;. </p>
+				<a href="#filtering" id="filtering" style="color: inherit; text-decoration: none;">
+					<h4>Filtering</h4>
+				</a>
+				<p>Table data can be filtered by one or more filter rules set by the user if <code>filterable</code> is true in <a href="https://github.com/autoinvent/conveyor-schema">Schema</a> (<code>filterable</code> is true by default). Number of filter options are available depending on the field type (string, integer, date, etc.)</p>
+				<a href="#config" id="config" style="color: inherit; text-decoration: none;">
+					<h3>Config</h3>
+				</a>
+				<p>The config parameter is provided to ConveyorEpic and ConveyorReducer constructors. </p>
+				<p>For example, the following config option changes the amount of data displayed per a page on a table.</p>
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">config</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">tableView:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">defaultPerPage:</span><span style="color: #000000"> </span><span style="color: #098658">10</span><span style="color: #000000">  </span><span style="color: #008000">// Displays only 10 rows on a table</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+<span style="color: #008000">// Pass to ConveyorReducer</span>
+<span style="color: #795E26">ConveyorReducer</span><span style="color: #000000">(</span><span style="color: #001080">schema</span><span style="color: #000000">, </span><span style="color: #001080">overrides</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000">)</span>
+<span style="color: #008000">// Pass to ConveyorEpic</span>
+<span style="color: #795E26">ConveyorEpic</span><span style="color: #000000">(</span><span style="color: #001080">schema</span><span style="color: #000000">, </span><span style="color: #001080">queryTool</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000">)</span>
+</code></pre>
+				<a href="#redux-structure" id="redux-structure" style="color: inherit; text-decoration: none;">
+					<h3>Redux structure</h3>
+				</a>
+				<p>At the bottom is the default redux store structure (assuming no Reducers are overriden).
+					<code>router</code> holds data for when handling actions from <a href="https://reactrouter.com/">react-router</a> while <code>conveyor</code> holds data for use with <a href="https://github.com/autoinvent/conveyor">conveyor</a>. Custom data can also be updated or added to the store through overrides.
+				For example, the code below will add a new object called <code>customQuery</code> to the store and have a value of {someResult: &quot;...Loading...&quot;} in state:</p>
+				<pre><code class="language-javascript"><span style="color: #008000">// customQuery.js</span>
+
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #795E26">customQuery</span><span style="color: #000000"> = (</span><span style="color: #001080">state</span><span style="color: #000000"> = </span><span style="color: #001080">initState</span><span style="color: #000000">, </span><span style="color: #001080">action</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">payload</span><span style="color: #000000"> = </span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">payload</span>
+
+<span style="color: #000000">  </span><span style="color: #AF00DB">switch</span><span style="color: #000000"> (</span><span style="color: #001080">action</span><span style="color: #000000">.</span><span style="color: #001080">type</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">case</span><span style="color: #000000"> (</span><span style="color: #001080">constants</span><span style="color: #000000">.</span><span style="color: #0070C1">CUSTOM_QUERY</span><span style="color: #000000">) : {</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> { </span><span style="color: #A31515">&quot;someResult&quot;</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;...Loading&quot;</span><span style="color: #000000"> }</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">default</span><span style="color: #000000">:</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">state</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<pre><code><span style="color: #001080">router</span>
+<span style="color: #000000">| </span><span style="color: #001080">action</span>
+<span style="color: #000000">| </span><span style="color: #001080">location</span>
+<span style="color: #000000">| | </span><span style="color: #001080">pathname</span>
+<span style="color: #000000">| | </span><span style="color: #001080">search</span>
+<span style="color: #000000">| | </span><span style="color: #001080">hash</span>
+<span style="color: #000000">| | </span><span style="color: #001080">key</span>
+<span style="color: #000000">| | </span><span style="color: #001080">query</span>
+<span style="color: #001080">conveyor</span>
+<span style="color: #000000">| </span><span style="color: #001080">alerts</span>
+<span style="color: #000000">| </span><span style="color: #001080">create</span>
+<span style="color: #000000">| | </span><span style="color: #001080">index</span>
+<span style="color: #000000">| | </span><span style="color: #001080">stack</span>
+<span style="color: #000000">| | </span><span style="color: #001080">originPath</span>
+<span style="color: #000000">| </span><span style="color: #001080">edit</span>
+<span style="color: #000000">| | </span><span style="color: #001080">modelName</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">id</span>
+<span style="color: #000000">| | | | </span><span style="color: #001080">fieldName</span>
+<span style="color: #000000">| </span><span style="color: #001080">modal</span>
+<span style="color: #000000">| | </span><span style="color: #001080">modelName</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">order</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">values</span>
+<span style="color: #000000">| | </span><span style="color: #001080">Delete</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">index</span>
+<span style="color: #000000">| </span><span style="color: #001080">model</span>
+<span style="color: #000000">| | </span><span style="color: #001080">modelName</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">order</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">values</span>
+<span style="color: #000000">| </span><span style="color: #001080">options</span>
+<span style="color: #000000">| | </span><span style="color: #001080">modelName</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">fieldName</span>
+<span style="color: #000000">| | | | </span><span style="color: #001080">index</span>
+<span style="color: #000000">| </span><span style="color: #001080">tooltip</span>
+<span style="color: #000000">| | </span><span style="color: #001080">modelName</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">id</span>
+<span style="color: #000000">| </span><span style="color: #001080">tableView</span>
+<span style="color: #000000">| | </span><span style="color: #001080">modelName</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">page</span>
+<span style="color: #000000">| | | </span><span style="color: #001080">fields</span>
+<span style="color: #000000">| | | | </span><span style="color: #001080">fieldName</span>
+<span style="color: #000000">| | | | | </span><span style="color: #001080">page</span>
+<span style="color: #000000">| </span><span style="color: #001080">search</span>
+<span style="color: #000000">| | </span><span style="color: #001080">queryText</span>
+<span style="color: #000000">| | </span><span style="color: #001080">entries</span>
+<span style="color: #000000">| | </span><span style="color: #001080">dropdown</span>
+<span style="color: #000000">| </span><span style="color: #001080">userPreferences</span>
+<span style="color: #000000">| | </span><span style="color: #001080">darkMode</span>
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

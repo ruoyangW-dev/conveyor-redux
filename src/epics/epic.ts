@@ -15,7 +15,7 @@ export class Epic {
 
   /**
    * Creates an Epic object
-   * @param schema [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
    * @param queryTool Tool for building and sending queries
    * @param config Custom user inputted configurations
    */

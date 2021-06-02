@@ -36,7 +36,7 @@ export const filterSelectOptions = ({
 /**
  * Returns value of conveyor.options from state
  * @param state Redux state
- * @returns Value of state.conveyor.options
+ * @returns Value of conveyor.options in state
  */
 export const selectOptions = (state: any) =>
   R.path(['conveyor', 'options'], state)
