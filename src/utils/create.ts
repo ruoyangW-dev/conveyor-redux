@@ -41,9 +41,9 @@ export const handleEnterFormStack = (state: any, action: any) => {
  * Handles creating an instance from the Detail page. Called from [onDetailCreate](./classes/createreducer.html#detail_create)
  * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
  * @param state Redux state
- * @param action object {type: string, payload: {modelName: string, path: string, 
+ * @param action object {type: string, payload: {modelName: string, path: string,
  * targetInverseFieldName: string, node: object}}
- * @returns Updates values of {index, stack, originPath, originModelName, originFieldName, originNode} 
+ * @returns Updates values of {index, stack, originPath, originModelName, originFieldName, originNode}
  * in conveyor.create in state
  */
 export const handleDetailCreate = (

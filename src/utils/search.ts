@@ -7,7 +7,7 @@ export const initState = {
 }
 
 /**
- * Curried function which returns the value of conveyor.search from the passed in value. 
+ * Curried function which returns the value of conveyor.search from the passed in value.
  * Returns initState if the value is null
  */
 export const selectSearch = R.pathOr(initState, ['conveyor', 'search'])

@@ -25,14 +25,14 @@ const slicePageData = (data: any, idx: number) => {
 export const getModelStore = (state: any, modelName: string) =>
   R.path(['conveyor', 'model', modelName], state)
 
-  /**
-   * Returns a portion of data for a paginated table
-   * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
-   * @param state Redux state
-   * @param modelName Model Name
-   * @param id Node ID
-   * @returns List of objects
-   */
+/**
+ * Returns a portion of data for a paginated table
+ * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+ * @param state Redux state
+ * @param modelName Model Name
+ * @param id Node ID
+ * @returns List of objects
+ */
 export const getPaginatedNode = (
   schema: SchemaBuilder,
   state: any,
@@ -114,7 +114,7 @@ export const updateIndex = (state: any, modelName: string, data: any) => {
 }
 
 /**
- * Curried function which returns value of conveyor.model from the passed in argument. 
+ * Curried function which returns value of conveyor.model from the passed in argument.
  * Returns initState if value is null.
  */
 export const selectModel = R.pathOr(initState, ['conveyor', 'model'])

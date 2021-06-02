@@ -9,7 +9,7 @@ import { Config } from '../types'
  * A class containing reducers handling tooltips
  */
 export class TooltipReducer extends Reducer {
-    /**
+  /**
    * Creates a reducer object that can reduce all reducers into one
    * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
    * @param config Custom user inputted configurations

@@ -17,7 +17,7 @@ import { EpicPayload } from '../types'
  */
 export class ValidationEpic extends Epic {
   /**
-   * Dispatched after creating a model instance for a relation field on Create page. 
+   * Dispatched after creating a model instance for a relation field on Create page.
    * @param action$ object {type: string, payload: {modelName: author}}
    * @param state$ Redux state
    * @returns - Actions.[onSaveCreate](./createepic.html#save_create)({...payload})

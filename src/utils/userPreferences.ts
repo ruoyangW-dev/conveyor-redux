@@ -7,7 +7,7 @@ export const initState = {
 }
 
 /**
- * Curried function that returns the result of conveyor.userPreferences from the passed in argument. 
+ * Curried function that returns the result of conveyor.userPreferences from the passed in argument.
  * Returns initState if the value is null.
  */
 export const selectUserPreferences = R.pathOr(initState, [
@@ -15,7 +15,7 @@ export const selectUserPreferences = R.pathOr(initState, [
   'userPreferences'
 ])
 
-/** Curried function that returns conveyor.userPreferences.darkMode from the given argument, or 
+/** Curried function that returns conveyor.userPreferences.darkMode from the given argument, or
  * returns init state if null
  */
 export const selectDarkMode = R.pathOr(initState, [

@@ -70,14 +70,14 @@ export class OptionsEpic extends Epic {
     )
   }
 
-/**
- * Dispatched when opening a relation field's dropdown menu.
- * @param action$ object {type: string, payload: {modelName: string, fieldName: string}}
- * @returns - \[ \
- *  Actions.[dataOptionsUpdate](./optionsreducer.html#data_options_update)({modelName: string, fieldName: string, data: object}), \
- *  Actions.[updateModelIndex](./modelreducer.html#update_model_index)({modelName: string, data: object}) \ 
- * ]
- */
+  /**
+   * Dispatched when opening a relation field's dropdown menu.
+   * @param action$ object {type: string, payload: {modelName: string, fieldName: string}}
+   * @returns - \[ \
+   *  Actions.[dataOptionsUpdate](./optionsreducer.html#data_options_update)({modelName: string, fieldName: string, data: object}), \
+   *  Actions.[updateModelIndex](./modelreducer.html#update_model_index)({modelName: string, data: object}) \
+   * ]
+   */
   [RELATIONSHIP_SELECT_MENU_OPEN](action$: any) {
     return action$.pipe(
       ofType(RELATIONSHIP_SELECT_MENU_OPEN),

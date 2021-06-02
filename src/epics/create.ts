@@ -23,7 +23,7 @@ export class CreateEpic extends Epic {
    * Dispatched by [saveCreateCheck](./validationepic.html#save_create_check).
    * @param action$ object {type: string, payload: {modelName: string}}
    * @param state$ Redux state
-   * @returns - \[ \ 
+   * @returns - \[ \
    *  Actions.[onSaveCreateSuccessful](./createreducer.html#save_create_successful)({}),\
    *  Actions.[addSuccessAlert](./alertsreducer.html#add_success_alert)({message: string})\
    * ]

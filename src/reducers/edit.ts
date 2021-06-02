@@ -30,7 +30,7 @@ export class EditReducer extends Reducer {
   }
 
   /**
-   * Implementation of [connected-react-router](https://github.com/supasate/connected-react-router)'s *LOCATION_CHANGE* 
+   * Implementation of [connected-react-router](https://github.com/supasate/connected-react-router)'s *LOCATION_CHANGE*
    * which is dispatched each time the URL is changed.
    * @returns Returns conveyor.edit to its initial state
    */
@@ -88,14 +88,14 @@ export class EditReducer extends Reducer {
   }
 
   /**
-   * Dispatched by [onDetailTableEditSubmit](./editepic.html#detail_table_edit_submit), 
-   * [detailTableEditSubmitCheck](./validationepic.html#detail_table_edit_submit_check), 
+   * Dispatched by [onDetailTableEditSubmit](./editepic.html#detail_table_edit_submit),
+   * [detailTableEditSubmitCheck](./validationepic.html#detail_table_edit_submit_check),
    * [onIndexEditSubmit](./editepic.html#index_edit_submit), and
    * [indexEditSubmitCheck](./validationepic.html#index_edit_submit_check)
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string, id: string}}
    * @returns Sets value of conveyor.edit.modelName to null when dispatched from either Index or Detail page.
-   * 
+   *
    */
   [TABLE_EDIT_CANCEL](state: any, action: any) {
     const payload = action.payload
@@ -112,11 +112,11 @@ export class EditReducer extends Reducer {
   }
 
   /**
-   * Dispatched by [onDetailAttributeEditSubmit](./editepic.html#detail_attribute_edit_submit), 
+   * Dispatched by [onDetailAttributeEditSubmit](./editepic.html#detail_attribute_edit_submit),
    * [onInlineFileSubmit](./editepic.html#inline_file_submit), and
    * [detailAttributeEditSubmitCheck](./validationepic.html#detail_attribute_edit_submit_check)
    * @param state Redux state
-   * @param action 
+   * @param action
    * @returns Sets value of conveyor.edit.modelName.nodeId.fieldName to null in state
    */
   [ATTRIBUTE_EDIT_CANCEL](state: any, action: any) {
@@ -140,10 +140,10 @@ export class EditReducer extends Reducer {
   }
 
   /**
-   * Dispatched when a validation error occurs at 
+   * Dispatched when a validation error occurs at
    * [detailAttributeEditSubmitCheck](./validationepic.html#detail_attribute_edit_submit_check)
    * @param state Redux state
-   * @param action 
+   * @param action
    * @returns Updates conveyor.edit.modelName.id.fieldName.errors with errors
    */
   [VALIDATION_ERROR_EDIT](state: any, action: any) {
@@ -211,8 +211,8 @@ export class EditReducer extends Reducer {
   }
 
   /**
-   * Dispatched when a validation error occurrs in 
-   * [detailTableEditSubmitCheck](./validationepic.html#detail_table_edit_submit_check) and 
+   * Dispatched when a validation error occurrs in
+   * [detailTableEditSubmitCheck](./validationepic.html#detail_table_edit_submit_check) and
    * [indexEditSubmitCheck](./validationepic.html#index_edit_submit_check)
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string, id: string, errors: object}}

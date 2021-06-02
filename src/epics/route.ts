@@ -11,7 +11,7 @@ import { Epic } from './epic'
  */
 export class RouteEpic extends Epic {
   /**
-   * Implementation of [connected-react-router](https://github.com/supasate/connected-react-router)'s *LOCATION_CHANGE* 
+   * Implementation of [connected-react-router](https://github.com/supasate/connected-react-router)'s *LOCATION_CHANGE*
    * which is dispatched each time the URL is changed.
    * @param action$ object {type: string, payload: {location: object, action: string, isFirstRendering: boolean}}
    * @returns [object {type: string, payload: object}, ]

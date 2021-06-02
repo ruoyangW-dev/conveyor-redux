@@ -30,7 +30,7 @@ const conveyorReducerMap = {
 }
 
 /**
- * The main Reducer that can combine and hold all your reducers and 
+ * The main Reducer that can combine and hold all your reducers and
  * the one that is instantiated in the main project.
  */
 export class ConveyorReducer {

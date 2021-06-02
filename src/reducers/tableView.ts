@@ -158,7 +158,7 @@ export class TableViewReducer extends Reducer {
    * Dispatched after making a selection from the filter dropdown menu on the Index page.
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string, fieldName: string, operator: object}}
-   * @returns Updates value of objects {label, value} in 
+   * @returns Updates value of objects {label, value} in
    * conveyor.tableView.modelName.filter.filterValue.fieldName.operator
    */
   [INDEX_TABLE_FILTER_DROPDOWN](state: any, action: any) {
@@ -176,7 +176,7 @@ export class TableViewReducer extends Reducer {
    * Dispatched after applying all filter rules on the Index page.
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string}}
-   * @returns Sets value of conveyor.tableView.modelName.page.currentpage to 0 and 
+   * @returns Sets value of conveyor.tableView.modelName.page.currentpage to 0 and
    * value of conveyor.tableView.modelName.filter.filtersAreActive to true
    */
   [INDEX_TABLE_FILTER_SUBMIT](state: any, action: any) {
@@ -317,7 +317,7 @@ export class TableViewReducer extends Reducer {
   }
 
   /**
-   * Called by [fetchModelIndex](./modelepic.html#fetch_model_index) and 
+   * Called by [fetchModelIndex](./modelepic.html#fetch_model_index) and
    * [relationshipSelectMenuOpen](./optionsepic.html#relationship_select_menu_open)
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string, data: object}}
@@ -346,7 +346,7 @@ export class TableViewReducer extends Reducer {
    * Called by [fetchModelDetail](./modelepic.html#fetch_model_detail)
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string, id: string, data: object}}
-   * @returns Update's conveyor.tableView.modelName's in state with 
+   * @returns Update's conveyor.tableView.modelName's in state with
    * values from objects {page: {lastIndex, total, amtPerPage}}
    */
   [UPDATE_MODEL_DETAIL](state: any, action: any) {

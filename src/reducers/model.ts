@@ -37,7 +37,7 @@ export class ModelReducer extends Reducer {
 
   /**
    * Called when loading a model's Index. \
-   * Called by [fetchModelIndex](./modelepic.html#fetch_model_index) and 
+   * Called by [fetchModelIndex](./modelepic.html#fetch_model_index) and
    * [relationshipSelectMenuOpen](./optionsepic.html#relationship_select_menu_open)
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string, data: object}}

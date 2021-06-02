@@ -41,12 +41,12 @@ export const filterSelectOptions = ({
 export const selectOptions = (state: any) =>
   R.path(['conveyor', 'options'], state)
 
-  /**
-   * Gets options for a given field
-   * @param state Redux state
-   * @param modelName Name of model
-   * @param fieldName Name of field
-   * @returns conveyor.options.modelName.fieldName from state
-   */
+/**
+ * Gets options for a given field
+ * @param state Redux state
+ * @param modelName Name of model
+ * @param fieldName Name of field
+ * @returns conveyor.options.modelName.fieldName from state
+ */
 export const getOptions = (state: any, modelName: string, fieldName: string) =>
   R.pathOr([], ['conveyor', 'options', modelName, fieldName], state)

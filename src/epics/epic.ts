@@ -3,7 +3,7 @@ import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import type { QueryTool, ROEpic, Config } from '../types'
 
 /**
- * The epic class that each Conveyor Epic types will extend from. 
+ * The epic class that each Conveyor Epic types will extend from.
  */
 export class Epic {
   /** [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema) */

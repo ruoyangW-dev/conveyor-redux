@@ -240,8 +240,8 @@ export class EditEpic extends Epic {
   // removed m2m relationship from object => alternative to deleting
   /**
    * Dispatched when removing a relation field on the Detail page. \
-   * **WARNING**: only to be used with ManyToMany object. A 'remove' operation on a OneToMany relationship whose backref 
-   * is non-nullable will cascade a delete operation => child object may be 'deleted' from db instead of being 'removed', 
+   * **WARNING**: only to be used with ManyToMany object. A 'remove' operation on a OneToMany relationship whose backref
+   * is non-nullable will cascade a delete operation => child object may be 'deleted' from db instead of being 'removed',
    * without sqlalchemy warning.
    * @param action$ object {type: string, payload: {modelName: string, fieldName: string, id: string, removeId: string}}
    * @param state$ Redux state
@@ -411,7 +411,7 @@ export class EditEpic extends Epic {
    * @param action$ object {type: string, payload: {modelName: string, fieldName: string, id: string}}
    * @returns - \[ \
    *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}), \
-   *  Actions.addSuccessAlert({message: string}) 
+   *  Actions.addSuccessAlert({message: string})
    * [epic](./alertepic.html#add_alert)/[reducer](./alertsreducer.html#add_success_alert) \
    * ]
    */

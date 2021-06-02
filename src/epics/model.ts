@@ -23,8 +23,8 @@ import { DEFAULT_PAGINATION_AMT } from '../utils/tableView'
  */
 export class ModelEpic extends Epic {
   /**
-   * Dispatched by [indexEditSubmitCheck](./validationepic.html#index_edit_submit_check), 
-   * [indexTableFilterSubmit](./indextableepic.html#index_table_filter_submit), and 
+   * Dispatched by [indexEditSubmitCheck](./validationepic.html#index_edit_submit_check),
+   * [indexTableFilterSubmit](./indextableepic.html#index_table_filter_submit), and
    * [indexTableSortChange](./indextableepic.html#index_table_sort_change)
    * @param action$ object {type: string, payload: {modelName: string}}
    * @param state$ Redux state
@@ -212,7 +212,7 @@ export class ModelEpic extends Epic {
    * @param action$ object {type: string, payload: {id: string, parentModel: string, parentId: string, modelName: string}}
    * @returns - \[ \
    *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}), \
-   *  Actions.addSuccessAlert({message: string}) 
+   *  Actions.addSuccessAlert({message: string})
    * [epic](./alertepic.html#add_alert)/[reducer](./alertsreducer.html#add_success_alert) \
    * ]
    */

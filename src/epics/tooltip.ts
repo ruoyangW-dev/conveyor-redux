@@ -12,7 +12,7 @@ import { EpicPayload } from '../types'
  */
 export class TooltipEpic extends Epic {
   /**
-   * Dispatched whenever displaying a tooltip. 
+   * Dispatched whenever displaying a tooltip.
    * @param action$ object {type: string, payload: {modelName: string, id: string}}
    * @returns - Actions.[updateModelTooltip](./tooltipreducer.html#update_model_tooltip)({modelName: string, id: string, data: object})
    */

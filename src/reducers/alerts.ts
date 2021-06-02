@@ -25,10 +25,10 @@ export class AlertsReducer extends Reducer {
 
   /**
    * Adds a 'danger'-type alert to 'state.alert' \
-   * Dispatched during error checks from [saveCreateCheck](./validationepic.html#save_create_check), 
-   * [fetchSearchEntries](./searchepic.html#fetch_search_entries), 
-   * [combineEpicsAndCatchErrors](../modules.html#combineepicsandcatcherrors), 
-   * and all epics from [edit](./editepic.html), [modal](./modalepic.html), [model](./modelepic.html), 
+   * Dispatched during error checks from [saveCreateCheck](./validationepic.html#save_create_check),
+   * [fetchSearchEntries](./searchepic.html#fetch_search_entries),
+   * [combineEpicsAndCatchErrors](../modules.html#combineepicsandcatcherrors),
+   * and all epics from [edit](./editepic.html), [modal](./modalepic.html), [model](./modelepic.html),
    * [option](./optionsepic.html), [tooltip](./tooltipepic.html), and [validation](./validationepic.html)
    * @param state Redux state
    * @param action object {type: string, payload: {message: string, expiresOn: number}}
@@ -40,9 +40,9 @@ export class AlertsReducer extends Reducer {
 
   /**
    * Adds a 'success'-type alert to Redux 'state.alert' \
-   * Dispatched from [saveCreate](./createepic.html#save_create), [onDetailRemoveSubmit](./editepic.html#detail_table_remove_submit), 
-   * [onInlineFileDelete](./editepic.html#inline_file_delete), [requestDeleteModel](./modelepic.html#request_delete_model), 
-   * [requestDeleteRelTableModel](./modelepic.html#request_delete_rel_table_model), and 
+   * Dispatched from [saveCreate](./createepic.html#save_create), [onDetailRemoveSubmit](./editepic.html#detail_table_remove_submit),
+   * [onInlineFileDelete](./editepic.html#inline_file_delete), [requestDeleteModel](./modelepic.html#request_delete_model),
+   * [requestDeleteRelTableModel](./modelepic.html#request_delete_rel_table_model), and
    * [requestDeleteModelFromDetailPage](./modelepic.html#request_delete_model_from_detail_page).
    * @param state Redux state
    * @param action object {type: string, payload: {message: string, expiresOn: number}}

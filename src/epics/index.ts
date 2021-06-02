@@ -57,9 +57,9 @@ export class ConveyorEpic {
     queryTool: QueryTool,
     config: Config = {}
   ) {
-    (this.schema = schema),
-    (this.queryTool = queryTool),
-    (this.config = config)
+    ;(this.schema = schema),
+      (this.queryTool = queryTool),
+      (this.config = config)
   }
 
   /**

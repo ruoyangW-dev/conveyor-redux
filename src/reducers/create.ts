@@ -50,7 +50,7 @@ export class CreateReducer extends Reducer {
   /**
    * Dispatched whenever pressing cancel on the Create page.
    * @param state Redux state
-   * @returns - In state, decrements conveyor.create.index and sets value of conveyor.create.stack.index to null where 
+   * @returns - In state, decrements conveyor.create.index and sets value of conveyor.create.stack.index to null where
    * index is the current form stack index
    */
   [CANCEL_CREATE](state: any) {
@@ -58,7 +58,7 @@ export class CreateReducer extends Reducer {
   }
 
   /**
-   * Dispatched from [onSaveCreate](./createepic.html#save_create) and 
+   * Dispatched from [onSaveCreate](./createepic.html#save_create) and
    * [onInlineFileSubmit](./editepic.html#inline_file_submit)
    * @param state Redux state
    * @returns - Decrements value conveyor.create.index in state
@@ -80,7 +80,7 @@ export class CreateReducer extends Reducer {
    * Dispatched when pushing another model to the form stack on the Create page.
    * @param state Redux state
    * @param action object {type: string, payload: {modelName: string}}
-   * @returns - Increments value of conveyor.create.index, and adds object {modelName: string, fields: object} to 
+   * @returns - Increments value of conveyor.create.index, and adds object {modelName: string, fields: object} to
    * conveyor.create.stack.index in state
    */
   [STACK_CREATE](state: any, action: any) {
@@ -90,10 +90,10 @@ export class CreateReducer extends Reducer {
   /**
    * Dispatched when creating a One-To-Many relation field from the Detail page.
    * @param state Redux state
-   * @param action object {type: string, payload: {modelName: string, path: string, 
+   * @param action object {type: string, payload: {modelName: string, path: string,
    * targetInverseFieldName: string, node: object}}
-   * @returns Predefines conveyor.create.stack.index.fields.parentModelName with parentModel's data, 
-   * conveyor.create.originPath, and conveyor.create.originNode to object {parentId: string, parentDisplayValue: string} 
+   * @returns Predefines conveyor.create.stack.index.fields.parentModelName with parentModel's data,
+   * conveyor.create.originPath, and conveyor.create.originNode to object {parentId: string, parentDisplayValue: string}
    * (By default 'parentDisplayValue' is 'name')
    */
   [DETAIL_CREATE](state: any, action: any) {
