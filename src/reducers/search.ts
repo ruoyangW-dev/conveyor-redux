@@ -11,11 +11,25 @@ import { Reducer } from './reducer'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Config } from '../types'
 
+/**
+ * A class containing reducers handling search actions
+ */
 export class SearchReducer extends Reducer {
+  /**
+   * Creates a reducer object that can reduce all reducers into one
+   * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param config Custom user inputted configurations
+   */
   constructor(schema: SchemaBuilder, config: Config) {
     super(schema, initState, config)
   }
 
+  /**
+   * Dispatched by [fetchSearchEntries](./searchepic.html#fetch_search_entries)
+   * @param state Redux state
+   * @param action object {type: string, payload: {queryString: string, data: object}}
+   * @returns Updates conveyor.search.entries with an object containing matching objects in state
+   */
   [UPDATE_SEARCH_ENTRIES](state: any, action: any) {
     const data: object[] = R.pathOr([], ['payload', 'data'], action)
     if (data.length <= 0) {
@@ -44,6 +58,12 @@ export class SearchReducer extends Reducer {
     return { ...state, entries }
   }
 
+  /**
+   * Dispatched each time the search input is changed.
+   * @param state Redux state
+   * @param action object {type: string, payload: {queryText: string}}
+   * @returns Updates conveyor.queryText with the new text in state
+   */
   [SEARCH_QUERY_TEXT_CHANGED](state: any, action: any) {
     const newQueryText = action.payload.queryText
     if (newQueryText) {
@@ -52,14 +72,28 @@ export class SearchReducer extends Reducer {
     return initState
   }
 
+  /**
+   * Dispatched after selecting a search query
+   * @returns Sets conveyor.search to its initial state
+   */
   [SEARCH_QUERY_LINK_CLICKED]() {
     return initState
   }
 
+  /**
+   * Dispatched when clicking outside the search box
+   * @param state Redux state
+   * @returns Sets conveyor.search.dropdown to false
+   */
   [SEARCH_BLUR](state: any) {
     return R.assoc('dropdown', false, state)
   }
 
+  /**
+   * Dispatched when clicking inside the search box
+   * @param state Redux state
+   * @returns Sets conveyor.search.dropdown to true
+   */
   [TRIGGER_SEARCH](state: any) {
     return R.assoc('dropdown', true, state)
   }
