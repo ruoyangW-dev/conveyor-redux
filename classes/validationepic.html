@@ -65,6 +65,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A class containing epics handling validation.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -122,19 +129,33 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Epic.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/epic.ts#L8">src/epics/epic.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/epic.ts#L14">src/epics/epic.ts:14</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates an Epic object</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>schema: <span class="tsd-signature-type">SchemaBuilder</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>queryTool: <span class="tsd-signature-type">QueryTool</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Tool for building and sending queries</p>
+									</div>
 								</li>
 								<li>
 									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="validationepic.html" class="tsd-signature-type" data-tsd-kind="Class">ValidationEpic</a></h4>
@@ -151,9 +172,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Epic.config</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/epic.ts#L8">src/epics/epic.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/epic.ts#L14">src/epics/epic.ts:14</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Custom user inputted configurations</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="querytool" class="tsd-anchor"></a>
@@ -162,9 +188,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Epic.queryTool</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/epic.ts#L7">src/epics/epic.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/epic.ts#L12">src/epics/epic.ts:12</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Tool for building and sending queries</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="schema" class="tsd-anchor"></a>
@@ -173,9 +204,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Epic.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/epic.ts#L6">src/epics/epic.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/epic.ts#L10">src/epics/epic.ts:10</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -190,19 +226,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/validation.ts#L47">src/epics/validation.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/validation.ts#L64">src/epics/validation.ts:64</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched after saving an edited attribute on Detail page. <br>Checks whether the current and initial value are different.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>action$: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {modelName: string, fieldName: string, id: string}}</p>
+									</div>
 								</li>
 								<li>
 									<h5>state$: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Actions.<a href="./editreducer.html#attribute_edit_cancel">onAttributeEditCancel</a>({modelName: string, id: string, fieldName: string}) (if initial value equals current value), <br>Actions.<a href="./editepic.html#detail_attribute_edit_submit">onDetailAttributeEditSubmit</a>({...payload}) (if initial value differs from current value)</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -216,19 +266,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/validation.ts#L108">src/epics/validation.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/validation.ts#L131">src/epics/validation.ts:131</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when saving an edited relation field on Detail page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>action$: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {parentModelName: string, parentId: string, modelName: string, id: string}}</p>
+									</div>
 								</li>
 								<li>
 									<h5>state$: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Actions.<a href="./editepic.html#detail_table_edit_submit">onDetailTableEditSubmit</a>({id: string, modelName: string, changedFields: object, ...payload})</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -242,19 +306,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/validation.ts#L151">src/epics/validation.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/validation.ts#L181">src/epics/validation.ts:181</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Called after saving edits on an instance on the Index page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>action$: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {modelName: string, id: string}}</p>
+									</div>
 								</li>
 								<li>
 									<h5>state$: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Actions.<a href="./editreducer.html#table_edit_cancel">onTableEditCancel</a>({modelName: string, id: string}) (if no fields were edited) <br>Actions.<a href="./editepic.html#index_edit_submit">onIndexEditSubmit</a>({id: string, modelName: string, changedFields: object, ...payload}) (if any fields were edited)</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -268,19 +346,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/validation.ts#L16">src/epics/validation.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/validation.ts#L25">src/epics/validation.ts:25</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched after creating a model instance for a relation field on Create page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>action$: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {modelName: author}}</p>
+									</div>
 								</li>
 								<li>
 									<h5>state$: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Actions.<a href="./createepic.html#save_create">onSaveCreate</a>({...payload})</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -295,10 +387,16 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Epic.makeEpic</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/epics/epic.ts#L16">src/epics/epic.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/epics/epic.ts#L32">src/epics/epic.ts:32</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates epics</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ROEpic</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>List of epics</p>
 						</li>
 					</ul>
 				</section>

@@ -65,6 +65,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A class containing reducers handling search actions</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -123,16 +130,27 @@
 							<aside class="tsd-sources">
 								<p>Overrides Reducer.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/search.ts#L14">src/reducers/search.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/search.ts#L17">src/reducers/search.ts:17</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a reducer object that can reduce all reducers into one</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>schema: <span class="tsd-signature-type">SchemaBuilder</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="searchreducer.html" class="tsd-signature-type" data-tsd-kind="Class">SearchReducer</a></h4>
@@ -149,9 +167,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.config</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L8">src/reducers/reducer.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L14">src/reducers/reducer.ts:14</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User-inputted custom configurations</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="initstate" class="tsd-anchor"></a>
@@ -160,9 +183,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.initState</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L7">src/reducers/reducer.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L12">src/reducers/reducer.ts:12</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The initial state of a reducer</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="schema" class="tsd-anchor"></a>
@@ -171,9 +199,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L6">src/reducers/reducer.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L10">src/reducers/reducer.ts:10</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -188,16 +221,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/search.ts#L59">src/reducers/search.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/search.ts#L88">src/reducers/search.ts:88</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when clicking outside the search box</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Sets conveyor.search.dropdown to false</p>
 						</li>
 					</ul>
 				</section>
@@ -211,10 +253,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/search.ts#L55">src/reducers/search.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/search.ts#L79">src/reducers/search.ts:79</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched after selecting a search query</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>dropdown<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>entries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">never</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>queryText<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h4>
+							<p>Sets conveyor.search to its initial state</p>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter">
 									<h5>dropdown<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></h5>
@@ -239,19 +287,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/search.ts#L47">src/reducers/search.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/search.ts#L67">src/reducers/search.ts:67</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched each time the search input is changed.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {queryText: string}}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Updates conveyor.queryText with the new text in state</p>
 						</li>
 					</ul>
 				</section>
@@ -265,16 +325,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/search.ts#L63">src/reducers/search.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/search.ts#L97">src/reducers/search.ts:97</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when clicking inside the search box</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Sets conveyor.search.dropdown to true</p>
 						</li>
 					</ul>
 				</section>
@@ -288,19 +357,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/search.ts#L19">src/reducers/search.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/search.ts#L33">src/reducers/search.ts:33</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched by <a href="./searchepic.html#fetch_search_entries">fetchSearchEntries</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {queryString: string, data: object}}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Updates conveyor.search.entries with an object containing matching objects in state</p>
 						</li>
 					</ul>
 				</section>
@@ -315,19 +396,31 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Reducer.reduce</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L16">src/reducers/reducer.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L34">src/reducers/reducer.ts:34</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Combines reducers</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload?: object}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Redux state</p>
 						</li>
 					</ul>
 				</section>

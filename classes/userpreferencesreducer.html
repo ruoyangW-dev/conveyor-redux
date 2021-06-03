@@ -65,6 +65,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A class containing reducers handling user preferences</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -119,16 +126,27 @@
 							<aside class="tsd-sources">
 								<p>Overrides Reducer.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/userPreferences.ts#L8">src/reducers/userPreferences.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/userPreferences.ts#L11">src/reducers/userPreferences.ts:11</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a reducer object that can reduce all reducers into one</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>schema: <span class="tsd-signature-type">SchemaBuilder</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="userpreferencesreducer.html" class="tsd-signature-type" data-tsd-kind="Class">UserPreferencesReducer</a></h4>
@@ -145,9 +163,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.config</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L8">src/reducers/reducer.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L14">src/reducers/reducer.ts:14</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User-inputted custom configurations</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="initstate" class="tsd-anchor"></a>
@@ -156,9 +179,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.initState</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L7">src/reducers/reducer.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L12">src/reducers/reducer.ts:12</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The initial state of a reducer</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="schema" class="tsd-anchor"></a>
@@ -167,9 +195,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L6">src/reducers/reducer.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L10">src/reducers/reducer.ts:10</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -184,16 +217,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/userPreferences.ts#L12">src/reducers/userPreferences.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/userPreferences.ts#L26">src/reducers/userPreferences.ts:26</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when toggling dark mode</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Toggles conveyor.userPreferences.darkMode in state</p>
 						</li>
 					</ul>
 				</section>
@@ -208,19 +250,31 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Reducer.reduce</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L16">src/reducers/reducer.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L34">src/reducers/reducer.ts:34</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Combines reducers</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload?: object}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Redux state</p>
 						</li>
 					</ul>
 				</section>

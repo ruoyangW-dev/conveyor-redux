@@ -65,6 +65,13 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A class containing reducers handling actions from the Create page</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -127,16 +134,27 @@
 							<aside class="tsd-sources">
 								<p>Overrides Reducer.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L27">src/reducers/create.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L30">src/reducers/create.ts:30</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a reducer object which can reduce all reducers into one</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>schema: <span class="tsd-signature-type">SchemaBuilder</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+									</div>
 								</li>
 								<li>
 									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Custom user inputted configurations</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="createreducer.html" class="tsd-signature-type" data-tsd-kind="Class">CreateReducer</a></h4>
@@ -153,9 +171,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.config</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L8">src/reducers/reducer.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L14">src/reducers/reducer.ts:14</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User-inputted custom configurations</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="initstate" class="tsd-anchor"></a>
@@ -164,9 +187,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.initState</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L7">src/reducers/reducer.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L12">src/reducers/reducer.ts:12</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The initial state of a reducer</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="schema" class="tsd-anchor"></a>
@@ -175,9 +203,14 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Reducer.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L6">src/reducers/reducer.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L10">src/reducers/reducer.ts:10</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><a href="https://github.com/autoinvent/conveyor-schema">Conveyor-Schema</a></p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -192,16 +225,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L36">src/reducers/create.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L56">src/reducers/create.ts:56</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched whenever pressing cancel on the Create page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>In state, decrements conveyor.create.index and sets value of conveyor.create.stack.index to null where
+								index is the current form stack index</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -215,19 +260,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L32">src/reducers/create.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L46">src/reducers/create.ts:46</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched each time an input changes on the Create page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {fieldName: string, value: any}}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span>val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Updates conveyor.create.stack.index.fields.fieldName with the new input in state</li>
+							</ul>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter-signature">
 									<ul class="tsd-signatures tsd-kind-type-literal">
@@ -259,19 +318,34 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L52">src/reducers/create.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L99">src/reducers/create.ts:99</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when creating a One-To-Many relation field from the Detail page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {modelName: string, path: string,
+										targetInverseFieldName: string, node: object}}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Predefines conveyor.create.stack.index.fields.parentModelName with parentModel&#39;s data,
+								conveyor.create.originPath, and conveyor.create.originNode to object {parentId: string, parentDisplayValue: string}
+							(By default &#39;parentDisplayValue&#39; is &#39;name&#39;)</p>
 						</li>
 					</ul>
 				</section>
@@ -285,19 +359,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L56">src/reducers/create.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L109">src/reducers/create.ts:109</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when creating a model instance from the Index page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {modelName: string, path: string}}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Increments conveyor.create.index, and updates conveyor.create.stack.index, and conveyor.create.originPath</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -311,16 +399,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L44">src/reducers/create.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L75">src/reducers/create.ts:75</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched after submitting a form on the Create page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span></h4>
+							<ul>
+								<li>Sets value of conveyor.create.stack.index to null where index is the current page on the form stack</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -334,16 +433,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L40">src/reducers/create.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L66">src/reducers/create.ts:66</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched from <a href="./createepic.html#save_create">onSaveCreate</a> and
+									<a href="./editepic.html#inline_file_submit">onInlineFileSubmit</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Decrements value conveyor.create.index in state</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -357,19 +468,34 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L48">src/reducers/create.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L86">src/reducers/create.ts:86</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when pushing another model to the form stack on the Create page.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {modelName: string}}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Increments value of conveyor.create.index, and adds object {modelName: string, fields: object} to
+								conveyor.create.stack.index in state</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -383,19 +509,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L60">src/reducers/create.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L119">src/reducers/create.ts:119</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when switching between form stack index.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {index: number}}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Updates conveyor.create.index to the selected index on form stack</p>
 						</li>
 					</ul>
 				</section>
@@ -409,19 +547,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/create.ts#L64">src/reducers/create.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/create.ts#L129">src/reducers/create.ts:129</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Dispatched when a validation error occurs in <a href="./createepic.html#save_create">onSaveCreate</a></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload: {erorrs: object}}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<ul>
+								<li>Updates conveyor.create.stack.stackIndex.error.fieldNameError with errors</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -436,19 +588,31 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Reducer.reduce</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/fa42bc8/src/reducers/reducer.ts#L16">src/reducers/reducer.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/33da5d5/src/reducers/reducer.ts#L34">src/reducers/reducer.ts:34</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Combines reducers</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>state: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Redux state</p>
+									</div>
 								</li>
 								<li>
 									<h5>action: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object {type: string, payload?: object}</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Redux state</p>
 						</li>
 					</ul>
 				</section>
