@@ -2,8 +2,8 @@ import * as R from 'ramda'
 
 export const initState = {
   queryText: '',
-  entries: [],
-  pageEntries: [],
+  quickSearchEntries: [],
+  searchPageEntries: [],
   dropdown: false
 }
 
@@ -26,11 +26,11 @@ export const selectSearchDropdown = (state: any) =>
  * @param state Redux state
  * @returns Value of conveyor.search.entries in state
  */
-export const selectSearchEntries = (state: any) =>
-  R.prop('entries', selectSearch(state))
+export const selectQuickSearchEntries = (state: any) =>
+  R.prop('quickSearchEntries', selectSearch(state))
 
 export const selectSearchPageEntries = (state: any) =>
-  R.prop('pageEntries', selectSearch(state))
+  R.prop('searchPageEntries', selectSearch(state))
 
 /**
  * Returns value of 'queryText' from the result of [selectSearch](./modules.html#selectsearch)

@@ -38,7 +38,8 @@ export {
   selectSearch,
   selectSearchDropdown,
   selectSearchQueryText,
-  selectSearchEntries
+  selectQuickSearchEntries,
+  selectSearchPageEntries
 } from './utils/search'
 export { selectTableView } from './utils/tableView'
 export { selectTooltip } from './utils/tooltip'
