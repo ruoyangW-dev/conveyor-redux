@@ -81,6 +81,7 @@ export interface EpicPayload {
   queryString?: string
   queryText?: string
   expiresOn?: number
+  isOnSearchPage?: boolean
 }
 
 export interface RequestError {

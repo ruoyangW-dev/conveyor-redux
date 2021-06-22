@@ -3,6 +3,7 @@ import * as R from 'ramda'
 export const initState = {
   queryText: '',
   entries: [],
+  pageEntries: [],
   dropdown: false
 }
 
@@ -27,6 +28,9 @@ export const selectSearchDropdown = (state: any) =>
  */
 export const selectSearchEntries = (state: any) =>
   R.prop('entries', selectSearch(state))
+
+export const selectSearchPageEntries = (state: any) =>
+  R.prop('pageEntries', selectSearch(state))
 
 /**
  * Returns value of 'queryText' from the result of [selectSearch](./modules.html#selectsearch)
