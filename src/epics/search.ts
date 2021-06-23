@@ -14,22 +14,27 @@ export class SearchEpic extends Epic {
   /**
    * Called after doing an action in the search bar after [onSearchBlur](./searchreducer.html#search_blur) was dispatched
    * @param action$ object {type: string}
-   * @returns - Actions.[fetchSearchEntries](./searchepic.html#fetch_search_entries)({queryString: string})
+   * @returns - Actions.[fetchSearchEntries](./searchepic.html#fetch_search_entries)({
+   * queryString: string, isOnSearchPage: boolean})
    */
   [TRIGGER_SEARCH](action$: any) {
     return action$.pipe(
       ofType(TRIGGER_SEARCH),
       map(R.prop('payload')),
       map((payload: EpicPayload) =>
-        Actions.fetchSearchEntries({ queryString: payload.queryText })
+        Actions.fetchSearchEntries({
+          queryString: payload.queryText,
+          isOnSearchPage: payload.isOnSearchPage
+        })
       )
     )
   }
 
   /**
    * Dispatched by [onTriggerSearch](./searchepic.html#trigger_search)
-   * @param action$ object {type: string, payload: {queryString: string}}
-   * @returns - Actions.[updateSearchEntries](./searchreducer.html#update_search_entries)
+   * @param action$ object {type: string, payload: {queryString: string, isOnSearchpage: boolean}}
+   * @returns - Actions.[updateSearchEntries](./searchreducer.html#update_search_entries) (if isOnSearchPage is false),
+   * or Actions.[updateSearchPageEntries](./searchreducer.html#update_search_page_entries) (if isOnSearchPage is true)
    */
   [FETCH_SEARCH_ENTRIES](action$: any) {
     return action$.pipe(
@@ -43,7 +48,12 @@ export class SearchEpic extends Epic {
             : undefined
         }
 
-        return { queryString: payload.queryString, query, variables }
+        return {
+          queryString: payload.queryString,
+          isOnSearchPage: payload.isOnSearchPage,
+          query,
+          variables
+        }
       }),
       mergeMap((context: any) =>
         this.queryTool
@@ -59,11 +69,17 @@ export class SearchEpic extends Epic {
               message: 'Error loading search results.'
             })
           }
-
-          return Actions.updateSearchEntries({
-            queryString: context.queryString,
-            data
-          })
+          if (context.isOnSearchPage) {
+            return Actions.updateSearchPageEntries({
+              queryString: context.queryString,
+              data
+            })
+          } else {
+            return Actions.updateSearchEntries({
+              queryString: context.queryString,
+              data
+            })
+          }
         }
       )
     )

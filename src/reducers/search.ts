@@ -2,7 +2,8 @@ import * as R from 'ramda'
 import {
   SEARCH_QUERY_TEXT_CHANGED,
   SEARCH_QUERY_LINK_CLICKED,
-  UPDATE_SEARCH_ENTRIES,
+  UPDATE_QUICK_SEARCH_ENTRIES,
+  UPDATE_SEARCH_PAGE_ENTRIES,
   SEARCH_BLUR,
   TRIGGER_SEARCH
 } from '../actionConsts'
@@ -28,15 +29,15 @@ export class SearchReducer extends Reducer {
    * Dispatched by [fetchSearchEntries](./searchepic.html#fetch_search_entries)
    * @param state Redux state
    * @param action object {type: string, payload: {queryString: string, data: object}}
-   * @returns Updates conveyor.search.entries with an object containing matching objects in state
+   * @returns Updates conveyor.search.quickSearchEntries with an object containing matching objects in state
    */
-  [UPDATE_SEARCH_ENTRIES](state: any, action: any) {
+  [UPDATE_QUICK_SEARCH_ENTRIES](state: any, action: any) {
     const data: object[] = R.pathOr([], ['payload', 'data'], action)
     if (data.length <= 0) {
       return { ...state, entries: [] }
     }
 
-    const entries = R.pipe(
+    const quickSearchEntries = R.pipe(
       R.map((entry: any) => ({
         id: entry.id,
         modelName: entry.__typename,
@@ -55,7 +56,41 @@ export class SearchReducer extends Reducer {
         detailURL: `/${obj.modelName}/${obj.id}`
       }))
     )(data)
-    return { ...state, entries }
+    return { ...state, quickSearchEntries }
+  }
+
+  /**
+   * Dispatched by [fetchSearchEntries](./searchepic.html#fetch_search_entries)
+   * @param state Redux state
+   * @param action object {type: string, payload: {queryString: string, data: object}}
+   * @returns Updates conveyor.search.searchPageEntries with an object containing matching objects in state
+   */
+  [UPDATE_SEARCH_PAGE_ENTRIES](state: any, action: any) {
+    const data: object[] = R.pathOr([], ['payload', 'data'], action)
+    if (data.length <= 0) {
+      return { ...state, searchPageEntries: [] }
+    }
+
+    const searchPageEntries = R.pipe(
+      R.map((entry: any) => ({
+        id: entry.id,
+        modelName: entry.__typename,
+        // @ts-ignore
+        modelLabel: this.schema.getModelLabel({
+          modelName: entry.__typename,
+          node: entry
+        }),
+        name: this.schema.getDisplayValue({
+          modelName: entry.__typename,
+          node: entry
+        })
+      })),
+      R.map((obj) => ({
+        ...obj,
+        detailURL: `/${obj.modelName}/${obj.id}`
+      }))
+    )(data)
+    return { ...state, searchPageEntries }
   }
 
   /**
