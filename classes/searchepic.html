@@ -127,7 +127,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Epic.constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9a7b2d9/src/epics/epic.ts#L14">src/epics/epic.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/d55b39f/src/epics/epic.ts#L14">src/epics/epic.ts:14</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -170,7 +170,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Epic.config</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9a7b2d9/src/epics/epic.ts#L14">src/epics/epic.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/d55b39f/src/epics/epic.ts#L14">src/epics/epic.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,7 +186,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Epic.queryTool</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9a7b2d9/src/epics/epic.ts#L12">src/epics/epic.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/d55b39f/src/epics/epic.ts#L12">src/epics/epic.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -202,7 +202,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Epic.schema</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9a7b2d9/src/epics/epic.ts#L10">src/epics/epic.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/d55b39f/src/epics/epic.ts#L10">src/epics/epic.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -224,7 +224,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9a7b2d9/src/epics/search.ts#L34">src/epics/search.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/d55b39f/src/epics/search.ts#L39">src/epics/search.ts:39</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -237,13 +237,14 @@
 								<li>
 									<h5>action$: <span class="tsd-signature-type">any</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>object {type: string, payload: {queryString: string}}</p>
+										<p>object {type: string, payload: {queryString: string, isOnSearchpage: boolean}}</p>
 									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 							<ul>
-								<li>Actions.<a href="./searchreducer.html#update_search_entries">updateSearchEntries</a></li>
+								<li>Actions.<a href="./searchreducer.html#update_search_entries">updateSearchEntries</a> (if isOnSearchPage is false),
+								or Actions.<a href="./searchreducer.html#update_search_page_entries">updateSearchPageEntries</a> (if isOnSearchPage is true)</li>
 							</ul>
 						</li>
 					</ul>
@@ -258,7 +259,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9a7b2d9/src/epics/search.ts#L19">src/epics/search.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/d55b39f/src/epics/search.ts#L20">src/epics/search.ts:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -277,7 +278,8 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 							<ul>
-								<li>Actions.<a href="./searchepic.html#fetch_search_entries">fetchSearchEntries</a>({queryString: string})</li>
+								<li>Actions.<a href="./searchepic.html#fetch_search_entries">fetchSearchEntries</a>({
+								queryString: string, isOnSearchPage: boolean})</li>
 							</ul>
 						</li>
 					</ul>
@@ -293,7 +295,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Epic.makeEpic</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/9a7b2d9/src/epics/epic.ts#L32">src/epics/epic.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/autoinvent/conveyor-redux/blob/d55b39f/src/epics/epic.ts#L32">src/epics/epic.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
