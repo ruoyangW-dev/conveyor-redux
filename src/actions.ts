@@ -116,6 +116,9 @@ export const updateSearchEntries = actionDisp(
 export const updateSearchPageEntries = actionDisp(
   Actions.UPDATE_SEARCH_PAGE_ENTRIES
 )
+export const searchQueryFilterClicked = actionDisp(
+  Actions.SEARCH_QUERY_FILTER_CLICKED
+)
 export const onSearchBlur = actionDisp(Actions.SEARCH_BLUR)
 export const onTriggerSearch = actionDisp(Actions.TRIGGER_SEARCH)
 

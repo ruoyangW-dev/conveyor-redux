@@ -4,6 +4,7 @@ import {
   SEARCH_QUERY_LINK_CLICKED,
   UPDATE_QUICK_SEARCH_ENTRIES,
   UPDATE_SEARCH_PAGE_ENTRIES,
+  SEARCH_QUERY_FILTER_CLICKED,
   SEARCH_BLUR,
   TRIGGER_SEARCH
 } from '../actionConsts'
@@ -83,7 +84,8 @@ export class SearchReducer extends Reducer {
         name: this.schema.getDisplayValue({
           modelName: entry.__typename,
           node: entry
-        })
+        }),
+        show: true
       })),
       R.map((obj) => ({
         ...obj,
@@ -105,6 +107,21 @@ export class SearchReducer extends Reducer {
       return R.assoc('queryText', newQueryText, state)
     }
     return initState
+  }
+
+  [SEARCH_QUERY_FILTER_CLICKED](state: any, action: any) {
+    const modelName = R.pathOr('', ['payload', 'modelName'], action)
+    const entries = R.map(
+      (entry: any) =>
+        // toggle the "show" value if the entry's model name equals the filter that was clicked
+        R.ifElse(
+          R.equals(modelName),
+          R.always(R.assoc('show', !entry.show, entry)),
+          R.always(entry)
+        )(entry.modelName),
+      state.searchPageEntries
+    )
+    return R.assoc('searchPageEntries', entries, state)
   }
 
   /**
