@@ -96,7 +96,10 @@ export class SearchReducer extends Reducer {
       (entry) => R.pick(['modelName'], entry),
       R.uniqBy(R.prop('modelName'), searchPageEntries)
     )
-    const searchPageFilters = R.map((obj) => R.assoc('show', true, obj))(models)
+    const searchPageFilters = R.map(
+      (filter) => R.assoc('checked', true, filter),
+      models
+    )
 
     return { ...state, searchPageEntries, searchPageFilters }
   }
@@ -119,10 +122,12 @@ export class SearchReducer extends Reducer {
     const modelName = R.pathOr('', ['payload', 'modelName'], action)
     const searchPageFilters = R.map(
       (searchPageFilter: any) =>
-        // toggle the "show" value if the entry's model name equals the filter that was clicked
+        // toggle the "checked" value if the entry's model name equals the filter that was clicked
         R.ifElse(
           R.equals(modelName),
-          R.always(R.assoc('show', !searchPageFilter.show, searchPageFilter)),
+          R.always(
+            R.assoc('checked', !searchPageFilter.checked, searchPageFilter)
+          ),
           R.always(searchPageFilter)
         )(searchPageFilter.modelName),
       state.searchPageFilters
