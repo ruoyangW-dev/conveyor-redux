@@ -84,15 +84,21 @@ export class SearchReducer extends Reducer {
         name: this.schema.getDisplayValue({
           modelName: entry.__typename,
           node: entry
-        }),
-        show: true
+        })
       })),
       R.map((obj) => ({
         ...obj,
         detailURL: `/${obj.modelName}/${obj.id}`
       }))
     )(data)
-    return { ...state, searchPageEntries }
+
+    const models = R.map(
+      (entry) => R.pick(['modelName'], entry),
+      R.uniqBy(R.prop('modelName'), searchPageEntries)
+    )
+    const searchPageFilters = R.map((obj) => R.assoc('show', true, obj))(models)
+
+    return { ...state, searchPageEntries, searchPageFilters }
   }
 
   /**
@@ -111,17 +117,17 @@ export class SearchReducer extends Reducer {
 
   [SEARCH_QUERY_FILTER_CLICKED](state: any, action: any) {
     const modelName = R.pathOr('', ['payload', 'modelName'], action)
-    const entries = R.map(
-      (entry: any) =>
+    const searchPageFilters = R.map(
+      (searchPageFilter: any) =>
         // toggle the "show" value if the entry's model name equals the filter that was clicked
         R.ifElse(
           R.equals(modelName),
-          R.always(R.assoc('show', !entry.show, entry)),
-          R.always(entry)
-        )(entry.modelName),
-      state.searchPageEntries
+          R.always(R.assoc('show', !searchPageFilter.show, searchPageFilter)),
+          R.always(searchPageFilter)
+        )(searchPageFilter.modelName),
+      state.searchPageFilters
     )
-    return R.assoc('searchPageEntries', entries, state)
+    return R.assoc('searchPageFilters', searchPageFilters, state)
   }
 
   /**

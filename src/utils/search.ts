@@ -4,6 +4,7 @@ export const initState = {
   queryText: '',
   quickSearchEntries: [],
   searchPageEntries: [],
+  searchPageFilters: [],
   dropdown: false
 }
 
@@ -32,6 +33,8 @@ export const selectQuickSearchEntries = (state: any) =>
 export const selectSearchPageEntries = (state: any) =>
   R.prop('searchPageEntries', selectSearch(state))
 
+export const selectSearchPageFilters = (state: any) =>
+  R.prop('searchPageFilters', selectSearch(state))
 /**
  * Returns value of 'queryText' from the result of [selectSearch](./modules.html#selectsearch)
  * @param state Redux state
