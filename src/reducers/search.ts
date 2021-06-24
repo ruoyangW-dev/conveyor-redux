@@ -69,7 +69,7 @@ export class SearchReducer extends Reducer {
   [UPDATE_SEARCH_PAGE_ENTRIES](state: any, action: any) {
     const data: object[] = R.pathOr([], ['payload', 'data'], action)
     if (data.length <= 0) {
-      return { ...state, searchPageEntries: [] }
+      return { ...state, searchPageEntries: [], searchPageFilters: [] }
     }
 
     const searchPageEntries = R.pipe(
@@ -96,11 +96,18 @@ export class SearchReducer extends Reducer {
       (entry) => R.pick(['modelName'], entry),
       R.uniqBy(R.prop('modelName'), searchPageEntries)
     )
+    const getFilter = (model: any) =>
+      R.innerJoin(
+        (filter: any, model) => filter.modelName === model.modelName,
+        state.searchPageFilters,
+        [model]
+      )[0]
+
     const searchPageFilters = R.map(
-      (filter) => R.assoc('checked', true, filter),
+      (model: any) =>
+        R.assoc('checked', R.propOr(true, 'checked', getFilter(model)), model),
       models
     )
-
     return { ...state, searchPageEntries, searchPageFilters }
   }
 
