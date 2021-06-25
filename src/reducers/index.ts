@@ -11,7 +11,6 @@ import { TableViewReducer } from './tableView'
 import { SearchReducer } from './search'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { UserPreferencesReducer } from './userPreferences'
-import { ValidationReducer } from './validation'
 import { Config } from '../types'
 
 const conveyorReducerMap = {
@@ -24,8 +23,7 @@ const conveyorReducerMap = {
   tooltip: TooltipReducer,
   tableView: TableViewReducer,
   search: SearchReducer,
-  userPreferences: UserPreferencesReducer,
-  validation: ValidationReducer
+  userPreferences: UserPreferencesReducer
 }
 
 export class ConveyorReducer {
