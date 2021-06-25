@@ -34,7 +34,7 @@ export class SearchReducer extends Reducer {
   [UPDATE_QUICK_SEARCH_ENTRIES](state: any, action: any) {
     const data: object[] = R.pathOr([], ['payload', 'data'], action)
     if (data.length <= 0) {
-      return { ...state, entries: [] }
+      return { ...state, quickSearchEntries: [] }
     }
 
     const quickSearchEntries = R.pipe(
@@ -104,7 +104,8 @@ export class SearchReducer extends Reducer {
     if (newQueryText) {
       return R.assoc('queryText', newQueryText, state)
     }
-    return initState
+    // Do not reset the searchPageEntries
+    return R.assoc('searchPageEntries', state.searchPageEntries, initState)
   }
 
   /**
