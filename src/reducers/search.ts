@@ -92,22 +92,22 @@ export class SearchReducer extends Reducer {
       }))
     )(data)
 
-    const models = R.map(
-      (entry) => R.pick(['modelName'], entry),
-      R.uniqBy(R.prop('modelName'), searchPageEntries)
+    const modelCounts: object = R.countBy(
+      R.prop('modelName'),
+      searchPageEntries
     )
-    const getFilter = (model: any) =>
-      R.innerJoin(
-        (filter: any, model) => filter.modelName === model.modelName,
-        state.searchPageFilters,
-        [model]
-      )[0]
+    const uniqModels: string[] = R.keys(modelCounts)
 
-    const searchPageFilters = R.map(
-      (model: any) =>
-        R.assoc('checked', R.propOr(true, 'checked', getFilter(model)), model),
-      models
-    )
+    const getFilterObj: (modelName: string) => object | undefined = (
+      modelName: string
+    ) => R.find(R.propEq('modelName')(modelName))(state.searchPageFilters)
+
+    const searchPageFilters = R.map((modelName: string) => ({
+      modelName,
+      checked: R.propOr(true, 'checked', getFilterObj(modelName)),
+      count: R.propOr(0, modelName, modelCounts)
+    }))(uniqModels)
+
     return { ...state, searchPageEntries, searchPageFilters }
   }
 
