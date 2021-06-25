@@ -8,6 +8,7 @@ import {
   INDEX_EDIT_SUBMIT_CHECK
 } from '../actionConsts'
 import { tableChangedFields } from '../utils/helpers'
+import { makeErrorsFromMissingFields } from '../utils/validation'
 import * as Actions from '../actions'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
@@ -33,9 +34,8 @@ export class ValidationEpic extends Epic {
         )
 
         if (!R.isEmpty(missingFields)) {
-          return Actions.updateValidationResults({
-            missingFields,
-            modelName
+          return Actions.onValidationErrorCreate({
+            errors: makeErrorsFromMissingFields(missingFields)
           })
         } else {
           return Actions.onSaveCreate({ ...payload })
@@ -92,9 +92,11 @@ export class ValidationEpic extends Epic {
           currentValue !== false &&
           R.contains(fieldName, requiredFields)
         ) {
-          return Actions.updateValidationResults({
-            missingFields: [fieldName],
-            modelName
+          return Actions.onValidationErrorEdit({
+            errors: makeErrorsFromMissingFields([fieldName]),
+            fieldName,
+            modelName,
+            id
           })
         }
 
@@ -132,10 +134,11 @@ export class ValidationEpic extends Epic {
             R.prop(fieldName, changedFields) !== false
         )
         if (!R.isEmpty(missingFields)) {
-          return Actions.updateValidationResults({
-            missingFields,
-            modelName
-          })
+          return Actions.onValidationErrorTableRow({
+             errors: makeErrorsFromMissingFields(missingFields),
+             modelName,
+             id
+           })
         }
 
         return Actions.onDetailTableEditSubmit({
@@ -175,10 +178,11 @@ export class ValidationEpic extends Epic {
             R.prop(fieldName, changedFields) !== false
         )
         if (!R.isEmpty(missingFields)) {
-          return Actions.updateValidationResults({
-            missingFields,
-            modelName
-          })
+          return Actions.onValidationErrorTableRow({
+             errors: makeErrorsFromMissingFields(missingFields),
+             modelName,
+             id
+           })
         }
 
         return Actions.onIndexEditSubmit({
