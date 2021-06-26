@@ -7,13 +7,20 @@ import {
   DETAIL_TABLE_EDIT_SUBMIT_CHECK,
   INDEX_EDIT_SUBMIT_CHECK
 } from '../actionConsts'
-import { tableChangedFields } from '../utils/helpers'
+import { tableChangedFields, fieldChanged } from '../utils/helpers'
 import { makeErrorsFromMissingFields } from '../utils/validation'
 import * as Actions from '../actions'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
 
 export class ValidationEpic extends Epic {
+  getRequiredFields = (modelName: string) => {
+    return R.filter(
+      (val) => val !== 'id',
+      this.schema.getRequiredFields(modelName)
+    )
+  }
+
   [SAVE_CREATE_CHECK](action$: any, state$: any) {
     return action$.pipe(
       ofType(SAVE_CREATE_CHECK),
@@ -25,10 +32,7 @@ export class ValidationEpic extends Epic {
           state$
         ) as any[]
         const fields: any = R.path([stack.length - 1, 'fields'], stack)
-        const requiredFields = R.filter(
-          (val) => val !== 'id',
-          this.schema.getRequiredFields(modelName)
-        )
+        const requiredFields = this.getRequiredFields(modelName)
         const missingFields = requiredFields.filter(
           (fieldName: any) => !(fieldName in fields)
         )
@@ -52,41 +56,27 @@ export class ValidationEpic extends Epic {
         const modelName = R.prop('modelName', payload) as string
         const fieldName = R.prop('fieldName', payload) as string
         const id = R.prop('id', payload) as string
-        const currentValue = R.path(
+        const fieldEdit = R.path(
           [
             'value',
             'conveyor',
             'edit',
             modelName,
             id,
-            fieldName,
-            'currentValue'
+            fieldName
           ],
           state$
         )
-        const initialValue = R.path(
-          [
-            'value',
-            'conveyor',
-            'edit',
-            modelName,
-            id,
-            fieldName,
-            'initialValue'
-          ],
-          state$
-        )
+        const currentValue = R.prop<any, any>('currentValue', fieldEdit)
 
         // check for changes to initial value
-        if (R.equals(currentValue, initialValue)) {
+        if (!fieldChanged(fieldEdit)) {
           return Actions.onAttributeEditCancel({ modelName, id, fieldName })
         }
 
         // check for required field
-        const requiredFields = R.filter(
-          (val) => val !== 'id',
-          this.schema.getRequiredFields(modelName)
-        )
+        const requiredFields = this.getRequiredFields(modelName)
+
         if (
           !currentValue &&
           currentValue !== false &&
@@ -123,10 +113,7 @@ export class ValidationEpic extends Epic {
         }
 
         // check for required field(s)
-        const requiredFields = R.filter(
-          (val) => val !== 'id',
-          this.schema.getRequiredFields(modelName)
-        )
+        const requiredFields = this.getRequiredFields(modelName)
         const missingFields = requiredFields.filter(
           (fieldName: any) =>
             R.contains(fieldName, Object.keys(changedFields)) &&
@@ -167,10 +154,7 @@ export class ValidationEpic extends Epic {
         }
 
         // check for required field(s)
-        const requiredFields = R.filter(
-          (val) => val !== 'id',
-          this.schema.getRequiredFields(modelName)
-        )
+        const requiredFields = this.getRequiredFields(modelName)
         const missingFields = requiredFields.filter(
           (fieldName: any) =>
             R.contains(fieldName, Object.keys(changedFields)) &&

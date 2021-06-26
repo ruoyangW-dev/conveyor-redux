@@ -439,14 +439,14 @@ export const tableChangedFields = ({
   const changeFields: (state: object) => object = R.pipe(
     R.path(['value', 'conveyor', 'edit', modelName, id]),
     // @ts-ignore
-    R.filter(
-      (val: any) =>
-        !R.equals(R.prop('currentValue', val), R.prop('initialValue', val))
-    ),
+    R.filter(fieldChanged),
     R.map((field: any) => R.prop('currentValue', field))
   )
   return changeFields(state$)
 }
+
+export const fieldChanged = (val: any) =>
+                   !R.equals(R.prop('currentValue', val), R.prop('initialValue', val))
 
 export const getMissingFieldsMessage = ({
   schema,
