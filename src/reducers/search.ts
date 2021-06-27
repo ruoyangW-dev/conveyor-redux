@@ -64,7 +64,8 @@ export class SearchReducer extends Reducer {
    * Dispatched by [fetchSearchEntries](./searchepic.html#fetch_search_entries)
    * @param state Redux state
    * @param action object {type: string, payload: {queryString: string, data: object}}
-   * @returns Updates conveyor.search.searchPageEntries with an object containing matching objects in state
+   * @returns Updates conveyor.search.searchPageEntries with an object containing matching objects in state,
+   * and conveyor.search.searchPageFilters with an object containing the filter checkboxes to display
    */
   [UPDATE_SEARCH_PAGE_ENTRIES](state: any, action: any) {
     const data: object[] = R.pathOr([], ['payload', 'data'], action)
@@ -125,21 +126,35 @@ export class SearchReducer extends Reducer {
     return initState
   }
 
+  /**
+   * Dispatched each time a search filter box is checked/unchecked
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string}}
+   * @returns Updates conveyor.search.searchPageFilters by toggling the "checked" value
+   * corresponding to the model name that was clicked.
+   */
   [SEARCH_QUERY_FILTER_CLICKED](state: any, action: any) {
-    const modelName = R.pathOr('', ['payload', 'modelName'], action)
-    const searchPageFilters = R.map(
-      (searchPageFilter: any) =>
-        // toggle the "checked" value if the entry's model name equals the filter that was clicked
-        R.ifElse(
-          R.equals(modelName),
-          R.always(
-            R.assoc('checked', !searchPageFilter.checked, searchPageFilter)
-          ),
-          R.always(searchPageFilter)
-        )(searchPageFilter.modelName),
-      state.searchPageFilters
+    const toggleFilter = (
+      modelName: string | undefined,
+      filters: any
+    ): Array<object> =>
+      R.map((filter: object) =>
+        R.when(
+          R.propEq('modelName', modelName),
+          R.assoc('checked', R.not(R.prop('checked' as any, filter)))
+        )(filter as any)
+      )(filters)
+
+    const modelName: string | undefined = R.path(
+      ['payload', 'modelName'],
+      action
     )
-    return R.assoc('searchPageFilters', searchPageFilters, state)
+
+    return R.assoc(
+      'searchPageFilters',
+      toggleFilter(modelName, state.searchPageFilters),
+      state
+    )
   }
 
   /**
