@@ -23,18 +23,29 @@ export const selectSearchDropdown = (state: any) =>
   R.prop('dropdown', selectSearch(state))
 
 /**
- * Returns value of 'entries' from the result of [selectSearch](./modules.html#selectsearch)
+ * Returns value of 'quickSearchEntries' from the result of [selectSearch](./modules.html#selectsearch)
  * @param state Redux state
- * @returns Value of conveyor.search.entries in state
+ * @returns Value of conveyor.search.quickSearchEntries in state
  */
 export const selectQuickSearchEntries = (state: any) =>
   R.prop('quickSearchEntries', selectSearch(state))
 
+/**
+ * Returns value of 'searchPageEntries' from the result of [selectSearch](./modules.html#selectsearch)
+ * @param state Redux state
+ * @returns Value of conveyor.search.searchPageEntries in state
+ */
 export const selectSearchPageEntries = (state: any) =>
   R.prop('searchPageEntries', selectSearch(state))
 
+/**
+ * Returns value of 'searchPageFilters' from the result of [selectSearch](./modules.html#selectsearch)
+ * @param state Redux state
+ * @returns Value of conveyor.search.searchPageFilters in sate
+ */
 export const selectSearchPageFilters = (state: any) =>
   R.prop('searchPageFilters', selectSearch(state))
+
 /**
  * Returns value of 'queryText' from the result of [selectSearch](./modules.html#selectsearch)
  * @param state Redux state
