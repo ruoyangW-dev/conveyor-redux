@@ -5,11 +5,25 @@ import { Reducer } from './reducer'
 import { SchemaBuilder } from '@autoinvent/conveyor-schema'
 import { Config } from '../types'
 
+/**
+ * A class containing reducers handling tooltips
+ */
 export class TooltipReducer extends Reducer {
+  /**
+   * Creates a reducer object that can reduce all reducers into one
+   * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+   * @param config Custom user inputted configurations
+   */
   constructor(schema: SchemaBuilder, config: Config) {
     super(schema, initState, config)
   }
 
+  /**
+   * Dispatched by [fetchModelTooltip](./tooltipepic.html#fetch_model_tooltip)
+   * @param state Redux state
+   * @param action object {type: string, payload: {modelName: string, id: string, data: object}}
+   * @returns Update's conveyor.tooltip with tooltip data in state
+   */
   [UPDATE_MODEL_TOOLTIP](state: any, action: any) {
     const payload = R.prop('payload', action)
     // @ts-ignore

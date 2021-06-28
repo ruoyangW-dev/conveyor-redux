@@ -25,7 +25,19 @@ import { Epic } from './epic'
 import type { Action } from '../actions'
 import { EpicPayload, isRequestError } from '../types'
 
+/**
+ * A class made up of Epics handling edit actions
+ */
 export class EditEpic extends Epic {
+  /**
+   * Dispatched by [detailAttributeEditSubmitCheck](./validationepic.html#detail_attribute_edit_submit_check).
+   * @param action$ object {type: string, payload: {modelName: string, fieldName: string, id: string}}
+   * @param state$ Redux state
+   * @returns - \[ \
+   *  Actions.[onAttributeEditCancel](./editreducer.html#attribute_edit_cancel)({modelName: string, fieldName: string, id: string}), \
+   *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}) \
+   * ]
+   */
   [DETAIL_ATTRIBUTE_EDIT_SUBMIT](
     action$: ActionsObservable<Action<EpicPayload>>,
     state$: any
@@ -109,6 +121,15 @@ export class EditEpic extends Epic {
     )
   }
 
+  /**
+   * Dispatched by [detailTableEditSubmitCheck](./validationepic.html#detail_table_edit_submit_check).
+   * @param action$ object {type: string, payload: {id: string, modelName: string, changedFields: {}, parentModelName: string}}
+   * @returns - \[ \
+   *  Actions.[onTableEditCancel](./editreducer.html#table_edit_cancel)({modelName: string, id: string}), \
+   *  Actions.[onInlineFileSubmit](./editepic.html#inline_file_submit)({modelName: string, id: string, fileData: any, parentModelName: string, parentId: string}) (*if image exists*), \
+   *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}) (*if no image*), \
+   * ]
+   */
   [DETAIL_TABLE_EDIT_SUBMIT](action$: any) {
     return action$.pipe(
       ofType(DETAIL_TABLE_EDIT_SUBMIT),
@@ -217,9 +238,18 @@ export class EditEpic extends Epic {
   }
 
   // removed m2m relationship from object => alternative to deleting
-  /* WARNING: only to be used with ManyToMany object. A 'remove' operation on a OneToMany relationship
-  whose backref is non-nullable will cascade a delete operation => child object may be 'deleted'
-  from db instead of being 'removed', without sqlalchemy warning * */
+  /**
+   * Dispatched when removing a relation field on the Detail page. \
+   * **WARNING**: only to be used with ManyToMany object. A 'remove' operation on a OneToMany relationship whose backref
+   * is non-nullable will cascade a delete operation => child object may be 'deleted' from db instead of being 'removed',
+   * without sqlalchemy warning.
+   * @param action$ object {type: string, payload: {modelName: string, fieldName: string, id: string, removeId: string}}
+   * @param state$ Redux state
+   * @returns - \[ \
+   *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}), \
+   *  Actions.addSuccessAlert({message: string}) [epic](./alertepic.html#add_alert)/[reducer](./alertsreducer.html#add_success_alert) \
+   * ]
+   */
   [DETAIL_TABLE_REMOVE_SUBMIT](action$: any, state$: any) {
     return action$.pipe(
       ofType(DETAIL_TABLE_REMOVE_SUBMIT),
@@ -307,6 +337,14 @@ export class EditEpic extends Epic {
     )
   }
 
+  /**
+   * Called by [indexEditSubmitCheck](./validationepic.html#index_edit_submit_check).
+   * @param action$ object {type: string, payload: {id: string, modelName: string, changedFields: object}}
+   * @returns - \[ \
+   *  Actions.[onTableEditCancel](./editreducer.html#table_edit_cancel)({modelName: string, id: string}), \
+   *  Actions.[fetchModelIndex](./modelepic.html#fetch_model_index)({modelName: string}) \
+   * ]
+   */
   [INDEX_EDIT_SUBMIT](action$: any) {
     return action$.pipe(
       ofType(INDEX_EDIT_SUBMIT),
@@ -368,6 +406,15 @@ export class EditEpic extends Epic {
     )
   }
 
+  /**
+   * Dispatched after confirming deletion of a file.
+   * @param action$ object {type: string, payload: {modelName: string, fieldName: string, id: string}}
+   * @returns - \[ \
+   *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, id: string}), \
+   *  Actions.addSuccessAlert({message: string})
+   * [epic](./alertepic.html#add_alert)/[reducer](./alertsreducer.html#add_success_alert) \
+   * ]
+   */
   [INLINE_FILE_DELETE](action$: any) {
     return action$.pipe(
       ofType(INLINE_FILE_DELETE),
@@ -417,6 +464,17 @@ export class EditEpic extends Epic {
     )
   }
 
+  /**
+   * Dispatched by [detailTableEditSubmitCheck](./validationepic.html#detail_table_edit_submit_check)
+   * @param action$ object {type: string, payload: {modelName: string, fieldName: string, id: string}}
+   * @param state$ Redux state
+   * @returns - \[ \
+   *  Actions.[onAttributeEditCancel](./editreducer.html#attribute_edit_cancel), \
+   *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string, fieldName: string, id: string}), \
+   *  Actions.[fetchModelDetail](./modelepic.html#fetch_model_detail)({modelName: string = parentModelName, fieldName: string, id: string}) (if from Detail table, fetch parent model's), \
+   *  Actions.[onSaveCreateSuccessful](./createreducer.html#save_create_successful)({}) (if from Create page) \
+   * ]
+   */
   [INLINE_FILE_SUBMIT](action$: any, state$: any) {
     return action$.pipe(
       ofType(INLINE_FILE_SUBMIT),

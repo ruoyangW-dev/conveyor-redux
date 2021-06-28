@@ -1,11 +1,10 @@
 #conveyor-redux Changelog
 ## Version 0.3.0
 
--- UNRELEASED --
+Released 6-8-21
 
-store validation info and access on demand.
-
-Update to work with conveyor-schema typescript changes
+Store validation info and access on demand \
+Update to work with conveyor-schema typescript changes \
 Add typedoc
 
 ## Version 0.2.1
@@ -24,5 +23,5 @@ Update for Tooltips to follow the fieldOrder metadata
 
 Released 6-7-20
 
-Added Validation 'message' option to validation received from the backend.
+Added Validation 'message' option to validation received from the backend \
 Added Alert creation and dismissal support.

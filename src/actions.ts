@@ -110,7 +110,12 @@ export const searchQueryTextChange = actionDisp(
 export const searchQueryLinkClicked = actionDisp(
   Actions.SEARCH_QUERY_LINK_CLICKED
 )
-export const updateSearchEntries = actionDisp(Actions.UPDATE_SEARCH_ENTRIES)
+export const updateSearchEntries = actionDisp(
+  Actions.UPDATE_QUICK_SEARCH_ENTRIES
+)
+export const updateSearchPageEntries = actionDisp(
+  Actions.UPDATE_SEARCH_PAGE_ENTRIES
+)
 export const onSearchBlur = actionDisp(Actions.SEARCH_BLUR)
 export const onTriggerSearch = actionDisp(Actions.TRIGGER_SEARCH)
 
@@ -147,4 +152,5 @@ export interface Action<T extends unknown> {
 }
 // dark mode
 
+/** Adds type 'TOGGLE_DARK_MODE' to Action types */
 export const toggleDarkMode = actionDisp(Actions.TOGGLE_DARK_MODE)

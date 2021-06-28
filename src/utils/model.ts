@@ -16,9 +16,23 @@ const slicePageData = (data: any, idx: number) => {
   return data.slice(firstIdx, lastIdx)
 }
 
+/**
+ * Gets store for a given model. Called by [getPaginatedNode](./modules.html#getpaginatednode)
+ * @param state Redux state
+ * @param modelName Model name
+ * @returns conveyor.model.modelName
+ */
 export const getModelStore = (state: any, modelName: string) =>
   R.path(['conveyor', 'model', modelName], state)
 
+/**
+ * Returns a portion of data for a paginated table
+ * @param schema - [Conveyor-Schema](https://github.com/autoinvent/conveyor-schema)
+ * @param state Redux state
+ * @param modelName Model Name
+ * @param id Node ID
+ * @returns List of objects
+ */
 export const getPaginatedNode = (
   schema: SchemaBuilder,
   state: any,
@@ -54,6 +68,12 @@ export const getPaginatedNode = (
   return updatedNode
 }
 
+/**
+ * Gets tab identifiers
+ * @param modelName Model name
+ * @param tabList Tab list
+ * @returns String with the model prepended onto the given tab list
+ */
 export const getTabIdentifier = ({
   modelName,
   tabList
@@ -66,6 +86,11 @@ export const getTabIdentifier = ({
 
 export const getDefaultModelStore = () => ({ order: [], values: {} })
 
+/**
+ * Returns a list of values with a specified order
+ * @param store Part of store with order and values
+ * @returns List of values with a specified order
+ */
 export const getOrderedValues = (store: any) => {
   const order = R.prop('order', store)
   const values = R.prop('values', store)
@@ -88,6 +113,10 @@ export const updateIndex = (state: any, modelName: string, data: any) => {
   return { ...state, [modelName]: newStore }
 }
 
+/**
+ * Curried function which returns value of conveyor.model from the passed in argument.
+ * Returns initState if value is null.
+ */
 export const selectModel = R.pathOr(initState, ['conveyor', 'model'])
 export const getDetailUrl = ({
   modelName,

@@ -17,5 +17,10 @@ export const setValues = (state: any, payload: any, type: string) => {
   return R.assocPath([modelName, type], values, state)
 }
 
+/**
+ * Returns value of conveyor.tableView from state
+ * @param state Redux state
+ * @returns Value of conveyor.tableView in state
+ */
 export const selectTableView = (state: any): any =>
   R.path(['conveyor', 'tableView'], state)
