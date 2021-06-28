@@ -446,7 +446,7 @@ export const tableChangedFields = ({
 }
 
 export const fieldChanged = (val: any) =>
-                   !R.equals(R.prop('currentValue', val), R.prop('initialValue', val))
+  !R.equals(R.prop('currentValue', val), R.prop('initialValue', val))
 
 export const getMissingFieldsMessage = ({
   schema,
