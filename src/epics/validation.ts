@@ -7,7 +7,8 @@ import {
   DETAIL_TABLE_EDIT_SUBMIT_CHECK,
   INDEX_EDIT_SUBMIT_CHECK
 } from '../actionConsts'
-import { tableChangedFields } from '../utils/helpers'
+import { tableChangedFields, fieldChanged } from '../utils/helpers'
+import { makeErrorsFromMissingFields } from '../utils/validation'
 import * as Actions from '../actions'
 import { Epic } from './epic'
 import { EpicPayload } from '../types'
@@ -16,6 +17,13 @@ import { EpicPayload } from '../types'
  * A class containing epics handling validation.
  */
 export class ValidationEpic extends Epic {
+  getRequiredFields = (modelName: string) => {
+    return R.filter(
+      (val) => val !== 'id',
+      this.schema.getRequiredFields(modelName)
+    )
+  };
+
   /**
    * Dispatched after creating a model instance for a relation field on Create page.
    * @param action$ object {type: string, payload: {modelName: author}}
@@ -33,18 +41,14 @@ export class ValidationEpic extends Epic {
           state$
         ) as any[]
         const fields: any = R.path([stack.length - 1, 'fields'], stack)
-        const requiredFields = R.filter(
-          (val) => val !== 'id',
-          this.schema.getRequiredFields(modelName)
-        )
+        const requiredFields = this.getRequiredFields(modelName)
         const missingFields = requiredFields.filter(
           (fieldName: any) => !(fieldName in fields)
         )
 
         if (!R.isEmpty(missingFields)) {
-          return Actions.updateValidationResults({
-            missingFields,
-            modelName
+          return Actions.onValidationErrorCreate({
+            errors: makeErrorsFromMissingFields(missingFields)
           })
         } else {
           return Actions.onSaveCreate({ ...payload })
@@ -69,49 +73,30 @@ export class ValidationEpic extends Epic {
         const modelName = R.prop('modelName', payload) as string
         const fieldName = R.prop('fieldName', payload) as string
         const id = R.prop('id', payload) as string
-        const currentValue = R.path(
-          [
-            'value',
-            'conveyor',
-            'edit',
-            modelName,
-            id,
-            fieldName,
-            'currentValue'
-          ],
+        const fieldEdit = R.path(
+          ['value', 'conveyor', 'edit', modelName, id, fieldName],
           state$
         )
-        const initialValue = R.path(
-          [
-            'value',
-            'conveyor',
-            'edit',
-            modelName,
-            id,
-            fieldName,
-            'initialValue'
-          ],
-          state$
-        )
+        const currentValue = R.prop<any, any>('currentValue', fieldEdit)
 
         // check for changes to initial value
-        if (R.equals(currentValue, initialValue)) {
+        if (!fieldChanged(fieldEdit)) {
           return Actions.onAttributeEditCancel({ modelName, id, fieldName })
         }
 
         // check for required field
-        const requiredFields = R.filter(
-          (val) => val !== 'id',
-          this.schema.getRequiredFields(modelName)
-        )
+        const requiredFields = this.getRequiredFields(modelName)
+
         if (
           !currentValue &&
           currentValue !== false &&
           R.contains(fieldName, requiredFields)
         ) {
-          return Actions.updateValidationResults({
-            missingFields: [fieldName],
-            modelName
+          return Actions.onValidationErrorEdit({
+            errors: makeErrorsFromMissingFields([fieldName]),
+            fieldName,
+            modelName,
+            id
           })
         }
 
@@ -144,10 +129,7 @@ export class ValidationEpic extends Epic {
         }
 
         // check for required field(s)
-        const requiredFields = R.filter(
-          (val) => val !== 'id',
-          this.schema.getRequiredFields(modelName)
-        )
+        const requiredFields = this.getRequiredFields(modelName)
         const missingFields = requiredFields.filter(
           (fieldName: any) =>
             R.contains(fieldName, Object.keys(changedFields)) &&
@@ -155,9 +137,10 @@ export class ValidationEpic extends Epic {
             R.prop(fieldName, changedFields) !== false
         )
         if (!R.isEmpty(missingFields)) {
-          return Actions.updateValidationResults({
-            missingFields,
-            modelName
+          return Actions.onValidationErrorTableRow({
+            errors: makeErrorsFromMissingFields(missingFields),
+            modelName,
+            id
           })
         }
 
@@ -194,10 +177,7 @@ export class ValidationEpic extends Epic {
         }
 
         // check for required field(s)
-        const requiredFields = R.filter(
-          (val) => val !== 'id',
-          this.schema.getRequiredFields(modelName)
-        )
+        const requiredFields = this.getRequiredFields(modelName)
         const missingFields = requiredFields.filter(
           (fieldName: any) =>
             R.contains(fieldName, Object.keys(changedFields)) &&
@@ -205,9 +185,10 @@ export class ValidationEpic extends Epic {
             R.prop(fieldName, changedFields) !== false
         )
         if (!R.isEmpty(missingFields)) {
-          return Actions.updateValidationResults({
-            missingFields,
-            modelName
+          return Actions.onValidationErrorTableRow({
+            errors: makeErrorsFromMissingFields(missingFields),
+            modelName,
+            id
           })
         }
 

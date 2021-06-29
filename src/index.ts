@@ -44,5 +44,4 @@ export {
 export { selectTableView } from './utils/tableView'
 export { selectTooltip } from './utils/tooltip'
 export { selectDarkMode, selectUserPreferences } from './utils/userPreferences'
-export { selectValidation, failedValidation } from './utils/validation'
 export { toggleDarkMode } from './actions'
