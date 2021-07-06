@@ -1,4 +1,10 @@
 #conveyor-redux Changelog
+## Version 0.4.0
+
+Released 7-6-21
+
+Add reducers for search page support
+
 ## Version 0.3.0
 
 Released 6-8-21
