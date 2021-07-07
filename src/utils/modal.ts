@@ -7,6 +7,10 @@ export const groupModels = (collection: any, property: any) => {
   const result = []
   for (let i = 0; i < collection.length; i++) {
     const val = collection[i][property]
+    if (typeof val === 'undefined') {
+      //Test for objects without type, affected models we don't care about reporting.
+      continue
+    }
     const index = values.indexOf(val)
     if (index > -1) {
       result[index].push(collection[i])
