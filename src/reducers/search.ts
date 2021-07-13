@@ -124,8 +124,11 @@ export class SearchReducer extends Reducer {
     if (newQueryText) {
       return R.assoc('queryText', newQueryText, state)
     }
-    // Do not reset the searchPageEntries
-    return R.assoc('searchPageEntries', state.searchPageEntries, initState)
+    // Do not reset the searchPageEntries nor searchPageFilters
+    return R.pipe(
+      R.assoc('searchPageEntries', state.searchPageEntries),
+      R.assoc('searchPageFilters', state.searchPageFilters)
+    )(initState)
   }
 
   /**
