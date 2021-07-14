@@ -79,7 +79,8 @@ export interface EpicPayload {
   changedFields?: any
   removedId?: string
   queryString?: string
-  queryText?: string
+  quickSearchQueryText?: string
+  searchPageQueryText?: string
   expiresOn?: number
   isOnSearchPage?: boolean
 }

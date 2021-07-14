@@ -1,7 +1,8 @@
 import * as R from 'ramda'
 
 export const initState = {
-  queryText: '',
+  quickSearchQueryText: '',
+  searchPageQueryText: '',
   quickSearchEntries: [],
   searchPageEntries: [],
   searchPageFilters: [],
@@ -49,7 +50,15 @@ export const selectSearchPageFilters = (state: any) =>
 /**
  * Returns value of 'queryText' from the result of [selectSearch](./modules.html#selectsearch)
  * @param state Redux state
- * @returns Value of conveyor.search.queryText in state
+ * @returns Value of conveyor.search.quickSearchQueryText in state
  */
-export const selectSearchQueryText = (state: any) =>
-  R.prop('queryText', selectSearch(state))
+export const selectQuickSearchQueryText = (state: any) =>
+  R.prop('quickSearchQueryText', selectSearch(state))
+
+  /**
+ * Returns value of 'queryText' from the result of [selectSearch](./modules.html#selectsearch)
+ * @param state Redux state
+ * @returns Value of conveyor.search.searchPageQueryText in state
+ */
+export const selectSearchPageQueryText = (state: any) =>
+  R.prop('searchPageQueryText', selectSearch(state))

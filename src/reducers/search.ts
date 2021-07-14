@@ -1,6 +1,7 @@
 import * as R from 'ramda'
 import {
-  SEARCH_QUERY_TEXT_CHANGED,
+  QUICK_SEARCH_QUERY_TEXT_CHANGED,
+  SEARCH_PAGE_QUERY_TEXT_CHANGED,
   SEARCH_QUERY_LINK_CLICKED,
   UPDATE_QUICK_SEARCH_ENTRIES,
   UPDATE_SEARCH_PAGE_ENTRIES,
@@ -114,15 +115,33 @@ export class SearchReducer extends Reducer {
   }
 
   /**
-   * Dispatched each time the search input is changed.
+   * Dispatched each time the quick search input is changed.
    * @param state Redux state
-   * @param action object {type: string, payload: {queryText: string}}
-   * @returns Updates conveyor.queryText with the new text in state
+   * @param action object {type: string, payload: {quickSearchQueryText: string}}
+   * @returns Updates conveyor.quickSearchQueryText with the new text in state
    */
-  [SEARCH_QUERY_TEXT_CHANGED](state: any, action: any) {
-    const newQueryText = action.payload.queryText
+  [QUICK_SEARCH_QUERY_TEXT_CHANGED](state: any, action: any) {
+    const newQueryText = action.payload.quickSearchQueryText
     if (newQueryText) {
-      return R.assoc('queryText', newQueryText, state)
+      return R.assoc('quickSearchQueryText', newQueryText, state)
+    }
+    // Do not reset the searchPageEntries nor searchPageFilters
+    return R.pipe(
+      R.assoc('searchPageEntries', state.searchPageEntries),
+      R.assoc('searchPageFilters', state.searchPageFilters)
+    )(initState)
+  }
+
+    /**
+   * Dispatched each time the search page input is changed.
+   * @param state Redux state
+   * @param action object {type: string, payload: {searchPageQueryText: string}}
+   * @returns Updates conveyor.searchPageQueryText with the new text in state
+   */
+  [SEARCH_PAGE_QUERY_TEXT_CHANGED](state: any, action: any) {
+    const newQueryText = action.payload.searchPageQueryText
+    if (newQueryText) {
+      return R.assoc('searchPageQueryText', newQueryText, state)
     }
     // Do not reset the searchPageEntries nor searchPageFilters
     return R.pipe(
