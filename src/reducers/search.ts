@@ -125,10 +125,11 @@ export class SearchReducer extends Reducer {
     if (newQueryText) {
       return R.assoc('quickSearchQueryText', newQueryText, state)
     }
-    // Do not reset the searchPageEntries nor searchPageFilters
+    // Do not reset searchPageEntries, searchPageFilters, or searchPageQueryText
     return R.pipe(
       R.assoc('searchPageEntries', state.searchPageEntries),
-      R.assoc('searchPageFilters', state.searchPageFilters)
+      R.assoc('searchPageFilters', state.searchPageFilters),
+      R.assoc('searchPageQueryText', state.searchPageQueryText)
     )(initState)
   }
 
@@ -143,10 +144,11 @@ export class SearchReducer extends Reducer {
     if (newQueryText) {
       return R.assoc('searchPageQueryText', newQueryText, state)
     }
-    // Do not reset the searchPageEntries nor searchPageFilters
+    // Do not reset searchPageEntries, searchPageFilters, or searchPageQueryText
     return R.pipe(
       R.assoc('searchPageEntries', state.searchPageEntries),
-      R.assoc('searchPageFilters', state.searchPageFilters)
+      R.assoc('searchPageFilters', state.searchPageFilters),
+      R.assoc('quickSearchQueryText', state.quickSearchQueryText)
     )(initState)
   }
 
