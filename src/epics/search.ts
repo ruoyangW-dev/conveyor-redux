@@ -21,11 +21,11 @@ export class SearchEpic extends Epic {
     return action$.pipe(
       ofType(TRIGGER_SEARCH),
       map(R.prop('payload')),
-      map((payload: EpicPayload) => 
+      map((payload: EpicPayload) =>
         Actions.fetchSearchEntries({
           queryString: payload.queryText,
           isOnSearchPage: payload.isOnSearchPage
-          })
+        })
       )
     )
   }

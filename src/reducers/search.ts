@@ -133,7 +133,7 @@ export class SearchReducer extends Reducer {
     )(initState)
   }
 
-    /**
+  /**
    * Dispatched each time the search page input is changed.
    * @param state Redux state
    * @param action object {type: string, payload: {searchPageQueryText: string}}

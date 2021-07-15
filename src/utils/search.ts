@@ -55,7 +55,7 @@ export const selectSearchPageFilters = (state: any) =>
 export const selectQuickSearchQueryText = (state: any) =>
   R.prop('quickSearchQueryText', selectSearch(state))
 
-  /**
+/**
  * Returns value of 'searchPageQueryText' from the result of [selectSearch](./modules.html#selectsearch)
  * @param state Redux state
  * @returns Value of conveyor.search.searchPageQueryText in state
