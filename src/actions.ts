@@ -104,8 +104,11 @@ export const removeInstance = actionDisp(Actions.REMOVE_INSTANCE)
 // search
 
 export const fetchSearchEntries = actionDisp(Actions.FETCH_SEARCH_ENTRIES)
-export const searchQueryTextChange = actionDisp(
-  Actions.SEARCH_QUERY_TEXT_CHANGED
+export const quickSearchQueryTextChange = actionDisp(
+  Actions.QUICK_SEARCH_QUERY_TEXT_CHANGED
+)
+export const searchPageQueryTextChange = actionDisp(
+  Actions.SEARCH_PAGE_QUERY_TEXT_CHANGED
 )
 export const searchQueryLinkClicked = actionDisp(
   Actions.SEARCH_QUERY_LINK_CLICKED

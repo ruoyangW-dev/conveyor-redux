@@ -37,7 +37,8 @@ export { selectOptions, filterSelectOptions, getOptions } from './utils/options'
 export {
   selectSearch,
   selectSearchDropdown,
-  selectSearchQueryText,
+  selectQuickSearchQueryText,
+  selectSearchPageQueryText,
   selectQuickSearchEntries,
   selectSearchPageEntries
 } from './utils/search'
