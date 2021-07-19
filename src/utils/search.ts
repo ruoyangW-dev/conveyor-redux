@@ -3,7 +3,7 @@ import * as R from 'ramda'
 export const initState = {
   queryText: '',
   quickSearchEntries: [],
-  searchPageEntries: [],
+  searchPageEntries: null,
   searchPageFilters: [],
   dropdown: false
 }
